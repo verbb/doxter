@@ -1,6 +1,10 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## [3.0.3] - 2017.02.01
+### Added
+- Added cover image and updated icons
+
 ## [3.0.1] - 2017.02.01
 ### Added
 - Added changelog and documentation URLs
