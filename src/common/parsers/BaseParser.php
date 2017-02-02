@@ -13,7 +13,7 @@ abstract class BaseParser {
     /**
      * @var object The parser instance which should be defined in each extending class
      */
-    private static $_instance;
+    protected static $_instance;
 
     /**
      * Returns an instance of the class in called static context
@@ -22,9 +22,7 @@ abstract class BaseParser {
      */
     public static function instance() {
         if (null === static::$_instance) {
-            $name = get_called_class();
-
-            static::$_instance = new $name;
+            static::$_instance = new static;
         }
 
         return static::$_instance;

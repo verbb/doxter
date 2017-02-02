@@ -13,7 +13,7 @@ class Markdown extends BaseParser {
     /**
      * @var Markdown
      */
-    protected static $instance;
+    protected static $_instance;
 
     /**
      * @var \ParsedownExtra

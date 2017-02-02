@@ -13,7 +13,7 @@ class CodeBlock extends BaseParser {
     /**
      * @var CodeBlock
      */
-    protected static $instance;
+    protected static $_instance;
 
     /**
      * @var string

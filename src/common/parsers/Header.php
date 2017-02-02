@@ -15,7 +15,7 @@ class Header extends BaseParser {
     /**
      * @var Header
      */
-    protected static $instance;
+    protected static $_instance;
 
     /**
      * The header level to start output at

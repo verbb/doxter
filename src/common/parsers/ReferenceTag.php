@@ -13,7 +13,7 @@ class ReferenceTag extends BaseParser {
     /**
      * @var ReferenceTag
      */
-    protected static $instance;
+    protected static $_instance;
 
     protected static $openingTag = '{';
     protected static $closingTag = '}';

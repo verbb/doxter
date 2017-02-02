@@ -13,7 +13,7 @@ class Shortcode extends BaseParser {
     /**
      * @var Shortcode
      */
-    protected static $instance;
+    protected static $_instance;
 
     /**
      * The method that should be called if a class name is provided as the callback

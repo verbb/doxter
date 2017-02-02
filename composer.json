@@ -29,6 +29,9 @@
         "schemaVersion": "3.0.0",
         "developer": "Selvin Ortiz",
         "developerUrl": "https://selvinortiz.com",
+        "description": "Markdown Editor & Parser for Craft 3",
+        "documentationUrl": "https://github.com/selvinortiz/doxter/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/doxter/CHANGELOG.md",
         "hasCpSection": false,
         "components": {
             "defaultService": "selvinortiz\\doxter\\services\\DoxterService"
