@@ -9,7 +9,7 @@
 > This is a beta release and a few things are missing, namely, **Shortcode** and **Reference Parsing** support. See the `[@Todo]` section for more info!
 
 ## Installation
-1. Download via composer: `composer require selvinortiz/doxter-craft-plugin`
+1. Download via composer: `composer require selvinortiz/doxter`
 2. Install from the **Control Panel**: `Settings > Plugins`
 
 ## Features
