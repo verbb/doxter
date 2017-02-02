@@ -1,4 +1,4 @@
-![Doxter](resources/img/doxter.png)
+![Doxter](resources/img/Doxter3.png)
 
 # Doxter 3
 > Lovingly crafted by [Selvin Ortiz](https://selv.in) for [Craft CMS][craft]
