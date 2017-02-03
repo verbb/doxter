@@ -23,13 +23,13 @@ use selvinortiz\doxter\extensions\DoxterExtension;
  */
 class Doxter extends Plugin {
 
-    /**
-     * @var DoxterService
-     */
-    private static $_service;
+    /** @var  DoxterService */
+    public static $api;
 
     public function init() {
         parent::init();
+
+        self::$api = $this->get('api');
 
         Craft::$app->view->twig->addExtension(new DoxterExtension());
 
@@ -42,14 +42,6 @@ class Doxter extends Plugin {
         );
     }
 
-    public static function service(): DoxterService {
-        if (null === self::$_service) {
-            self::$_service = self::getInstance()->get('defaultService');
-        }
-
-        return self::$_service;
-    }
-
     /**
      * @return SettingsModel
      */
@@ -60,7 +52,7 @@ class Doxter extends Plugin {
     /**
      * @return string
      */
-    public function getTemplateComponent() {
+    public function defineTemplateComponent() {
         return DoxterVariable::class;
     }
 

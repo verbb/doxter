@@ -36,7 +36,7 @@ class DoxterExtension extends Twig_Extension {
      * @return mixed The parsed string or false if not a valid source
      */
     public function doxter($source = '', array $options = []) {
-        $parsed = Doxter::service()->parse($source, $options);
+        $parsed = Doxter::$api->parse($source, $options);
 
         if (is_object($source) && $source instanceof RichTextData) {
             return new RichTextData($parsed, Craft::$app->getView()->twig->getCharset());

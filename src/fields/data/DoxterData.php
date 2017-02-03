@@ -19,7 +19,7 @@ class DoxterData extends \Twig_Markup {
 
     public function __construct($raw) {
         $this->raw  = $raw;
-        $this->html = Doxter::service()->parse($raw);
+        $this->html = Doxter::$api->parse($raw);
 
         parent::__construct($this->html, Craft::$app->charset);
     }
