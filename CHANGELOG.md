@@ -1,7 +1,18 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## [30.05] - 2017.06.01
+### [Added]
+- Added SmartyPants as a dependency for handling typography
+- Added back support for **Shortcodes**
+- Added back the `doxter()` global to access the public API
+- Added a new `DoxterEvent` to notify about parsing events
+- Updates plugin icons
+
 ## [3.0.4] - 2017.03.01
+### Added
+- Added prettier icons
+
 ### Updated
 - Updated the way components are accessed for improved type hinting
 
@@ -21,4 +32,3 @@
 
 ## [3.0.0] - 2017.02.01
 - Initial (beta) release for Craft 3
-

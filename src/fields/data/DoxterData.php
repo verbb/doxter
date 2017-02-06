@@ -3,7 +3,7 @@ namespace selvinortiz\doxter\fields\data;
 
 use Craft;
 
-use selvinortiz\doxter\Doxter;
+use function selvinortiz\doxter\doxter;
 
 /**
  * Represents raw (source) and html (output) for the field type value
@@ -19,7 +19,7 @@ class DoxterData extends \Twig_Markup {
 
     public function __construct($raw) {
         $this->raw  = $raw;
-        $this->html = Doxter::$api->parse($raw);
+        $this->html = doxter()->api->parse($raw);
 
         parent::__construct($this->html, Craft::$app->charset);
     }
@@ -55,7 +55,7 @@ class DoxterData extends \Twig_Markup {
      */
     public function parse(array $options = []) {
         if (! empty($options)) {
-            $this->html = Doxter::getInstance()->service->parse($this->raw, $options);
+            $this->html = doxter()->api->parse($this->raw, $options);
         }
 
         return $this->html;

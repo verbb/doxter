@@ -8,7 +8,9 @@ use Craft;
 use craft\helpers\Template;
 use craft\fields\data\RichTextData;
 
-use selvinortiz\doxter\Doxter;
+use selvinortiz\doxter\common\parsers\Typography;
+
+use function selvinortiz\doxter\doxter;
 
 /**
  * Class DoxterTwigExtension
@@ -36,7 +38,7 @@ class DoxterExtension extends Twig_Extension {
      * @return mixed The parsed string or false if not a valid source
      */
     public function doxter($source = '', array $options = []) {
-        $parsed = Doxter::$api->parse($source, $options);
+        $parsed = doxter()->api->parse($source, $options);
 
         if (is_object($source) && $source instanceof RichTextData) {
             return new RichTextData($parsed, Craft::$app->getView()->twig->getCharset());
@@ -46,7 +48,7 @@ class DoxterExtension extends Twig_Extension {
     }
 
     public function doxterTypography($source = '') {
-        return Template::raw(typogrify($source));
+        return Template::raw(Typography::instance()->parse($source));
     }
 
     /**
@@ -56,8 +58,8 @@ class DoxterExtension extends Twig_Extension {
      */
     public function getFilters() {
         return [
-            'doxter'           => new Twig_SimpleFilter('doxter', [$this, 'doxter']),
-            'doxterTypography' => new Twig_SimpleFilter('doxterTypography', [$this, 'doxterTypography'])
+            new Twig_SimpleFilter('doxter', [$this, 'doxter']),
+            new Twig_SimpleFilter('doxterTypography', [$this, 'doxterTypography'])
         ];
     }
 }

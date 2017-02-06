@@ -6,7 +6,7 @@ use craft\helpers\ElementHelper;
 use selvinortiz\doxter\Doxter;
 
 /**
- * Class DoxterHeaderParser
+ * Class Header
  *
  * @package Craft
  */

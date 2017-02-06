@@ -1,14 +1,12 @@
 <?php
 namespace selvinortiz\doxter\assetbundles\doxterfield;
 
-use Craft;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
-class DoxterFieldAssetBundle extends AssetBundle
-{
-    public function init()
-    {
+class DoxterFieldAssetBundle extends AssetBundle {
+
+    public function init() {
         $this->sourcePath = '@selvinortiz/doxter/assetbundles/doxterfield/dist';
         $this->depends    = [CpAsset::class];
 

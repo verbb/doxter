@@ -1,7 +1,7 @@
 {
     "name": "selvinortiz/doxter",
     "description": "Markdown Editor & Parser for Craft 3",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "type": "craft-plugin",
     "license": "MIT",
     "authors": [
@@ -25,7 +25,7 @@
         "name": "Doxter",
         "class": "selvinortiz\\doxter\\Doxter",
         "handle": "doxter",
-        "version": "3.0.4",
+        "version": "3.0.5",
         "schemaVersion": "3.0.0",
         "developer": "Selvin Ortiz",
         "developerUrl": "https://selvinortiz.com",
@@ -33,12 +33,14 @@
         "documentationUrl": "https://github.com/selvinortiz/doxter/blob/master/README.md",
         "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/doxter/CHANGELOG.md",
         "hasCpSection": false,
+        "hasSettings": false,
         "components": {
             "api": "selvinortiz\\doxter\\services\\DoxterService"
         }
     },
     "require": {
         "erusev/parsedown": "^1.6",
-        "erusev/parsedown-extra": "^0.7.1"
+        "erusev/parsedown-extra": "^0.7.1",
+        "michelf/php-smartypants": "^1.8"
     }
 }

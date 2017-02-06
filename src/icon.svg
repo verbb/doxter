@@ -8,9 +8,9 @@
             <stop stop-color="#7B35B7" offset="0%"></stop>
             <stop stop-color="#B450C5" offset="100%"></stop>
         </linearGradient>
-        <polygon id="path-2" points="34 215 90 215 126 163 130 163 166 215 222 215 222 209 166 128 166 126 222 46 222 42 163 42 129 98 126 98 92 42 34 42 34 46 90 126 90 128 34 209"></polygon>
-        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-8" y="-8" width="204" height="189">
-            <rect x="26" y="34" width="204" height="189" fill="white"></rect>
+        <polygon id="path-2" points="8 239 79 239 125 173 131 173 177 239 248 239 248 231 177 128 177 125 248 23 248 18 173 18 129 90 125 90 82 18 8 18 8 23 79 125 79 128 8 231"></polygon>
+        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-8" y="-8" width="256" height="237">
+            <rect x="0" y="10" width="256" height="237" fill="white"></rect>
             <use xlink:href="#path-2" fill="black"></use>
         </mask>
     </defs>

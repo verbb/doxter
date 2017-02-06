@@ -23,11 +23,12 @@
 * Support for typography styles for better web typography
 
 ## @Todo
-- Fix plugin template parsing to support _Shortcodes_
+- ~~Fix plugin template parsing to support _Shortcodes_~~
+- ~~Bring back **Shortcodes**~~
 - Bring back the plugin settings page
 - Bring back the _Doxter_ field settings page
-- Bring back _run time events_ for content parsing
-- Bring back **Typography** parsing
+- ~~Bring back _run time events_ for content parsing~~
+- ~~Bring back **Typography** parsing~~
 - Review codebase to fully adhere to P&T standards
 - Review reference tag parsing
 

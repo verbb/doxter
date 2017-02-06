@@ -1,19 +1,21 @@
 <?php
 namespace selvinortiz\doxter\services;
 
-use yii\base\Event;
-
 use Craft;
+use craft\web\View;
 use craft\base\Component;
 use craft\helpers\Template;
 use craft\helpers\ArrayHelper;
 
-use selvinortiz\doxter\Doxter;
+use selvinortiz\doxter\events\DoxterEvent;
 use selvinortiz\doxter\common\parsers\Header;
 use selvinortiz\doxter\common\parsers\Markdown;
 use selvinortiz\doxter\common\parsers\CodeBlock;
 use selvinortiz\doxter\common\parsers\Shortcode;
+use selvinortiz\doxter\common\parsers\Typography;
 use selvinortiz\doxter\common\parsers\ReferenceTag;
+
+use function selvinortiz\doxter\doxter;
 
 /**
  * Class DoxterService
@@ -21,6 +23,13 @@ use selvinortiz\doxter\common\parsers\ReferenceTag;
  * @package selvinortiz\doxter\services
  */
 class DoxterService extends Component {
+
+    const EVENT_BEFORE_TYPOGRAPHY = 'beforeTypography';
+    const EVENT_BEFORE_HEADER_PARSE = 'beforeHeaderParsing';
+    const EVENT_BEFORE_MARKDOWN_PARSE = 'beforeMarkdownParsing';
+    const EVENT_BEFORE_SHORTCODE_PARSE = 'beforeShortcodeParsing';
+    const EVENT_BEFORE_CODEBLOCK_PARSE = 'beforeCodeBlockParsing';
+    const EVENT_BEFORE_REFERENCETAG_PARSE = 'beforeReferenceTagParsing';
 
     /**
      * Parses source markdown into valid html using various rules and parsers
@@ -38,34 +47,59 @@ class DoxterService extends Component {
         $startingHeaderLevel = 1;
         $parseReferenceTags  = true;
         $parseShortcodes     = true;
-        $options             = array_merge(Doxter::getInstance()->getSettings()->getAttributes(), $options);
+        $options             = array_merge(doxter()->getSettings()->getAttributes(), $options);
 
         extract($options);
 
         // Parsing reference tags first so that we can parse markdown within them
         if ($parseReferenceTags) {
-            // if ($this->onBeforeReferenceTagParsing(compact('source', 'options'))) {}
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_REFERENCETAG_PARSE,
+                new DoxterEvent(compact('source', 'options'))
+            );
+
             $source = $this->parseReferenceTags($source, $options);
         }
 
         if ($parseShortcodes) {
-            // if ($this->onBeforeShortcodeParsing(compact('source'))) {}
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_SHORTCODE_PARSE,
+                new DoxterEvent(compact('source'))
+            );
+
             $source = $this->parseShortcodes($source);
         }
 
-        // if ($this->onBeforeMarkdownParsing(compact('source'))) {}
+        $this->trigger(
+            DoxterService::EVENT_BEFORE_MARKDOWN_PARSE,
+            new DoxterEvent(compact('source'))
+        );
+
         $source = $this->parseMarkdown($source);
 
-        // if ($this->onBeforeCodeBlockParsing(compact('source', 'codeBlockSnippet'))) {}
+        $this->trigger(
+            DoxterService::EVENT_BEFORE_CODEBLOCK_PARSE,
+            new DoxterEvent(compact('source'))
+        );
+
         $source = $this->parseCodeBlocks($source, compact('codeBlockSnippet'));
 
         if ($addHeaderAnchors) {
-            // if ($this->onBeforeHeaderParsing(compact('source', 'addHeaderAnchorsTo'))) {}
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_HEADER_PARSE,
+                new DoxterEvent(compact('source'))
+            );
+
             $source = $this->parseHeaders($source, compact('addHeaderAnchorsTo', 'startingHeaderLevel'));
         }
 
-        if ($addTypographyStyles) {
-            // $source = $this->addTypographyStyles($source, $options);
+        if ($addTypographyStyles || true) {
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_TYPOGRAPHY,
+                new DoxterEvent(compact('source'))
+            );
+
+            $source = $this->parseTypography($source);
         }
 
         return Template::raw($source);
@@ -127,27 +161,13 @@ class DoxterService extends Component {
      * @return string
      */
     public function parseShortcodes($source, array $options = []) {
-        Shortcode::instance()->registerShortcodes(Doxter::getInstance()->registerShortcodes());
+        Shortcode::instance()->registerShortcodes(doxter()->registerShortcodes());
 
         return Shortcode::instance()->parse($source, $options);
     }
 
-    /**
-     * @param string $source
-     *
-     * @return string
-     */
-    public function addTypographyStyles($source) {
-        if (! function_exists('\\typogrify')) {
-            // require_once(dirname(__FILE__) . '/../common/parsedown/Typography.php');
-        }
-
-        try {
-            // return \typogrify($source);
-        }
-        catch (\Exception $e) {
-            // return $source;
-        }
+    public function parseTypography($source, array $options = []) {
+        return Typography::instance()->parse($source, $options);
     }
 
     /**
@@ -176,7 +196,7 @@ class DoxterService extends Component {
     }
 
     /**
-     * Renders a plugin template whether the request is for the control panel or the site
+     * Renders a plugin template whether the request is from the control panel or the site
      *
      * @param string $template
      * @param array  $vars
@@ -184,51 +204,19 @@ class DoxterService extends Component {
      * @return string
      */
     public function renderPluginTemplate($template, array $vars = []) {
-        /*
-        $path     = Craft::$app->path->getTemplatesPath();
         $rendered = null;
+        $template = sprintf('doxter/%s', $template);
+        $oldMode  = Craft::$app->view->getTemplateMode();
 
-        Craft::$app->path->setTemplatesPath(Craft::$app->path->getPluginsPath() . '/doxter/templates/');
+        Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
 
         if (Craft::$app->view->doesTemplateExist($template)) {
             $rendered = Craft::$app->view->renderTemplate($template, $vars);
         }
 
-        Craft::$app->path->setTemplatesPath($path);
+        Craft::$app->view->setTemplateMode($oldMode);
 
         return $rendered;
-        */
-    }
-
-    /**
-     * Returns the value of a deeply nested array key by using dot notation
-     *
-     * @param string $key
-     * @param array  $data
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function getValueByKey($key, array $data, $default = null) {
-        if (! is_string($key) || empty($key) || ! count($data)) {
-            return $default;
-        }
-
-        if (strpos($key, '.') !== false) {
-            $keys = explode('.', $key);
-
-            foreach ($keys as $innerKey) {
-                if (! array_key_exists($innerKey, $data)) {
-                    return $default;
-                }
-
-                $data = $data[$innerKey];
-            }
-
-            return $data;
-        }
-
-        return array_key_exists($key, $data) ? $data[$key] : $default;
     }
 
     /**
@@ -244,66 +232,5 @@ class DoxterService extends Component {
      */
     public function registerShortcode($shortcode, $callback) {
         Shortcode::instance()->registerShortcode($shortcode, $callback);
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function onBeforeReferenceTagParsing(array $params = []) {
-        return $this->raiseOwnEvent(__FUNCTION__, $params);
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function onBeforeShortcodeParsing(array $params = []) {
-        return $this->raiseOwnEvent(__FUNCTION__, $params);
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function onBeforeMarkdownParsing(array $params = []) {
-        return $this->raiseOwnEvent(__FUNCTION__, $params);
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function onBeforeCodeBlockParsing(array $params = []) {
-        return $this->raiseOwnEvent(__FUNCTION__, $params);
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function onBeforeHeaderParsing(array $params = []) {
-        return $this->raiseOwnEvent(__FUNCTION__, $params);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    protected function raiseOwnEvent($name, array $params = []) {
-        $name  = explode('\\', $name);
-        $event = new Event($this, $params);
-
-        Craft::$app->trigger('doxter.' . array_pop($name), $event);
-
-        return $event->handled;
     }
 }

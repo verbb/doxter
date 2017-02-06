@@ -65,7 +65,7 @@ class ShortcodeModel extends Model {
         return isset($this->params[$name]) ? $this->params[$name] : $default;
     }
 
-    public function parseContent(): string {
+    public function parseContent() {
         if (! empty($this->content)) {
             if (strpos($this->content, '[') !== false || strpos($this->content, '{') !== false) {
                 return Shortcode::instance()->parse($this->content);

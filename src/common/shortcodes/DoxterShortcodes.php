@@ -4,8 +4,10 @@ namespace selvinortiz\doxter\common\shortcodes;
 use Craft;
 use craft\elements\Asset;
 
-use selvinortiz\doxter\Doxter;
 use selvinortiz\doxter\models\ShortcodeModel;
+use selvinortiz\doxter\assetbundles\doxtershortcodes\DoxterShortcodesAssetBundle;
+
+use function selvinortiz\doxter\doxter;
 
 class DoxterShortcodes {
 
@@ -44,7 +46,7 @@ class DoxterShortcodes {
                 return Craft::$app->view->renderTemplate('_doxter/shortcodes/image', $vars);
             }
 
-            return Doxter::getInstance()->service->renderPluginTemplate('shortcodes/_image', $vars);
+            return doxter()->api->renderPluginTemplate('shortcodes/_image', $vars);
         }
     }
 
@@ -69,14 +71,14 @@ class DoxterShortcodes {
                 'color'  => $code->getParam('color'),
             ];
 
-            Craft::$app->view->registerJsResource('doxter/js/fitvids.js');
+            Craft::$app->view->registerAssetBundle(DoxterShortcodesAssetBundle::class);
             Craft::$app->view->registerJs('$(".doxter-video").fitVids();');
 
             if (Craft::$app->view->doesTemplateExist('_doxter/shortcodes/video')) {
                 return Craft::$app->view->renderTemplate('_doxter/shortcodes/video', $vars);
             }
 
-            return Doxter::getInstance()->service->renderPluginTemplate('shortcodes/_video', $vars);
+            return doxter()->api->renderPluginTemplate('shortcodes/_video', $vars);
         }
     }
 
@@ -99,7 +101,7 @@ class DoxterShortcodes {
                 return Craft::$app->view->renderTemplate('_doxter/shortcodes/audio', $vars);
             }
 
-            return Doxter::getInstance()->service->renderPluginTemplate('shortcodes/_audio', $vars);
+            return doxter()->api->renderPluginTemplate('shortcodes/_audio', $vars);
         }
     }
 
@@ -114,7 +116,7 @@ class DoxterShortcodes {
 
         if (count($lines)) {
             foreach ($lines as $index => $line) {
-                $line    = Doxter::getInstance()->service->parseMarkdownInline(preg_replace('/^([ \-\+\*\=]+)?/', '',
+                $line    = doxter()->api->parseMarkdownInline(preg_replace('/^([ \-\+\*\=]+)?/', '',
                     $line));
                 $type    = $this->getUpdateTypeFromLine($line);
                 $notes[] = [
@@ -128,7 +130,7 @@ class DoxterShortcodes {
             return Craft::$app->view->renderTemplate('_doxter/shortcodes/updates', compact('notes'));
         }
 
-        return Doxter::getInstance()->service->renderPluginTemplate('shortcodes/_updates', compact('notes'));
+        return doxter()->api->renderPluginTemplate('shortcodes/_updates', compact('notes'));
     }
 
     /**

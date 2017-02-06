@@ -4,7 +4,7 @@ namespace selvinortiz\doxter\common\parsers;
 /**
  * The code block parser that accepts and returns html
  *
- * Class DoxterCodeBlockParser
+ * Class CodeBlock
  *
  * @package Craft
  */

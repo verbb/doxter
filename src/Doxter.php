@@ -19,17 +19,12 @@ use selvinortiz\doxter\extensions\DoxterExtension;
  *
  * @package selvinortiz\doxter;
  *
- * @property DoxterService $service
+ * @property DoxterService $api
  */
 class Doxter extends Plugin {
 
-    /** @var  DoxterService */
-    public static $api;
-
     public function init() {
         parent::init();
-
-        self::$api = $this->get('api');
 
         Craft::$app->view->twig->addExtension(new DoxterExtension());
 
@@ -64,4 +59,20 @@ class Doxter extends Plugin {
             'vimeo:youtube' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@video',
         ];
     }
+}
+
+
+/**
+ * Allows me to use a more expressive syntax and have more control over type hints
+ *
+ * @return Doxter
+ */
+function doxter(): Doxter {
+    static $instance;
+
+    if (null === $instance) {
+        $instance = Doxter::getInstance();
+    }
+
+    return $instance;
 }
