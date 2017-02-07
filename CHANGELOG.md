@@ -1,7 +1,11 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
-## [30.05] - 2017.06.01
+## [3.0.6] - 2017.06.01
+### [Fixed]
+- Fixed critical issue where the Shortcode parser would pee himself if fields were empty
+
+## [3.0.5] - 2017.06.01
 ### [Added]
 - Added SmartyPants as a dependency for handling typography
 - Added back support for **Shortcodes**

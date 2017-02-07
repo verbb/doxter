@@ -92,7 +92,7 @@ class Shortcode extends BaseParser {
         }
     }
 
-    public function parse($source, array $options = []): string {
+    public function parse($source, array $options = []) {
         if (! $this->canBeSafelyParsed($source)) {
             return $source;
         }
