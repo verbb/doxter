@@ -126,6 +126,32 @@ Doxter.prototype.selectTag = function()
 	}
 };
 
+/**
+ * Adds a toggle class fullscreen in order to stay on top sidebar nav ( Craft )
+ * Leverages jQuery to perform the toggleClass on #container element
+ * Uses SimpleMDE building Fullscreen Action.
+ * @param {SimpleMDE} Obj.
+ *
+ */
+Doxter.prototype.fullScreen = function (SimpleMDE) {
+		var $container = $('#container');
+		/**
+		 * Listens to scape key to remove Class "fullscreen"
+		 * from $('#container')
+		 */
+		$(window).on({
+			"keydown": function (evt) {
+				if (evt.keyCode === 27 ) {
+					$container.removeClass('fullscreen')
+				}
+			}
+		})
+
+		$container.toggleClass('fullscreen')
+		// Built-in Method
+		SimpleMDE.toggleFullScreen()
+}
+
 Doxter.prototype.configure = function (settings)
 {
 	var self = this;
@@ -212,7 +238,7 @@ Doxter.prototype.configure = function (settings)
 			'|',
 			{
 				name     : 'fullscreen',
-				action   : SimpleMDE.toggleFullScreen,
+				action   : this.fullScreen, // Custom Full Screen
 				className: 'fa fa-arrows-alt',
 				title    : 'Toggle Fullscreen (F11)'
 			}
