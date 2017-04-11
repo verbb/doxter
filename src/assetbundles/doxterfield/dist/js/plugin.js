@@ -18,11 +18,11 @@ var Doxter = function () {};
  */
 Doxter.prototype.init = function (id, settings)
 {
-	this.id     = id;
-	this.editor = {};
-	this.config = this.configure(settings || {});
+    this.id     = id;
+    this.editor = {};
+    this.config = this.configure(settings || {});
 
-	return this;
+    return this;
 };
 
 /**
@@ -35,15 +35,15 @@ Doxter.prototype.init = function (id, settings)
  */
 Doxter.prototype.createReferenceTags = function (type, elements)
 {
-	var tags = "", tag;
+    var tags = "", tag;
 
-	for (var i = 0; i < elements.length; i ++)
-	{
-		tag = type.toLowerCase() + ":" + elements[i].id;
-		tags = tags + "{" + tag + "}";
-	}
+    for (var i = 0; i < elements.length; i ++)
+    {
+        tag = type.toLowerCase() + ":" + elements[i].id;
+        tags = tags + "{" + tag + "}";
+    }
 
-	return tags;
+    return tags;
 };
 
 /**
@@ -53,8 +53,8 @@ Doxter.prototype.createReferenceTags = function (type, elements)
  */
 Doxter.prototype.replaceSelection = function (text)
 {
-	this.editor.codemirror.replaceSelection(text);
-	this.editor.codemirror.focus();
+    this.editor.codemirror.replaceSelection(text);
+    this.editor.codemirror.focus();
 };
 
 /**
@@ -66,64 +66,64 @@ Doxter.prototype.replaceSelection = function (text)
  */
 Doxter.prototype.createSelectionModal = function (type, criteria, multiSelect)
 {
-	var self = this;
+    var self = this;
 
-	Craft.createElementSelectorModal(
-		'craft\\elements\\' + type,
-		{
-			multiSelect: !!multiSelect,
-			criteria   : criteria || {},
-			onSelect   : function (elements)
-			{
-				var tags = self.createReferenceTags(type, elements);
+    Craft.createElementSelectorModal(
+        'craft\\elements\\' + type,
+        {
+            multiSelect: !!multiSelect,
+            criteria   : criteria || {},
+            onSelect   : function (elements)
+            {
+                var tags = self.createReferenceTags(type, elements);
 
-				if (tags)
-				{
-					self.replaceSelection(tags);
-				}
-			}
-		}
-	);
+                if (tags)
+                {
+                    self.replaceSelection(tags);
+                }
+            }
+        }
+    );
 };
 
 Doxter.prototype.selectEntry = function()
 {
-	var self = this;
+    var self = this;
 
-	return function()
-	{
-		self.createSelectionModal('Entry');
-	}
+    return function()
+    {
+        self.createSelectionModal('Entry');
+    }
 };
 
 Doxter.prototype.selectAsset = function()
 {
-	var self = this;
+    var self = this;
 
-	return function()
-	{
-		self.createSelectionModal('Asset', {kind: 'image'});
-	}
+    return function()
+    {
+        self.createSelectionModal('Asset', {kind: 'image'});
+    }
 };
 
 Doxter.prototype.selectUser = function()
 {
-	var self = this;
+    var self = this;
 
-	return function()
-	{
-		self.createSelectionModal('User');
-	}
+    return function()
+    {
+        self.createSelectionModal('User');
+    }
 };
 
 Doxter.prototype.selectTag = function()
 {
-	var self = this;
+    var self = this;
 
-	return function()
-	{
-		self.createSelectionModal('Tag');
-	}
+    return function()
+    {
+        self.createSelectionModal('Tag');
+    }
 };
 
 /**
@@ -134,116 +134,117 @@ Doxter.prototype.selectTag = function()
  *
  */
 Doxter.prototype.fullScreen = function (SimpleMDE) {
-		var $container = $('#container');
-		/**
-		 * Listens to scape key to remove Class "fullscreen"
-		 * from $('#container')
-		 */
-		$(window).on({
-			"keydown": function (evt) {
-				if (evt.keyCode === 27 ) {
-					$container.removeClass('fullscreen')
-				}
-			}
-		})
+    var $container = $('#container');
+    /**
+     * Listens to scape key to remove Class "fullscreen"
+     * from $('#container')
+     */
+    $(window).on({
+        "keydown": function (evt) {
+            if (evt.keyCode === 27 ) {
+                $container.removeClass('fullscreen');
+            }
+        }
+    })
 
-		$container.toggleClass('fullscreen')
-		// Built-in Method
-		SimpleMDE.toggleFullScreen()
+    $container.toggleClass('fullscreen');
+
+    // Built-in Method
+    SimpleMDE.toggleFullScreen();
 }
 
 Doxter.prototype.configure = function (settings)
 {
-	var self = this;
+    var self = this;
 
-	return {
-		element: document.getElementById(self.id),
-		status: settings.status || false, // autosave, lines, words, cursor
-		toolbarTips: true,
-		toolbarGuideIcon: false,
-		autofocus: false,
-		lineWrapping: !!settings.enableLineWrapping,
-		indentWithTabs: !!settings.indentWithTabs,
-		tabSize: settings.tabSize,
-		forceSync: true,
-		spellChecker: !!settings.enableSpellChecker,
-		toolbar: [
-			{
-				name     : 'bold',
-				action   : SimpleMDE.toggleBold,
-				className: 'fa fa-bold',
-				title    : 'Bold (Ctrl+B)'
-			},
-			{
-				name     : 'italic',
-				action   : SimpleMDE.toggleItalic,
-				className: 'fa fa-italic',
-				title    : 'Italic (Ctrl+I)'
-			},
-			{
-				name     : 'quote',
-				action   : SimpleMDE.toggleBlockquote,
-				className: 'fa fa-quote-left',
-				title    : 'Quote (Ctrl+\')'
-			},
-			{
-				name     : 'unordered-list',
-				action   : SimpleMDE.toggleUnorderedList,
-				className: 'fa fa-list-ul',
-				title    : 'Generic List (Ctrl+L)'
-			},
-			{
-				name     : 'ordered-list',
-				action   : SimpleMDE.toggleOrderedList,
-				className: 'fa fa-list-ol',
-				title    : 'Numbered List (Ctrl+Alt+L)'
-			},
-			{
-				name     : 'link',
-				action   : SimpleMDE.drawLink,
-				className: 'fa fa-link',
-				title    : 'Create Link (Ctrl+K)'
-			},
-			{
-				name     : 'quote',
-				action   : SimpleMDE.drawImage,
-				className: 'fa fa-picture-o',
-				title    : 'Insert Image (Ctrl+Alt+I)'
-			},
-			'|',
-			{
-				name     : 'user',
-				action   : self.selectUser(),
-				className: 'fa fa-user doxter-primary-icon',
-				title    : 'User Reference (Ctrl+Alt+1)'
-			},
-			{
-				name     : 'entry',
-				action   : self.selectEntry(),
-				className: 'fa fa-file doxter-primary-icon',
-				title    : 'Entry Reference (Ctrl+Alt+2)'
-			},
-			{
-				name     : 'image',
-				action   : self.selectAsset(),
-				className: 'fa fa-file-image-o doxter-primary-icon',
-				title    : 'Asset Reference (Ctrl+Alt+3)'
-			},
-			{
-				name     : 'tags',
-				action   : self.selectTag(),
-				className: 'fa fa-tags doxter-primary-icon',
-				title    : 'Tag Reference (Ctrl+Alt+4)'
-			},
-			'|',
-			{
-				name     : 'fullscreen',
-				action   : this.fullScreen, // Custom Full Screen
-				className: 'fa fa-arrows-alt',
-				title    : 'Toggle Fullscreen (F11)'
-			}
-		]
-	};
+    return {
+        element: document.getElementById(self.id),
+        status: settings.status || false, // autosave, lines, words, cursor
+        toolbarTips: true,
+        toolbarGuideIcon: false,
+        autofocus: false,
+        lineWrapping: !!settings.enableLineWrapping,
+        indentWithTabs: !!settings.indentWithTabs,
+        tabSize: settings.tabSize,
+        forceSync: true,
+        spellChecker: !!settings.enableSpellChecker,
+        toolbar: [
+            {
+                name     : 'bold',
+                action   : SimpleMDE.toggleBold,
+                className: 'fa fa-bold',
+                title    : 'Bold (Ctrl+B)'
+            },
+            {
+                name     : 'italic',
+                action   : SimpleMDE.toggleItalic,
+                className: 'fa fa-italic',
+                title    : 'Italic (Ctrl+I)'
+            },
+            {
+                name     : 'quote',
+                action   : SimpleMDE.toggleBlockquote,
+                className: 'fa fa-quote-left',
+                title    : 'Quote (Ctrl+\')'
+            },
+            {
+                name     : 'unordered-list',
+                action   : SimpleMDE.toggleUnorderedList,
+                className: 'fa fa-list-ul',
+                title    : 'Generic List (Ctrl+L)'
+            },
+            {
+                name     : 'ordered-list',
+                action   : SimpleMDE.toggleOrderedList,
+                className: 'fa fa-list-ol',
+                title    : 'Numbered List (Ctrl+Alt+L)'
+            },
+            {
+                name     : 'link',
+                action   : SimpleMDE.drawLink,
+                className: 'fa fa-link',
+                title    : 'Create Link (Ctrl+K)'
+            },
+            {
+                name     : 'quote',
+                action   : SimpleMDE.drawImage,
+                className: 'fa fa-picture-o',
+                title    : 'Insert Image (Ctrl+Alt+I)'
+            },
+            '|',
+            {
+                name     : 'user',
+                action   : self.selectUser(),
+                className: 'fa fa-user doxter-primary-icon',
+                title    : 'User Reference (Ctrl+Alt+1)'
+            },
+            {
+                name     : 'entry',
+                action   : self.selectEntry(),
+                className: 'fa fa-file doxter-primary-icon',
+                title    : 'Entry Reference (Ctrl+Alt+2)'
+            },
+            {
+                name     : 'image',
+                action   : self.selectAsset(),
+                className: 'fa fa-file-image-o doxter-primary-icon',
+                title    : 'Asset Reference (Ctrl+Alt+3)'
+            },
+            {
+                name     : 'tags',
+                action   : self.selectTag(),
+                className: 'fa fa-tags doxter-primary-icon',
+                title    : 'Tag Reference (Ctrl+Alt+4)'
+            },
+            '|',
+            {
+                name     : 'fullscreen',
+                action   : this.fullScreen, // Custom Full Screen
+                className: 'fa fa-arrows-alt',
+                title    : 'Toggle Fullscreen (F11)'
+            }
+        ]
+    };
 };
 
 /**
@@ -251,5 +252,5 @@ Doxter.prototype.configure = function (settings)
  */
 Doxter.prototype.render = function ()
 {
-	this.editor = new SimpleMDE(this.config);
+    this.editor = new SimpleMDE(this.config);
 };
