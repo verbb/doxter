@@ -24,6 +24,10 @@ class DoxterData extends \Twig_Markup {
         parent::__construct($this->html, Craft::$app->charset);
     }
 
+    public function __toString() {
+        return (string) $this->html;
+    }
+
     /**
      * Returns the field type text (markdown source)
      *
@@ -53,7 +57,7 @@ class DoxterData extends \Twig_Markup {
      *
      * @return \Twig_Markup
      */
-    public function parse(array $options = []) {
+    protected function parse(array $options = []) {
         if (! empty($options)) {
             $this->html = doxter()->api->parse($this->raw, $options);
         }
