@@ -34,7 +34,11 @@ class DoxterData extends \Twig_Markup {
      * @return string
      */
     public function getRaw() {
-        return ! empty($this->raw) ? $this->raw : '';
+        if (empty($this->raw)) {
+            return '';
+        }
+
+        return doxter()->api->decodeUnicodeEntities($this->raw);
     }
 
     /**

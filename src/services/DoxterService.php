@@ -102,6 +102,8 @@ class DoxterService extends Component {
             $source = $this->parseTypography($source);
         }
 
+        $source = doxter()->api->decodeUnicodeEntities($source);
+
         return Template::raw($source);
     }
 
@@ -232,5 +234,22 @@ class DoxterService extends Component {
      */
     public function registerShortcode($shortcode, $callback) {
         Shortcode::instance()->registerShortcode($shortcode, $callback);
+    }
+
+
+    /**
+     * Decodes html entities starting with &#x generally associated with emoji
+     * Handles emoji within code blocks that are in the &amp;#x format
+     *
+     * @param string $value
+     */
+    public function decodeUnicodeEntities($value) {
+        return preg_replace_callback(
+            '/((\&\#x[a-z0-9]+\;)|(\&amp\;\#x[a-z0-9]+\;))/i',
+            function ($matches) {
+                return html_entity_decode($matches[1], ENT_HTML5, Craft::$app->charset);
+            },
+            $value
+        );
     }
 }

@@ -5,6 +5,7 @@ use Craft;
 use craft\base\Field;
 use craft\db\mysql\Schema;
 use craft\base\ElementInterface;
+use craft\helpers\StringHelper;
 
 use selvinortiz\doxter\assetbundles\doxterfield\DoxterFieldAssetBundle;
 use selvinortiz\doxter\fields\data\DoxterData;
@@ -60,7 +61,17 @@ class DoxterField extends Field {
      * @return mixed
      */
     public function serializeValue($value, ElementInterface $element = null) {
-        return $value->getRaw();
+        $value = $value->getRaw();
+        $value = StringHelper::encodeMb4($value);
+
+        return $value;
+    }
+
+    public function getSearchKeywords($value, ElementInterface $element): string {
+        $keywords = parent::getSearchKeywords($value, $element);
+        $keywords = StringHelper::encodeMb4($keywords);
+
+        return $keywords;
     }
 
     /**
