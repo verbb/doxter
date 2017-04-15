@@ -8,8 +8,8 @@ namespace selvinortiz\doxter\common\parsers;
  *
  * @package Craft
  */
-class CodeBlock extends BaseParser {
-
+class CodeBlock extends BaseParser
+{
     /**
      * @var CodeBlock
      */
@@ -28,7 +28,8 @@ class CodeBlock extends BaseParser {
      *
      * @return string
      */
-    public function parse($source, array $options = []) {
+    public function parse($source, array $options = [])
+    {
         $codeBlockSnippet = null;
 
         extract($options);
@@ -49,13 +50,14 @@ class CodeBlock extends BaseParser {
      *
      * @return string
      */
-    protected function parseCodeBlocks($source) {
-        if (! $this->canBeSafelyParsed($source) || stripos($source, '<pre>') === false) {
+    protected function parseCodeBlocks($source)
+    {
+        if (!$this->canBeSafelyParsed($source) || stripos($source, '<pre>') === false) {
             return $source;
         }
 
         $pattern = '/<pre>(.?)<code class\="([a-z\-\_]+)">(.*?)<\/code>(.?)<\/pre>/ism';
-        $source  = preg_replace_callback($pattern, [$this, 'handleBlockMatch'], $source);
+        $source = preg_replace_callback($pattern, [$this, 'handleBlockMatch'], $source);
 
         return $source;
     }
@@ -67,9 +69,10 @@ class CodeBlock extends BaseParser {
      *
      * @return string
      */
-    protected function handleBlockMatch(array $matches = []) {
-        $lang   = str_replace('language-', '', $matches[2]);
-        $code   = $matches[3];
+    protected function handleBlockMatch(array $matches = [])
+    {
+        $lang = str_replace('language-', '', $matches[2]);
+        $code = $matches[3];
         $source = str_replace('{languageClass}', $lang, self::$codeBlockSnippet);
         $source = str_replace('{sourceCode}', $code, $source);
 

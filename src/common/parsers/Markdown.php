@@ -8,8 +8,8 @@ namespace selvinortiz\doxter\common\parsers;
  *
  * @package Craft
  */
-class Markdown extends BaseParser {
-
+class Markdown extends BaseParser
+{
     /**
      * @var Markdown
      */
@@ -23,8 +23,9 @@ class Markdown extends BaseParser {
     /**
      * @return \ParsedownExtra
      */
-    public static function getMarkdownHelper() {
-        if (! self::$markdownHelper) {
+    public static function getMarkdownHelper()
+    {
+        if (!self::$markdownHelper) {
             self::$markdownHelper = new \ParsedownExtra();
         }
 
@@ -37,7 +38,8 @@ class Markdown extends BaseParser {
      *
      * @return string
      */
-    public function parse($source, array $options = []) {
+    public function parse($source, array $options = [])
+    {
         return self::getMarkdownHelper()->text($source);
     }
 
@@ -46,7 +48,8 @@ class Markdown extends BaseParser {
      *
      * @return string
      */
-    public function parseInline($source) {
+    public function parseInline($source)
+    {
         $source = self::getMarkdownHelper()->text($source);
 
         return preg_replace('/^[ ]*\<p\>(.*)\<\/p\>[ ]*$/', '$1', $source);

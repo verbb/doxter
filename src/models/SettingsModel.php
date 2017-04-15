@@ -8,19 +8,20 @@ use craft\base\Model;
  *
  * @package selvinortiz\doxter\models
  */
-class SettingsModel extends Model {
-
-    public $codeBlockSnippet;
-    public $addHeaderAnchors;
-    public $addHeaderAnchorsTo;
-    public $addTypographyStyles;
-    public $startingHeaderLevel;
-    public $parseReferenceTags;
+class SettingsModel extends Model
+{
+    public $codeBlockSnippet = '';
+    public $addHeaderAnchors = true;
+    public $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
+    public $addTypographyStyles = true;
+    public $startingHeaderLevel = 1;
+    public $parseReferenceTags = true;
     public $parseShortcodes = true;
-    public $enableCpTab;
-    public $pluginAlias;
+    public $enableCpTab = false;
+    public $pluginAlias = 'Doxter';
 
-    public function rules() {
+    public function rules()
+    {
         return [
             [['codeBlockSnippet', 'addHeaderAnchors'], 'required']
         ];

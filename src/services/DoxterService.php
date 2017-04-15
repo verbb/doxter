@@ -22,8 +22,8 @@ use function selvinortiz\doxter\doxter;
  *
  * @package selvinortiz\doxter\services
  */
-class DoxterService extends Component {
-
+class DoxterService extends Component
+{
     const EVENT_BEFORE_TYPOGRAPHY = 'beforeTypography';
     const EVENT_BEFORE_HEADER_PARSE = 'beforeHeaderParsing';
     const EVENT_BEFORE_MARKDOWN_PARSE = 'beforeMarkdownParsing';
@@ -39,29 +39,23 @@ class DoxterService extends Component {
      *
      * @return \Twig_Markup
      */
-    public function parse($source, array $options = []) {
-        $codeBlockSnippet    = null;
-        $addHeaderAnchors    = true;
-        $addHeaderAnchorsTo  = ['h1', 'h2', 'h3'];
-        $addTypographyStyles = true;
-        $startingHeaderLevel = 1;
-        $parseReferenceTags  = true;
-        $parseShortcodes     = true;
-        $options             = array_merge(doxter()->getSettings()->getAttributes(), $options);
+    public function parse($source, array $options = [])
+    {
+        $options = array_merge(doxter()->getSettings()->getAttributes(), $options);
 
         extract($options);
 
         // Parsing reference tags first so that we can parse markdown within them
-        if ($parseReferenceTags) {
+        if ($options['parseReferenceTags']) {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_REFERENCETAG_PARSE,
-                new DoxterEvent(compact('source', 'options'))
+                new DoxterEvent(compact('source'))
             );
 
             $source = $this->parseReferenceTags($source, $options);
         }
 
-        if ($parseShortcodes) {
+        if ($options['parseShortcodes']) {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_SHORTCODE_PARSE,
                 new DoxterEvent(compact('source'))
@@ -84,7 +78,7 @@ class DoxterService extends Component {
 
         $source = $this->parseCodeBlocks($source, compact('codeBlockSnippet'));
 
-        if ($addHeaderAnchors) {
+        if ($options['addHeaderAnchors']) {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_HEADER_PARSE,
                 new DoxterEvent(compact('source'))
@@ -93,7 +87,7 @@ class DoxterService extends Component {
             $source = $this->parseHeaders($source, compact('addHeaderAnchorsTo', 'startingHeaderLevel'));
         }
 
-        if ($addTypographyStyles || true) {
+        if ($options['addTypographyStyles']) {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_TYPOGRAPHY,
                 new DoxterEvent(compact('source'))
@@ -113,7 +107,8 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseMarkdown($source, array $options = []) {
+    public function parseMarkdown($source, array $options = [])
+    {
         return Markdown::instance()->parse($source, $options);
     }
 
@@ -122,7 +117,8 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseMarkdownInline($source) {
+    public function parseMarkdownInline($source)
+    {
         return Markdown::instance()->parseInline($source);
     }
 
@@ -132,7 +128,8 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseReferenceTags($source, array $options = []) {
+    public function parseReferenceTags($source, array $options = [])
+    {
         return ReferenceTag::instance()->parse($source, $options);
     }
 
@@ -142,7 +139,8 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseHeaders($source, array $options = []) {
+    public function parseHeaders($source, array $options = [])
+    {
         return Header::instance()->parse($source, $options);
     }
 
@@ -152,7 +150,8 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseCodeBlocks($source, array $options = []) {
+    public function parseCodeBlocks($source, array $options = [])
+    {
         return CodeBlock::instance()->parse($source, $options);
     }
 
@@ -162,13 +161,15 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function parseShortcodes($source, array $options = []) {
+    public function parseShortcodes($source, array $options = [])
+    {
         Shortcode::instance()->registerShortcodes(doxter()->registerShortcodes());
 
         return Shortcode::instance()->parse($source, $options);
     }
 
-    public function parseTypography($source, array $options = []) {
+    public function parseTypography($source, array $options = [])
+    {
         return Typography::instance()->parse($source, $options);
     }
 
@@ -179,7 +180,8 @@ class DoxterService extends Component {
      *
      * @return array
      */
-    public function getHeadersToParse($headerString = '') {
+    public function getHeadersToParse($headerString = '')
+    {
         $allowedHeaders = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
         $headers = ArrayHelper::filterEmptyStringsFromArray(ArrayHelper::toArray($headerString));
@@ -188,7 +190,7 @@ class DoxterService extends Component {
             foreach ($headers as $key => $header) {
                 $header = strtolower($header);
 
-                if (! in_array($header, $allowedHeaders)) {
+                if (!in_array($header, $allowedHeaders)) {
                     unset($headers[$key]);
                 }
             }
@@ -205,10 +207,12 @@ class DoxterService extends Component {
      *
      * @return string
      */
-    public function renderPluginTemplate($template, array $vars = []) {
+    public function renderPluginTemplate($template, array $vars = [])
+    {
+
         $rendered = null;
         $template = sprintf('doxter/%s', $template);
-        $oldMode  = Craft::$app->view->getTemplateMode();
+        $oldMode = Craft::$app->view->getTemplateMode();
 
         Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
 
@@ -224,7 +228,9 @@ class DoxterService extends Component {
     /**
      * @param array $shortcodes
      */
-    public function registerShortcodes(array $shortcodes) {
+    public function registerShortcodes(array $shortcodes)
+    {
+
         Shortcode::instance()->registerShortcodes($shortcodes);
     }
 
@@ -232,10 +238,11 @@ class DoxterService extends Component {
      * @param $shortcode
      * @param $callback
      */
-    public function registerShortcode($shortcode, $callback) {
+    public function registerShortcode($shortcode, $callback)
+    {
+
         Shortcode::instance()->registerShortcode($shortcode, $callback);
     }
-
 
     /**
      * Decodes html entities starting with &#x generally associated with emoji
@@ -243,10 +250,13 @@ class DoxterService extends Component {
      *
      * @param string $value
      */
-    public function decodeUnicodeEntities($value) {
+    public function decodeUnicodeEntities($value)
+    {
+
         return preg_replace_callback(
             '/((\&\#x[a-z0-9]+\;)|(\&amp\;\#x[a-z0-9]+\;))/i',
-            function ($matches) {
+            function($matches) {
+
                 return html_entity_decode($matches[1], ENT_HTML5, Craft::$app->charset);
             },
             $value

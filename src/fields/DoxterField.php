@@ -10,8 +10,8 @@ use craft\helpers\StringHelper;
 use selvinortiz\doxter\assetbundles\doxterfield\DoxterFieldAssetBundle;
 use selvinortiz\doxter\fields\data\DoxterData;
 
-class DoxterField extends Field {
-
+class DoxterField extends Field
+{
     public $tabSize = 2;
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
@@ -20,13 +20,15 @@ class DoxterField extends Field {
     /**
      * @return string
      */
-    public static function displayName(): string {
+    public static function displayName(): string
+    {
         return 'Doxter';
     }
 
-    public function getInputHtml($value, ElementInterface $element = null): string {
-        $inputId        = Craft::$app->view->formatInputId($this->handle);
-        $namespacedId   = Craft::$app->view->namespaceInputId($inputId);
+    public function getInputHtml($value, ElementInterface $element = null): string
+    {
+        $inputId = Craft::$app->view->formatInputId($this->handle);
+        $namespacedId = Craft::$app->view->namespaceInputId($inputId);
         $editorSettings = json_encode(get_object_vars($this));
 
         Craft::$app->getView()->registerAssetBundle(DoxterFieldAssetBundle::class);
@@ -35,11 +37,11 @@ class DoxterField extends Field {
         return Craft::$app->getView()->renderTemplate(
             'doxter/fields/_input',
             [
-                'id'    => $inputId,
-                'name'  => $this->handle,
+                'id' => $inputId,
+                'name' => $this->handle,
                 'value' => $value,
                 'class' => 'doxter-editor',
-                'rows'  => 5
+                'rows' => 5
             ]
         );
     }
@@ -50,7 +52,8 @@ class DoxterField extends Field {
      *
      * @return DoxterData
      */
-    public function normalizeValue($value, ElementInterface $element = null): DoxterData {
+    public function normalizeValue($value, ElementInterface $element = null): DoxterData
+    {
         return new DoxterData($value);
     }
 
@@ -60,14 +63,16 @@ class DoxterField extends Field {
      *
      * @return mixed
      */
-    public function serializeValue($value, ElementInterface $element = null) {
+    public function serializeValue($value, ElementInterface $element = null)
+    {
         $value = $value->getRaw();
         $value = StringHelper::encodeMb4($value);
 
         return $value;
     }
 
-    public function getSearchKeywords($value, ElementInterface $element): string {
+    public function getSearchKeywords($value, ElementInterface $element): string
+    {
         $keywords = parent::getSearchKeywords($value, $element);
         $keywords = StringHelper::encodeMb4($keywords);
 
@@ -77,7 +82,8 @@ class DoxterField extends Field {
     /**
      * @return string
      */
-    public function getContentColumnType(): string {
+    public function getContentColumnType(): string
+    {
         return Schema::TYPE_TEXT;
     }
 }

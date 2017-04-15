@@ -1,5 +1,5 @@
 <ul class="updates">
-	{% for note in notes %}
-		<li class="{{ note.type }}"><span class="icon-{{ note.type }}"></span>{{ note.text|raw }}</li>
-	{% endfor %}
+    {% for note in notes %}
+        <li class="{{ note.type }}"><span class="icon-{{ note.type }}"></span>{{ note.text|raw }}</li>
+    {% endfor %}
 </ul>

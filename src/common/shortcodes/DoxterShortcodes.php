@@ -9,17 +9,18 @@ use selvinortiz\doxter\assetbundles\doxtershortcodes\DoxterShortcodesAssetBundle
 
 use function selvinortiz\doxter\doxter;
 
-class DoxterShortcodes {
-
+class DoxterShortcodes
+{
     /**
      * @param ShortcodeModel $code
      *
      * @return string
      */
-    public function image(ShortcodeModel $code) {
-        $src       = $code->getParam('src');
-        $alt       = $code->getParam('alt');
-        $asset     = $code->getParam('asset');
+    public function image(ShortcodeModel $code)
+    {
+        $src = $code->getParam('src');
+        $alt = $code->getParam('alt');
+        $asset = $code->getParam('asset');
         $transform = $code->getParam('transform', 'coverSmall');
 
         if ($asset && ($image = Craft::$app->elements->getElementById($asset))) {
@@ -33,13 +34,13 @@ class DoxterShortcodes {
             }
         }
 
-        if (! empty($src)) {
+        if (!empty($src)) {
             $vars = [
-                'src'     => $src,
-                'alt'     => $alt,
+                'src' => $src,
+                'alt' => $alt,
                 'content' => $code->parseContent(),
                 'wrapper' => $code->getParam('wrapper', 'p'),
-                'class'   => $code->getParam('class', 'fluid'),
+                'class' => $code->getParam('class', 'fluid'),
             ];
 
             if (Craft::$app->view->doesTemplateExist('_doxter/shortcodes/image')) {
@@ -55,20 +56,21 @@ class DoxterShortcodes {
      *
      * @return string
      */
-    public function video(ShortcodeModel $code) {
+    public function video(ShortcodeModel $code)
+    {
         $src = $code->getParam('src');
 
-        if (! empty($src)) {
+        if (!empty($src)) {
             if (strpos($src, '/') !== false) {
                 $src = array_pop(explode('/', $src));
             }
 
             $vars = [
-                'src'    => $src,
-                'name'   => $code->name,
-                'title'  => (int) $code->getParam('title', 0),
-                'byline' => (int) $code->getParam('byline', 0),
-                'color'  => $code->getParam('color'),
+                'src' => $src,
+                'name' => $code->name,
+                'title' => (int)$code->getParam('title', 0),
+                'byline' => (int)$code->getParam('byline', 0),
+                'color' => $code->getParam('color'),
             ];
 
             Craft::$app->view->registerAssetBundle(DoxterShortcodesAssetBundle::class);
@@ -87,13 +89,14 @@ class DoxterShortcodes {
      *
      * @return string
      */
-    public function audio(ShortcodeModel $code) {
+    public function audio(ShortcodeModel $code)
+    {
         $src = $code->getParam('src');
 
-        if (! empty($src)) {
+        if (!empty($src)) {
             $vars = [
-                'src'   => $src,
-                'size'  => $code->getParam('size', 'large'),
+                'src' => $src,
+                'size' => $code->getParam('size', 'large'),
                 'color' => $code->getParam('color', '00aabb'),
             ];
 
@@ -110,15 +113,16 @@ class DoxterShortcodes {
      *
      * @return string
      */
-    public function updates(ShortcodeModel $code) {
+    public function updates(ShortcodeModel $code)
+    {
         $lines = array_filter(array_map('trim', explode(PHP_EOL, $code->content)));
         $notes = [];
 
         if (count($lines)) {
             foreach ($lines as $index => $line) {
-                $line    = doxter()->api->parseMarkdownInline(preg_replace('/^([ \-\+\*\=]+)?/', '',
+                $line = doxter()->api->parseMarkdownInline(preg_replace('/^([ \-\+\*\=]+)?/', '',
                     $line));
-                $type    = $this->getUpdateTypeFromLine($line);
+                $type = $this->getUpdateTypeFromLine($line);
                 $notes[] = [
                     'text' => $line,
                     'type' => $type,
@@ -138,7 +142,8 @@ class DoxterShortcodes {
      *
      * @return string
      */
-    protected function getUpdateTypeFromLine($line) {
+    protected function getUpdateTypeFromLine($line)
+    {
         if (is_string($line)) {
             $type = array_shift(explode(' ', trim($line)));
 

@@ -3,6 +3,7 @@ namespace selvinortiz\doxter\extensions;
 
 use \Twig_Extension;
 use \Twig_SimpleFilter;
+use \Twig_SimpleFunction;
 
 use Craft;
 use craft\helpers\Template;
@@ -17,12 +18,13 @@ use function selvinortiz\doxter\doxter;
  *
  * @package Craft
  */
-class DoxterExtension extends Twig_Extension {
-
+class DoxterExtension extends Twig_Extension
+{
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'Doxter Extension';
     }
 
@@ -37,17 +39,24 @@ class DoxterExtension extends Twig_Extension {
      *
      * @return mixed The parsed string or false if not a valid source
      */
-    public function doxter($source = '', array $options = []) {
+    public function doxter($source = '', array $options = [])
+    {
         $parsed = doxter()->api->parse($source, $options);
 
         if (is_object($source) && $source instanceof RichTextData) {
-            return new RichTextData($parsed, Craft::$app->getView()->twig->getCharset());
+            return new RichTextData($parsed, Craft::$app->charset);
         }
 
         return $parsed;
     }
 
-    public function doxterTypography($source = '') {
+    /**
+     * @param string $source
+     *
+     * @return \Twig_Markup
+     */
+    public function doxterTypography($source = '')
+    {
         return Template::raw(Typography::instance()->parse($source));
     }
 
@@ -56,10 +65,19 @@ class DoxterExtension extends Twig_Extension {
      *
      * @return array
      */
-    public function getFilters() {
+    public function getFilters()
+    {
         return [
             new Twig_SimpleFilter('doxter', [$this, 'doxter']),
             new Twig_SimpleFilter('doxterTypography', [$this, 'doxterTypography'])
+        ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new Twig_SimpleFunction('doxter', [$this, 'doxter']),
+            new Twig_SimpleFunction('doxterTypography', [$this, 'doxterTypography'])
         ];
     }
 }
