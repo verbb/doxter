@@ -1,6 +1,8 @@
 <?php
 namespace selvinortiz\doxter\common\parsers;
 
+use function selvinortiz\doxter\doxter;
+
 /**
  * The base parser that all other parsers must extend
  *
@@ -32,17 +34,13 @@ abstract class BaseParser
     /**
      * Reports whether the source string can be safely parsed
      *
-     * @param string $source
+     * @param mixed $source
      *
      * @return bool
      */
-    public function canBeSafelyParsed($source)
+    public function canBeSafelyParsed($source = null)
     {
-        if (empty($source)) {
-            return false;
-        }
-
-        return (is_string($source) || is_callable([$source, '__toString']));
+        return doxter()->api->canBeSafelyParsed($source);
     }
 
     /**

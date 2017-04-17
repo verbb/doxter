@@ -39,8 +39,12 @@ class DoxterService extends Component
      *
      * @return \Twig_Markup
      */
-    public function parse($source, array $options = [])
+    public function parse(string $source = null, array $options = [])
     {
+        if (!$this->canBeSafelyParsed($source)) {
+            return new \Twig_Markup('', Craft::$app->charset);
+        }
+
         $options = array_merge(doxter()->getSettings()->getAttributes(), $options);
 
         extract($options);
@@ -262,4 +266,21 @@ class DoxterService extends Component
             $value
         );
     }
+
+    /**
+     * Reports whether the source string can be safely parsed
+     *
+     * @param mixed $source
+     *
+     * @return bool
+     */
+    public function canBeSafelyParsed($source = null)
+    {
+        if (empty($source)) {
+            return false;
+        }
+
+        return (is_string($source) || is_callable([$source, '__toString']));
+    }
+
 }
