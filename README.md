@@ -1,9 +1,10 @@
 ![Doxter](resources/img/Doxter3.png)
 
 # Doxter 3
-> Lovingly crafted by [Selvin Ortiz](https://selv.in) for [Craft CMS][craft]
+> Markdown Editor & Parser for Craft 3
 
-**Doxter** is a markdown editor and parser for Craft 3.
+## Docs
+👉 [Doxter Wiki](https://github.com/selvinortiz/craft-plugin-doxter/wiki)
 
 ## Features
 * [Live Preview][preview] Support
