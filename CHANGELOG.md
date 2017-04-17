@@ -1,6 +1,12 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## Doxter 3.1.1 - 2017.17.04 [CRITICAL]
+### [Fixed]
+- Fixed issue #6 where parsing prevented the creation of new entries
+
+> {note} Sooner or later you'll do something stupid that seems lazy, like not test if entries can be created when it contains one of your fields. Well, this was pure stupidity and not laziness, I assure you 😂 Sorry everyone!
+
 ## Doxter 3.1.0 - 2017.16.04
 ### [Added]
 - Added emoji support as requested on issue #5 👍 
