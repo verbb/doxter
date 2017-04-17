@@ -35,8 +35,8 @@ use selvinortiz\doxter\common\parsers\Shortcode;
  *  content: "[note type=\"added\"]Added a very cool feature[/note]"
  * }
  */
-class ShortcodeModel extends Model {
-
+class ShortcodeModel extends Model
+{
     public $name;
     public $params;
     public $content;
@@ -49,7 +49,8 @@ class ShortcodeModel extends Model {
      *
      * @return null|mixed
      */
-    public function get($attribute, $default = null) {
+    public function get($attribute, $default = null)
+    {
         return isset($this->{$attribute}) ? $this->{$attribute} : $default;
     }
 
@@ -61,12 +62,14 @@ class ShortcodeModel extends Model {
      *
      * @return null|mixed
      */
-    public function getParam($name, $default = null) {
+    public function getParam($name, $default = null)
+    {
         return isset($this->params[$name]) ? $this->params[$name] : $default;
     }
 
-    public function parseContent() {
-        if (! empty($this->content)) {
+    public function parseContent()
+    {
+        if (!empty($this->content)) {
             if (strpos($this->content, '[') !== false || strpos($this->content, '{') !== false) {
                 return Shortcode::instance()->parse($this->content);
             }

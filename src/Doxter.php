@@ -21,9 +21,10 @@ use selvinortiz\doxter\extensions\DoxterExtension;
  *
  * @property DoxterService $api
  */
-class Doxter extends Plugin {
-
-    public function init() {
+class Doxter extends Plugin
+{
+    public function init()
+    {
         parent::init();
 
         Craft::$app->view->twig->addExtension(new DoxterExtension());
@@ -31,7 +32,7 @@ class Doxter extends Plugin {
         Event::on(
             Fields::className(),
             Fields::EVENT_REGISTER_FIELD_TYPES,
-            function (RegisterComponentTypesEvent $event) {
+            function(RegisterComponentTypesEvent $event) {
                 $event->types[] = DoxterField::class;
             }
         );
@@ -40,34 +41,37 @@ class Doxter extends Plugin {
     /**
      * @return SettingsModel
      */
-    public function createSettingsModel() {
+    public function createSettingsModel()
+    {
         return new SettingsModel();
     }
 
     /**
      * @return string
      */
-    public function defineTemplateComponent() {
+    public function defineTemplateComponent()
+    {
         return DoxterVariable::class;
     }
 
-    public function registerShortcodes() {
+    public function registerShortcodes()
+    {
         return [
-            'image'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@image',
-            'audio'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@audio',
-            'updates'       => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@updates',
+            'image' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@image',
+            'audio' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@audio',
+            'updates' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@updates',
             'vimeo:youtube' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@video',
         ];
     }
 }
-
 
 /**
  * Allows me to use a more expressive syntax and have more control over type hints
  *
  * @return Doxter
  */
-function doxter(): Doxter {
+function doxter(): Doxter
+{
     static $instance;
 
     if (null === $instance) {

@@ -8,8 +8,8 @@ namespace selvinortiz\doxter\common\parsers;
  *
  * @package Craft
  */
-abstract class BaseParser {
-
+abstract class BaseParser
+{
     /**
      * @var object The parser instance which should be defined in each extending class
      */
@@ -20,7 +20,8 @@ abstract class BaseParser {
      *
      * @return BaseParser|Markdown|ReferenceTag|Shortcode|CodeBlock|Header|Object
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (null === static::$_instance) {
             static::$_instance = new static;
         }
@@ -35,7 +36,8 @@ abstract class BaseParser {
      *
      * @return bool
      */
-    public function canBeSafelyParsed($source) {
+    public function canBeSafelyParsed($source)
+    {
         if (empty($source)) {
             return false;
         }

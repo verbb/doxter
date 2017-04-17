@@ -8,9 +8,10 @@ use selvinortiz\doxter\Doxter;
  *
  * @package selvinortiz\doxter\variables
  */
-class DoxterVariable {
-
-    public function getVersion() {
+class DoxterVariable
+{
+    public function getVersion()
+    {
         Doxter::getInstance()->version;
     }
 }
