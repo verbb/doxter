@@ -17,6 +17,7 @@ class DoxterField extends Field
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
     public $enableParserToolbar = true;
+    public $disabledParserTools = ['user', 'tags'];
 
     /**
      * @return string

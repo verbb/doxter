@@ -153,14 +153,22 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
     SimpleMDE.toggleFullScreen();
 }
 
-Doxter.prototype.toolbar = function (enableParserToolbar, settings = [])
+/**
+ * Creates an array with the toolbar tools that are enabled
+ * 
+ * @param {boolean} enableParserToolbar
+ * @param {Array} disabledTools The list of disabled tools (user, entry, image, tags)
+ * 
+ * @return {Array} 
+ */
+Doxter.prototype.toolbar = function (enableParserToolbar, disabledTools = [])
 {
     var self = this;
 
     var baseTools = [], 
         parserTools = [], 
-        fullscreenTools = [], 
-
+        fullscreenTools = [];
+        
     baseTools = [{
                 name     : 'bold',
                 action   : SimpleMDE.toggleBold,
@@ -204,7 +212,7 @@ Doxter.prototype.toolbar = function (enableParserToolbar, settings = [])
                 title    : 'Insert Image (Ctrl+Alt+I)'
             }
     ];
-
+    
     if(enableParserToolbar) {
 
         parserTools = ['|',
@@ -233,6 +241,15 @@ Doxter.prototype.toolbar = function (enableParserToolbar, settings = [])
                 title    : 'Tag Reference (Ctrl+Alt+4)'
             }
         ];
+
+        // checks for disabled tools and remove them from the array if necessary
+        for (var i = 0; i < disabledTools.length; i++) { 
+            parserTools.find(function(tool, index){
+                if(typeof tool == 'object' && tool.hasOwnProperty('name') && tool.name == disabledTools[i]) {
+                    parserTools.splice(index,1);
+                }
+            });
+        }
     }
 
     fullscreenTools = ['|', 
@@ -251,7 +268,7 @@ Doxter.prototype.toolbar = function (enableParserToolbar, settings = [])
 Doxter.prototype.configure = function (settings)
 {
     var self = this;
-    var toolbarArray = this.toolbar(!!settings.enableParserToolbar); // returns an array
+    var toolbarArray = this.toolbar(!!settings.enableParserToolbar, settings.disabledParserTools); // returns an array
 
     return {
         element: document.getElementById(self.id),
