@@ -153,23 +153,15 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
     SimpleMDE.toggleFullScreen();
 }
 
-Doxter.prototype.configure = function (settings)
+Doxter.prototype.toolbar = function (enableParserToolbar, settings = [])
 {
     var self = this;
 
-    return {
-        element: document.getElementById(self.id),
-        status: settings.status || false, // autosave, lines, words, cursor
-        toolbarTips: true,
-        toolbarGuideIcon: false,
-        autofocus: false,
-        lineWrapping: !!settings.enableLineWrapping,
-        indentWithTabs: !!settings.indentWithTabs,
-        tabSize: settings.tabSize,
-        forceSync: true,
-        spellChecker: !!settings.enableSpellChecker,
-        toolbar: [
-            {
+    var baseTools = [], 
+        parserTools = [], 
+        fullscreenTools = [], 
+
+    baseTools = [{
                 name     : 'bold',
                 action   : SimpleMDE.toggleBold,
                 className: 'fa fa-bold',
@@ -210,8 +202,12 @@ Doxter.prototype.configure = function (settings)
                 action   : SimpleMDE.drawImage,
                 className: 'fa fa-picture-o',
                 title    : 'Insert Image (Ctrl+Alt+I)'
-            },
-            '|',
+            }
+    ];
+
+    if(enableParserToolbar) {
+
+        parserTools = ['|',
             {
                 name     : 'user',
                 action   : self.selectUser(),
@@ -235,15 +231,40 @@ Doxter.prototype.configure = function (settings)
                 action   : self.selectTag(),
                 className: 'fa fa-tags doxter-primary-icon',
                 title    : 'Tag Reference (Ctrl+Alt+4)'
-            },
-            '|',
-            {
-                name     : 'fullscreen',
-                action   : this.fullScreen, // Custom Full Screen
-                className: 'fa fa-arrows-alt',
-                title    : 'Toggle Fullscreen (F11)'
             }
-        ]
+        ];
+    }
+
+    fullscreenTools = ['|', 
+        {
+            name     : 'fullscreen',
+            action   : this.fullScreen, // Custom Full Screen
+            className: 'fa fa-arrows-alt',
+            title    : 'Toggle Fullscreen (F11)'
+        }
+    ];
+
+    return (baseTools.concat(parserTools)).concat(fullscreenTools);
+
+}
+
+Doxter.prototype.configure = function (settings)
+{
+    var self = this;
+    var toolbarArray = this.toolbar(!!settings.enableParserToolbar); // returns an array
+
+    return {
+        element: document.getElementById(self.id),
+        status: settings.status || false, // autosave, lines, words, cursor
+        toolbarTips: true,
+        toolbarGuideIcon: false,
+        autofocus: false,
+        lineWrapping: !!settings.enableLineWrapping,
+        indentWithTabs: !!settings.indentWithTabs,
+        tabSize: settings.tabSize,
+        forceSync: true,
+        spellChecker: !!settings.enableSpellChecker,
+        toolbar: toolbarArray
     };
 };
 

@@ -16,6 +16,7 @@ class DoxterField extends Field
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
+    public $enableParserToolbar = true;
 
     /**
      * @return string
