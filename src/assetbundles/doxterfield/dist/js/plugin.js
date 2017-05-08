@@ -140,7 +140,7 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
      * from $('#container')
      */
     $(window).on({
-        "keydown": function (evt) {
+        'keydown': function (evt) {
             if (evt.keyCode === 27 ) {
                 $container.removeClass('fullscreen');
             }
@@ -161,98 +161,79 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
  * 
  * @return {Array} 
  */
-Doxter.prototype.toolbar = function (enableParserToolbar, disabledTools = [])
+Doxter.prototype.getToolbar = function (settings)
 {
     var self = this;
 
-    var baseTools = [], 
-        parserTools = [], 
-        fullscreenTools = [];
-        
-    baseTools = [{
-                name     : 'bold',
-                action   : SimpleMDE.toggleBold,
-                className: 'fa fa-bold',
-                title    : 'Bold (Ctrl+B)'
-            },
-            {
-                name     : 'italic',
-                action   : SimpleMDE.toggleItalic,
-                className: 'fa fa-italic',
-                title    : 'Italic (Ctrl+I)'
-            },
-            {
-                name     : 'quote',
-                action   : SimpleMDE.toggleBlockquote,
-                className: 'fa fa-quote-left',
-                title    : 'Quote (Ctrl+\')'
-            },
-            {
-                name     : 'unordered-list',
-                action   : SimpleMDE.toggleUnorderedList,
-                className: 'fa fa-list-ul',
-                title    : 'Generic List (Ctrl+L)'
-            },
-            {
-                name     : 'ordered-list',
-                action   : SimpleMDE.toggleOrderedList,
-                className: 'fa fa-list-ol',
-                title    : 'Numbered List (Ctrl+Alt+L)'
-            },
-            {
-                name     : 'link',
-                action   : SimpleMDE.drawLink,
-                className: 'fa fa-link',
-                title    : 'Create Link (Ctrl+K)'
-            },
-            {
-                name     : 'quote',
-                action   : SimpleMDE.drawImage,
-                className: 'fa fa-picture-o',
-                title    : 'Insert Image (Ctrl+Alt+I)'
-            }
-    ];
-    
-    if(enableParserToolbar) {
+    var showToolbarOrHiddenIconList = settings.toolbarSettings || true;
 
-        parserTools = ['|',
-            {
-                name     : 'user',
-                action   : self.selectUser(),
-                className: 'fa fa-user doxter-primary-icon',
-                title    : 'User Reference (Ctrl+Alt+1)'
-            },
-            {
-                name     : 'entry',
-                action   : self.selectEntry(),
-                className: 'fa fa-file doxter-primary-icon',
-                title    : 'Entry Reference (Ctrl+Alt+2)'
-            },
-            {
-                name     : 'image',
-                action   : self.selectAsset(),
-                className: 'fa fa-file-image-o doxter-primary-icon',
-                title    : 'Asset Reference (Ctrl+Alt+3)'
-            },
-            {
-                name     : 'tags',
-                action   : self.selectTag(),
-                className: 'fa fa-tags doxter-primary-icon',
-                title    : 'Tag Reference (Ctrl+Alt+4)'
-            }
-        ];
-
-        // checks for disabled tools and remove them from the array if necessary
-        for (var i = 0; i < disabledTools.length; i++) { 
-            parserTools.find(function(tool, index){
-                if(typeof tool == 'object' && tool.hasOwnProperty('name') && tool.name == disabledTools[i]) {
-                    parserTools.splice(index,1);
-                }
-            });
-        }
-    }
-
-    fullscreenTools = ['|', 
+    var defaultToolbar = [
+        {
+            name: 'bold',
+            title: 'Bold (Ctrl+B',
+            action: SimpleMDE.toggleBold,
+            className: 'fa fa-bold'
+        },
+        {
+            name     : 'italic',
+            action   : SimpleMDE.toggleItalic,
+            className: 'fa fa-italic',
+            title    : 'Italic (Ctrl+I)'
+        },
+        {
+            name     : 'quote',
+            action   : SimpleMDE.toggleBlockquote,
+            className: 'fa fa-quote-left',
+            title    : 'Quote (Ctrl+\')'
+        },
+        {
+            name     : 'ordered-list',
+            action   : SimpleMDE.toggleOrderedList,
+            className: 'fa fa-list-ol',
+            title    : 'Numbered List (Ctrl+Alt+L)'
+        },
+        {
+            name     : 'unordered-list',
+            action   : SimpleMDE.toggleUnorderedList,
+            className: 'fa fa-list-ul',
+            title    : 'Generic List (Ctrl+L)'
+        },
+        {
+            name     : 'link',
+            action   : SimpleMDE.drawLink,
+            className: 'fa fa-link',
+            title    : 'Create Link (Ctrl+K)'
+        },
+        {
+            name     : 'image',
+            action   : SimpleMDE.drawImage,
+            className: 'fa fa-picture-o',
+            title    : 'Insert Image (Ctrl+Alt+I)'
+        },
+        {
+            name     : 'doxter-users',
+            action   : self.selectUser(),
+            className: 'fa fa-users doxter-primary-icon',
+            title    : 'User Reference (Ctrl+Alt+1)'
+        },
+        {
+            name     : 'doxter-entries',
+            action   : self.selectEntry(),
+            className: 'fa fa-newspaper-o doxter-primary-icon',
+            title    : 'Entry Reference (Ctrl+Alt+2)'
+        },
+        {
+            name     : 'doxter-assets',
+            action   : self.selectAsset(),
+            className: 'fa fa-picture-o doxter-primary-icon',
+            title    : 'Asset Reference (Ctrl+Alt+3)'
+        },
+        {
+            name     : 'doxter-tags',
+            action   : self.selectTag(),
+            className: 'fa fa-tags doxter-primary-icon',
+            title    : 'Tag Reference (Ctrl+Alt+4)'
+        },
         {
             name     : 'fullscreen',
             action   : this.fullScreen, // Custom Full Screen
@@ -261,14 +242,24 @@ Doxter.prototype.toolbar = function (enableParserToolbar, disabledTools = [])
         }
     ];
 
-    return (baseTools.concat(parserTools)).concat(fullscreenTools);
+    if (!!showToolbarOrHiddenIconList) {
+        if (Array.isArray(showToolbarOrHiddenIconList)) {
+            for (var i = 0; i < defaultToolbar.length; i++) {
+                if (showToolbarOrHiddenIconList.indexOf(defaultToolbar[i].name) !== -1) {
+                        defaultToolbar.splice(i, 1);
+                }
+            }
+        }
 
+        return defaultToolbar;
+    }
+
+    return [];
 }
 
 Doxter.prototype.configure = function (settings)
 {
     var self = this;
-    var toolbarArray = this.toolbar(!!settings.enableParserToolbar, settings.disabledParserTools); // returns an array
 
     return {
         element: document.getElementById(self.id),
@@ -281,7 +272,7 @@ Doxter.prototype.configure = function (settings)
         tabSize: settings.tabSize,
         forceSync: true,
         spellChecker: !!settings.enableSpellChecker,
-        toolbar: toolbarArray
+        toolbar: self.getToolbar(settings)
     };
 };
 

@@ -6,6 +6,7 @@ use craft\base\Field;
 use craft\db\mysql\Schema;
 use craft\base\ElementInterface;
 use craft\helpers\StringHelper;
+use Craft\helpers\Json;
 
 use selvinortiz\doxter\assetbundles\doxterfield\DoxterFieldAssetBundle;
 use selvinortiz\doxter\fields\data\DoxterData;
@@ -16,8 +17,10 @@ class DoxterField extends Field
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
-    public $enableParserToolbar = true;
-    public $disabledParserTools = ['user', 'tags'];
+    public $toolbarSettings = [
+        'fullscreen',
+        'bold'
+    ];
 
     /**
      * @return string
@@ -31,7 +34,7 @@ class DoxterField extends Field
     {
         $inputId = Craft::$app->view->formatInputId($this->handle);
         $namespacedId = Craft::$app->view->namespaceInputId($inputId);
-        $editorSettings = json_encode(get_object_vars($this));
+        $editorSettings = Json::encode(get_object_vars($this));
 
         Craft::$app->getView()->registerAssetBundle(DoxterFieldAssetBundle::class);
         Craft::$app->getView()->registerJs("new Doxter().init('{$namespacedId}', $editorSettings).render();");
