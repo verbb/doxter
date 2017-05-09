@@ -59,15 +59,15 @@ class DoxterField extends Field
 
     private function parseToolbarSettings() {
 
-        $disbledTools = [];
+        $enabledTools = [];
 
         foreach ($this->toolbarSettings as $key => $value) {
-            if (!$value) {
-                $disbledTools[] = $key;
+            if ($value) {
+                $enabledTools[] = $key;
             }
         }
 
-        $this->toolbarSettings = $disbledTools;
+        $this->toolbarSettings = $enabledTools;
 
         return;
     }
