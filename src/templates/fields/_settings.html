@@ -2,21 +2,19 @@
 
 {% set iconOptions %}
     <table class="data">
-        {% for optionKey, optionName in iconOptions %}
-            {% if not (optionKey == 'toolbar') %}
-                <tr>
-                    <td class="focus">
-                        {{ forms.lightswitch({
-                            on: field.toolbarSettings[optionKey],
-                            small: true,
-                            name: 'toolbarSettings[' ~ optionKey ~ ']'
-                        }) }}
-                    </td>
-                    <td class="code">
-                        {{ optionName }}
-                    </td>
-                </tr>
-            {% endif %}
+        {% for name, label in toolbarIconOptions %}
+            <tr>
+                <td>
+                    {{ forms.lightswitch({
+                        on: field.enabledToolbarIconNames[name],
+                        small: true,
+                        name: 'enabledToolbarIconNames[' ~ name ~ ']'
+                    }) }}
+                </td>
+                <td class="code">
+                    {{ label }}
+                </td>
+            </tr>
         {% endfor %}
     </table>
 {% endset %}
@@ -57,7 +55,7 @@
 }) }}
 
 <hr>
-<a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('app') }}</a>
+<a class="fieldtoggle" data-target="advanced">{{ "Toolbar Customization"|t('app') }}</a>
 <div id="advanced" class="hidden">
 
     {{ forms.field({

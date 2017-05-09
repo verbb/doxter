@@ -13,18 +13,30 @@ use selvinortiz\doxter\fields\data\DoxterData;
 
 class DoxterField extends Field
 {
-    // Properties
-    // =========================================================================
-
     public $tabSize = 2;
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
     public $showToolbar = true;
-    public $toolbarSettings;
+    public $enabledToolbarIconNames = [
+        'bold' => true,
+        'italic' => true,
+        'quote' => true,
+        'ordered-list' => true,
+        'unordered-list' => true,
+        'link' => true,
+        'image' => true,
+        'doxter-users' => true,
+        'doxter-entries' => true,
+        'doxter-assets' => true,
+        'doxter-tags' => true,
+        'fullscreen' => true,
+    ];
 
-    // Static
-    // =========================================================================
+    /**
+     * @todo Remove once we're able to clean up the db
+     */
+    public $toolbarSettings;
 
     /**
      * @return string
@@ -34,65 +46,18 @@ class DoxterField extends Field
         return 'Doxter';
     }
 
-    /**
-     * Returns all icon options.
-     *
-     * @return array
-     */
-    private static function getIconOptions(): array
-    {
-        return [
-            'bold' => 'Bold',
-            'italic' => 'Italic',
-            'quote' => 'Quote',
-            'ordered-list' => 'Ordered-List',
-            'unordered-list' => 'Unordered-List',
-            'link' => 'Link',
-            'image' => 'Image',
-            'doxter-users' => 'User Reference',
-            'doxter-entries' => 'Entry Reference',
-            'doxter-assets' => 'Assets Reference',
-            'doxter-tags' => 'Tag Reference',
-            'fullscreen' => 'Fullscreen'
-        ];
-    }
-
-    private function parseToolbarSettings() {
-
-        $enabledTools = [];
-
-        foreach ($this->toolbarSettings as $key => $value) {
-            if ($value) {
-                $enabledTools[] = $key;
-            }
-        }
-
-        $this->toolbarSettings = $enabledTools;
-
-        return;
-    }
-
-    // Public Methods
-    // =========================================================================
-
     public function init()
     {
         parent::init();
-        
-        if ($this->toolbarSettings === null) {
-            $this->toolbarSettings = self::getIconOptions();
-        } 
     }
 
     public function getInputHtml($value, ElementInterface $element = null): string
     {
-        self::parseToolbarSettings();
         $inputId = Craft::$app->view->formatInputId($this->handle);
         $namespacedId = Craft::$app->view->namespaceInputId($inputId);
-        $editorSettings = Json::encode(get_object_vars($this));
 
         Craft::$app->getView()->registerAssetBundle(DoxterFieldAssetBundle::class);
-        Craft::$app->getView()->registerJs("new Doxter().init('{$namespacedId}', $editorSettings).render();");
+        Craft::$app->getView()->registerJs("new Doxter().init('{$namespacedId}', {$this->getJsonEncodedEditorSettings()}).render();");
 
         return Craft::$app->getView()->renderTemplate(
             'doxter/fields/_input',
@@ -111,7 +76,7 @@ class DoxterField extends Field
         return Craft::$app->getView()->renderTemplate('doxter/fields/_settings',
             [
              'field' => $this,
-             'iconOptions' => self::getIconOptions()
+             'toolbarIconOptions' =>$this->getToolbarIconOptions()
             ]);
     }
 
@@ -132,6 +97,7 @@ class DoxterField extends Field
      *
      * @return mixed
      */
+
     public function serializeValue($value, ElementInterface $element = null)
     {
         $value = $value->getRaw();
@@ -154,5 +120,44 @@ class DoxterField extends Field
     public function getContentColumnType(): string
     {
         return Schema::TYPE_TEXT;
+    }
+
+    /**
+     * Returns a Javascript Friendly array of settings
+     * Making sure that enabledToolbarIconNames is returned as a flat array of names
+     */
+    public function getJsonEncodedEditorSettings()
+    {
+        $editorSettings = get_object_vars($this);
+
+        // Flatten enabledToolbarIconNames from ['bold' => '1', 'italic' => ''] into ['bold']
+        $enabledToolbarIconNames = $editorSettings['enabledToolbarIconNames'];
+        $enabledToolbarIconNames = array_keys(array_filter($enabledToolbarIconNames));
+        $editorSettings['enabledToolbarIconNames'] = $enabledToolbarIconNames;
+
+        return Json::encode($editorSettings);
+    }
+
+    /**
+     * Returns all icon options.
+     *
+     * @return array
+     */
+    private function getToolbarIconOptions(): array
+    {
+        return [
+            'bold' => 'Bold',
+            'italic' => 'Italic',
+            'quote' => 'Quote',
+            'ordered-list' => 'Ordered List',
+            'unordered-list' => 'Unordered List',
+            'link' => 'Link',
+            'image' => 'Image',
+            'doxter-users' => 'User Reference',
+            'doxter-entries' => 'Entry Reference',
+            'doxter-assets' => 'Assets Reference',
+            'doxter-tags' => 'Tag Reference',
+            'fullscreen' => 'Fullscreen'
+        ];
     }
 }

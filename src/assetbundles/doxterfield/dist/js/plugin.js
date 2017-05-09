@@ -169,8 +169,11 @@ Doxter.prototype.getToolbar = function (settings)
         return [];
     }
 
-    var visibleIconList = settings.toolbarSettings;
-    var defaultToolbar = [
+    /**
+     * ['bold', 'italic']
+     * 
+     */
+    var defaultToolbarIcons = [
         {
             name: 'bold',
             title: 'Bold (Ctrl+B',
@@ -245,15 +248,28 @@ Doxter.prototype.getToolbar = function (settings)
         }
     ];
 
-    for (var i = 0; i < defaultToolbar.length; i++) {
-        if (visibleIconList.indexOf(defaultToolbar[i].name) === -1) {
-            defaultToolbar.splice(i, 1);
-            i--;
+    return this.getEnabledToolbarIcons(defaultToolbarIcons, settings.enabledToolbarIconNames);
+}
+
+Doxter.prototype.getEnabledToolbarIcons = function (defaultToolbarIcons, enabledToolbarIconNames) {
+    if (defaultToolbarIcons.length === enabledToolbarIconNames.length) {
+        return defaultToolbarIcons;
+    }
+
+    var enabledToolbarIcons = [];
+
+    // To be used inside looping construct
+    var currentToolbarIcon = {};
+
+    for (var i = 0; i < defaultToolbarIcons.length; i++) {
+        currentToolbarIcon = defaultToolbarIcons[i];
+
+        if (enabledToolbarIconNames.indexOf(currentToolbarIcon.name) !== -1) {
+            enabledToolbarIcons.push(currentToolbarIcon);
         }
     }
-    
-    return defaultToolbar;
 
+    return enabledToolbarIcons;
 }
 
 Doxter.prototype.configure = function (settings)
