@@ -164,8 +164,7 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
 Doxter.prototype.getToolbar = function (settings)
 {
     var self = this;
-
-    var showToolbarOrHiddenIconList = settings.toolbarSettings || true;
+    var showToolbarOrHiddenIconList = settings.toolbarSettings;
 
     var defaultToolbar = [
         {
@@ -246,7 +245,8 @@ Doxter.prototype.getToolbar = function (settings)
         if (Array.isArray(showToolbarOrHiddenIconList)) {
             for (var i = 0; i < defaultToolbar.length; i++) {
                 if (showToolbarOrHiddenIconList.indexOf(defaultToolbar[i].name) !== -1) {
-                        defaultToolbar.splice(i, 1);
+                    defaultToolbar.splice(i, 1);
+                    i--;
                 }
             }
         }

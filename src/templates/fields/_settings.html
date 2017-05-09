@@ -1,0 +1,68 @@
+{% import "_includes/forms" as forms %}
+
+{% set iconOptions %}
+    <table class="data">
+        {% for optionKey, optionName in iconOptions %}
+            {% if not (optionKey == 'toolbar') %}
+                <tr>
+                    <td class="focus">
+                        {{ forms.lightswitch({
+                            on: field.toolbarSettings[optionKey],
+                            small: true,
+                            name: 'toolbarSettings[' ~ optionKey ~ ']'
+                        }) }}
+                    </td>
+                    <td>
+                        icon
+                    </td>
+                    <td class="code">
+                        {{ optionName }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endset %}
+
+
+<p>{{ "Indent with tabs?"|t }}</p>
+{{ forms.lightswitch({
+	name: "indentWithTabs",
+	on:   field.indentWithTabs
+}) }}
+
+{{ forms.textField({
+	id:     "tabSize",
+	name:   "tabSize",
+	size:   5,
+	label:  "Tab Size"|t,
+	value:  field.tabSize ? field.tabSize : 4,
+	errors: ""
+}) }}
+
+
+<p>{{ "Enable Line Wrapping?"|t }}</p>
+{{ forms.lightswitch({
+	name: "enableLineWrapping",
+	on:   field.enableLineWrapping
+}) }}
+
+<p>{{ "Enable Spell Checker?"|t }}</p>
+{{ forms.lightswitch({
+	name: "enableSpellChecker",
+	on:   field.enableSpellChecker
+}) }}
+
+<p>{{ "Show toolbar?"|t }}</p>
+{{ forms.lightswitch({
+    name: "toolbarSettings[toolbar]",
+    on:   field.toolbarSettings["toolbar"]
+}) }}
+<hr>
+<a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('app') }}</a>
+<div id="advanced" class="hidden">
+
+    {{ forms.field({
+        label: "Enabled Toolbar Icons"|t('app'),
+    }, iconOptions) }}
+</div>
