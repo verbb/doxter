@@ -290,7 +290,7 @@ Doxter.prototype.configure = function (settings)
         autofocus: false,
         lineWrapping: !!settings.enableLineWrapping,
         indentWithTabs: !!settings.indentWithTabs,
-        tabSize: settings.tabSize,
+        tabSize: Number(settings.tabSize),
         forceSync: true,
         spellChecker: !!settings.enableSpellChecker,
         toolbar: self.getToolbar(settings)
