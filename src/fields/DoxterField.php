@@ -20,6 +20,7 @@ class DoxterField extends Field
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
+    public $showToolbar = true;
     public $toolbarSettings;
 
     // Static
@@ -41,7 +42,6 @@ class DoxterField extends Field
     private static function getIconOptions(): array
     {
         return [
-            'toolbar' => 'Toolbar - turn off to hide toolbar',
             'bold' => 'Bold',
             'italic' => 'Italic',
             'quote' => 'Quote',
@@ -59,15 +59,10 @@ class DoxterField extends Field
 
     private function parseToolbarSettings() {
 
-        if (!$this->toolbarSettings['toolbar']) {
-            $this->toolbarSettings = false;
-            return;
-        }
-
         $disbledTools = [];
-        
+
         foreach ($this->toolbarSettings as $key => $value) {
-            if ($key != 'toolbar' && !$value) {
+            if (!$value) {
                 $disbledTools[] = $key;
             }
         }
@@ -83,6 +78,7 @@ class DoxterField extends Field
     public function init()
     {
         parent::init();
+        
         if ($this->toolbarSettings === null) {
             $this->toolbarSettings = self::getIconOptions();
         } 
