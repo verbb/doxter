@@ -30,6 +30,7 @@ class DoxterField extends Field
         'doxter-entries' => true,
         'doxter-assets' => true,
         'doxter-tags' => true,
+        'preview' => true,
         'fullscreen' => true,
     ];
 
@@ -157,6 +158,7 @@ class DoxterField extends Field
             'doxter-entries' => 'Entry Reference',
             'doxter-assets' => 'Assets Reference',
             'doxter-tags' => 'Tag Reference',
+            'preview' => 'Preview',
             'fullscreen' => 'Fullscreen'
         ];
     }
