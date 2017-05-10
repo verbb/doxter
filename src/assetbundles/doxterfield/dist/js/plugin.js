@@ -156,9 +156,6 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
 /**
  * Creates an array with the toolbar tools that are enabled
  * 
- * @param {boolean} enableParserToolbar
- * @param {Array} disabledTools The list of disabled tools (user, entry, image, tags)
- * 
  * @return {Array} 
  */
 Doxter.prototype.getToolbar = function (settings)
@@ -284,7 +281,7 @@ Doxter.prototype.configure = function (settings)
 
     return {
         element: document.getElementById(self.id),
-        status: settings.status || false, // autosave, lines, words, cursor
+        status: false,
         toolbarTips: true,
         toolbarGuideIcon: false,
         autofocus: false,

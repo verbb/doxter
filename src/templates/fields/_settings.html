@@ -19,6 +19,14 @@
     </table>
 {% endset %}
 
+{{ forms.textField({
+	id:     "tabSize",
+	name:   "tabSize",
+	size:   2,
+	label:  "Tab size"|t,
+	value:  field.tabSize ? field.tabSize : 2,
+	errors: ""
+}) }}
 
 <p>{{ "Indent with tabs"|t }}</p>
 {{ forms.lightswitch({
@@ -26,35 +34,25 @@
 	on:   field.indentWithTabs
 }) }}
 
-{{ forms.textField({
-	id:     "tabSize",
-	name:   "tabSize",
-	size:   5,
-	label:  "Tab Size"|t,
-	value:  field.tabSize ? field.tabSize : 2,
-	errors: ""
-}) }}
-
-
-<p>{{ "Enable Line Wrapping"|t }}</p>
+<p>{{ "Enable line wrapping"|t }}</p>
 {{ forms.lightswitch({
 	name: "enableLineWrapping",
 	on:   field.enableLineWrapping
 }) }}
 
-<p>{{ "Enable Spell Checker"|t }}</p>
+<p>{{ "Enable spell checker"|t }}</p>
 {{ forms.lightswitch({
 	name: "enableSpellChecker",
 	on:   field.enableSpellChecker
 }) }}
 
+<hr>
 <p>{{ "Show toolbar"|t }}</p>
 {{ forms.lightswitch({
     name: "showToolbar",
     on:   field.showToolbar
 }) }}
-
-<hr>
+<br>
 <a class="fieldtoggle" data-target="advanced">{{ "Toolbar Customization"|t('app') }}</a>
 <div id="advanced" class="hidden">
 
