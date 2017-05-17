@@ -1,6 +1,14 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## Doxter 3.1.3 - 2017.17.05
+### [Fixed]
+- Fixed issue where `value.raw` in the field, could break the dashboard
+
+## Doxter 3.1.2 - 2017.12.05 [CRITICAL]
+### [Removed]
+- Removes dependency on `FitVids` for responsive video embed shortcode
+- 
 ## Doxter 3.1.1 - 2017.17.04 [CRITICAL]
 ### [Fixed]
 - Fixed issue #6 where parsing prevented the creation of new entries

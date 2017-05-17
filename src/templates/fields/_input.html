@@ -4,7 +4,7 @@
     {{ forms.textareaField({
         id: id,
         name: name,
-        value: value.raw,
+        value: value.raw ?? '',
         class: class,
         rows: rows
     }) }}
