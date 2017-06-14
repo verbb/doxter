@@ -29,8 +29,8 @@
         "developer": "Selvin Ortiz",
         "developerUrl": "https://selvinortiz.com",
         "description": "Markdown Editor & Parser for Craft 3",
-        "documentationUrl": "https://github.com/selvinortiz/doxter/blob/master/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/doxter/CHANGELOG.md",
+        "documentationUrl": "https://github.com/selvinortiz/craft-plugin-doxter/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/craft-plugin-doxter/master/CHANGELOG.md",
         "hasCpSection": false,
         "hasCpSettings": false,
         "components": {
