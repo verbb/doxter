@@ -8,7 +8,7 @@
 ## 3.1.2 - 2017-12-05 [CRITICAL]
 ### Removed
 - Removes dependency on `FitVids` for responsive video embed shortcode
-- 
+
 ## 3.1.1 - 2017-17-04 [CRITICAL]
 ### Fixed
 - Fixed issue [#6](https://github.com/selvinortiz/craft-plugin-doxter/issues/6) where parsing prevented the creation of new entries
