@@ -1,6 +1,11 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.4 - 2017-07-28
+## Fixed
+- Fixed issue #11 where asset selector modal would only show images
+- Fixed several formatting issues in `README` (Hat tip to Brandon Kelly)
+
 ## 3.1.3 - 2017-05-17
 ### Fixed
 - Fixed issue where `value.raw` in the field, could break the dashboard

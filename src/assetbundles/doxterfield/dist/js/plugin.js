@@ -102,7 +102,7 @@ Doxter.prototype.selectAsset = function()
 
     return function()
     {
-        self.createSelectionModal('Asset', {kind: 'image'});
+        self.createSelectionModal('Asset');
     }
 };
 
