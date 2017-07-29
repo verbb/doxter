@@ -23,31 +23,31 @@
 	id:     "tabSize",
 	name:   "tabSize",
 	size:   2,
-	label:  "Tab size"|t,
+	label:  "Tab Size"|t,
 	value:  field.tabSize ? field.tabSize : 2,
 	errors: ""
 }) }}
 
-<p>{{ "Indent with tabs"|t }}</p>
+<p>{{ "Indent with Tabs"|t }}</p>
 {{ forms.lightswitch({
 	name: "indentWithTabs",
 	on:   field.indentWithTabs
 }) }}
 
-<p>{{ "Enable line wrapping"|t }}</p>
+<p>{{ "Enable Line Wrapping"|t }}</p>
 {{ forms.lightswitch({
 	name: "enableLineWrapping",
 	on:   field.enableLineWrapping
 }) }}
 
-<p>{{ "Enable spell checker"|t }}</p>
+<p>{{ "Enable Spell Checker"|t }}</p>
 {{ forms.lightswitch({
 	name: "enableSpellChecker",
 	on:   field.enableSpellChecker
 }) }}
 
 <hr>
-<p>{{ "Show toolbar"|t }}</p>
+<p>{{ "Show Toolbar"|t }}</p>
 {{ forms.lightswitch({
     name: "showToolbar",
     on:   field.showToolbar
