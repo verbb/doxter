@@ -5,7 +5,6 @@ use Craft;
 use craft\elements\Asset;
 
 use selvinortiz\doxter\models\ShortcodeModel;
-use selvinortiz\doxter\assetbundles\doxtershortcodes\DoxterShortcodesAssetBundle;
 
 use function selvinortiz\doxter\doxter;
 
@@ -72,9 +71,6 @@ class DoxterShortcodes
                 'byline' => (int)$code->getParam('byline', 0),
                 'color' => $code->getParam('color'),
             ];
-
-            Craft::$app->view->registerAssetBundle(DoxterShortcodesAssetBundle::class);
-            Craft::$app->view->registerJs('$(".doxter-video").fitVids();');
 
             if (Craft::$app->view->doesTemplateExist('_doxter/shortcodes/video')) {
                 return Craft::$app->view->renderTemplate('_doxter/shortcodes/video', $vars);
