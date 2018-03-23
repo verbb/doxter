@@ -1,6 +1,11 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.5 - 2018-03-23
+## Added
+- Added plugins settings
+- Added field settings
+
 ## 3.1.4 - 2017-07-28
 ## Fixed
 - Fixed issue #11 where asset selector modal would only show images
@@ -22,7 +27,7 @@
 
 ## 3.1.0 - 2017-04-16
 ### Added
-- Added emoji support as requested on issue [#5](https://github.com/selvinortiz/craft-plugin-doxter/issues/5) 👍 
+- Added emoji support as requested on issue [#5](https://github.com/selvinortiz/craft-plugin-doxter/issues/5) 👍
 - Added (back) support for reference tag parsing
 - Added full documentation as a Wiki
 
