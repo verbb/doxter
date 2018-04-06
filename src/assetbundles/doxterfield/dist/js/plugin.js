@@ -300,4 +300,12 @@ Doxter.prototype.configure = function (settings)
 Doxter.prototype.render = function ()
 {
     this.editor = new SimpleMDE(this.config);
+    /*
+        Refresh the editor when switching between tabs on the content-editor.
+         More info: https://github.com/selvinortiz/craft-plugin-doxter/issues/14
+    */
+    var self = this;
+    Garnish.$win.on("resize", function () {
+        self.editor.codemirror.refresh();
+    });
 };
