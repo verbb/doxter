@@ -39,7 +39,7 @@
     },
     "require": {
         "craftcms/cms": "^3.0.0-RC1",
-        "erusev/parsedown": "^1.6",
+        "erusev/parsedown": "^1.6@stable",
         "erusev/parsedown-extra": "^0.7.1",
         "michelf/php-smartypants": "^1.8"
     }
