@@ -1,13 +1,18 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.6 - 2018-04-18
+### Fixed
+- Fixed issue where switching content tabs would not trigger a change
+- Fixed issue where an unstable version of the markdown parser was in use
+
 ## 3.1.5 - 2018-03-23
-## Added
+### Added
 - Added plugins settings
 - Added field settings
 
 ## 3.1.4 - 2017-07-28
-## Fixed
+### Fixed
 - Fixed issue #11 where asset selector modal would only show images
 - Fixed several formatting issues in `README` (Hat tip to Brandon Kelly)
 
