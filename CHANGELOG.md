@@ -1,6 +1,10 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.7 - 2018-04-18
+### Fixed
+- Fixed issue where full screen editing mode would hide editor behind sidebar
+
 ## 3.1.6 - 2018-04-18
 ### Fixed
 - Fixed issue where switching content tabs would not trigger a change

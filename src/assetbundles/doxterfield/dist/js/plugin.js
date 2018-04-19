@@ -134,7 +134,8 @@ Doxter.prototype.selectTag = function()
  *
  */
 Doxter.prototype.fullScreen = function (SimpleMDE) {
-    var $container = $('#container');
+    var $container = $('#main-container');
+
     /**
      * Listens to scape key to remove Class "fullscreen"
      * from $('#container')
@@ -155,8 +156,8 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
 
 /**
  * Creates an array with the toolbar tools that are enabled
- * 
- * @return {Array} 
+ *
+ * @return {Array}
  */
 Doxter.prototype.getToolbar = function (settings)
 {
@@ -168,7 +169,7 @@ Doxter.prototype.getToolbar = function (settings)
 
     /**
      * ['bold', 'italic']
-     * 
+     *
      */
     var defaultToolbarIcons = [
         {
@@ -236,7 +237,7 @@ Doxter.prototype.getToolbar = function (settings)
             action   : self.selectTag(),
             className: 'fa fa-tags doxter-primary-icon',
             title    : 'Tag Reference (Ctrl+Alt+4)'
-        }, 
+        },
         {
             name     : 'preview',
             action   : SimpleMDE.togglePreview,

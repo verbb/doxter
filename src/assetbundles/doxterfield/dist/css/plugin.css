@@ -16,6 +16,6 @@
 }
 .CodeMirror {font-family: monospace !important;}
 
-#container.fullscreen {
-    z-index: 100;
+#main-container.fullscreen {
+    z-index: 101;
 }
