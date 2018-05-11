@@ -1,6 +1,10 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.9 - 2018-05-11
+### Updated
+- Updated version and dependencies
+
 ## 3.1.8 - 2018-05-11
 ### Fixed
 - Fixed issue where smart typography was not applied before before parsing markdown
