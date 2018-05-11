@@ -1,6 +1,10 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.8 - 2018-05-11
+### Fixed
+- Fixed issue where smart typography was not applied before before parsing markdown
+
 ## 3.1.7 - 2018-04-18
 ### Fixed
 - Fixed issue where full screen editing mode would hide editor behind sidebar
