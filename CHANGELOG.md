@@ -1,6 +1,10 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.1.10 - 2018-05-24
+### Fixed
+- Fixed broken code blocks after parsing order was updated
+
 ## 3.1.9 - 2018-05-11
 ### Updated
 - Updated version and dependencies

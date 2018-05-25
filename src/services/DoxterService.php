@@ -68,15 +68,6 @@ class DoxterService extends Component
             $source = $this->parseShortcodes($source);
         }
 
-        if ($options['addTypographyStyles']) {
-            $this->trigger(
-                DoxterService::EVENT_BEFORE_TYPOGRAPHY,
-                new DoxterEvent(compact('source'))
-            );
-
-            $source = $this->parseTypography($source);
-        }
-
         $this->trigger(
             DoxterService::EVENT_BEFORE_MARKDOWN_PARSE,
             new DoxterEvent(compact('source'))
@@ -98,6 +89,15 @@ class DoxterService extends Component
             );
 
             $source = $this->parseHeaders($source, compact('addHeaderAnchorsTo', 'startingHeaderLevel'));
+        }
+
+        if ($options['addTypographyStyles']) {
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_TYPOGRAPHY,
+                new DoxterEvent(compact('source'))
+            );
+
+            $source = $this->parseTypography($source);
         }
 
         $source = doxter()->api->decodeUnicodeEntities($source);
