@@ -28,7 +28,7 @@ class Doxter extends Plugin
     {
         parent::init();
 
-        Craft::$app->view->twig->addExtension(new DoxterExtension());
+        Craft::$app->view->registerTwigExtension(new DoxterExtension());
 
         Event::on(
             Fields::className(),
