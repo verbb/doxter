@@ -39,6 +39,32 @@ class Doxter extends Plugin
             }
         );
 
+        if (class_exists(\markhuot\CraftQL\CraftQL::class))
+        {
+            Event::on(
+                DoxterField::class,
+                'craftQlGetFieldSchema',
+                function($event) 
+                {
+                    $event->handled = true;
+
+                    $outputSchema = $event->schema->createObjectType(ucfirst($event->sender->handle).'DoxterFieldData');
+
+                    $outputSchema->addStringField('text')
+                        ->resolve(function($root) {
+                            return (string)$root->getRaw();
+                        });
+
+                    $outputSchema->addStringField('html')
+                        ->resolve(function($root) {
+                            return (string)$root->getHtml();
+                        });
+
+                    $event->schema->addField($event->sender)->type($outputSchema);
+                }
+            );
+        }
+
         $this->name          = $this->getSettings()->pluginAlias;
         $this->hasCpSection  = $this->getSettings()->enableCpTab;
         $this->hasCpSettings = true;
