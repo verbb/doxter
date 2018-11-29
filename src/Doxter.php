@@ -28,6 +28,8 @@ class Doxter extends Plugin
     {
         parent::init();
 
+        require_once __DIR__.'/../vendor/autoload.php';
+
         Craft::$app->view->registerTwigExtension(new DoxterExtension());
 
         Event::on(
@@ -44,7 +46,7 @@ class Doxter extends Plugin
             Event::on(
                 DoxterField::class,
                 'craftQlGetFieldSchema',
-                function($event) 
+                function($event)
                 {
                     $event->handled = true;
 
