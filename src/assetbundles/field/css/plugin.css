@@ -29,9 +29,9 @@
 .editor-toolbar {
     position: -webkit-sticky;
     position: sticky;
-    top: 0px;
+    top: 0;
 
-    z-index: 9999;
+    z-index: 100;
     opacity: initial;
     background-color: white;
     border-bottom: 1px solid #bbb;
