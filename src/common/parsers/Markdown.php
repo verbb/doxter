@@ -1,8 +1,6 @@
 <?php
 namespace selvinortiz\doxter\common\parsers;
 
-use Michelf\MarkdownExtra;
-
 /**
  * The markdown parser
  *
@@ -18,6 +16,16 @@ class Markdown extends BaseParser
     protected static $_instance;
 
     /**
+     * @var \ParsedownExtra
+     */
+    protected static $_parser;
+
+    public function __construct($parser = null)
+    {
+        self::$_parser = $parser ? $parser : new \ParsedownExtra();
+    }
+
+    /**
      * @param string $source
      * @param array  $options
      *
@@ -25,7 +33,7 @@ class Markdown extends BaseParser
      */
     public function parse($source, array $options = [])
     {
-        return MarkdownExtra::defaultTransform($source);
+        return static::$_parser->text($source);
     }
 
     /**
@@ -35,7 +43,7 @@ class Markdown extends BaseParser
      */
     public function parseInline($source)
     {
-        $source = MarkdownExtra::defaultTransform($source);
+        $source = static::$_parser->text($source);
 
         return preg_replace('/^[ ]*\<p\>(.*)\<\/p\>[ ]*$/', '$1', $source);
     }
