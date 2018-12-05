@@ -3,10 +3,10 @@
 {% set alias = settings.pluginAlias %}
 
 {% block content %}
-    <div class="doxterSettings">
+    <div class="doxter">
         <h2>{{ plugin.name }}&nbsp;<span class="subtle">V{{ plugin.version }}</span></h2>
 
-        <div class="doxterSection">
+        <div class="section">
             <h3 class="ico syntax">{{ "Default Parsing Settings"|t }}</h3>
 
             <div class="doxterBlock doxterFirst">
@@ -74,20 +74,21 @@
                     class:        "code codeBlockSnippet",
                     rows:         3,
                     label:        "Code Block Snippet",
-                    instructions: "A snippet to wrap fenced code blocks for your syntax highlighter to use."|t,
+                    instructions: "A snippet to wrap fenced code blocks for your syntax highlighter to use. <kbd>{languageClass}<kbd> <kbd>{sourceCode}</kbd>"|md|t,
                     value:        settings.codeBlockSnippet,
                     required: true,
                     errors:       settings.hasErrors('codeBlockSnippet')
                 }) }}
 
-                <button class="addPrismSnippetBtn btn" data-highlighter="PrismJs">PrismJs</button>
-                <button class="addRainbowSnippetBtn btn" data-highlighter="RainbowJs">RainbowJs</button>
+                <button class="addPrismSnippetBtn btn" data-highlighter="PrismJs">Prism JS</button>
+                <button class="addRainbowSnippetBtn btn" data-highlighter="RainbowJs">Rainbow JS</button>
+                <button class="addHighlightSnippetBtn btn" data-highlighter="HighlightJs">Highlight JS</button>
             </div>
         </div>
 
         <hr>
 
-        <div class="doxterSection">
+        <div class="section">
             <h3 class="ico settings">{{ "Plugin Settings"|t }}</h3>
 
             <p>{{ "Display Plugin Tab?"|t }}</p>
@@ -106,7 +107,7 @@
             }) }}
         </div>
         <br>
-        <div class="doxterSection credits">
+        <div class="section credits">
             <p>
                 &copy; {{ "now" | date("Y") }}
                 <strong>{{ plugin.name }} <span class="subtle">V{{ plugin.version }}</span></strong>

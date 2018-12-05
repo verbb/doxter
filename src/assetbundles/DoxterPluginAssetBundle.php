@@ -1,14 +1,14 @@
 <?php
-namespace selvinortiz\doxter\assetbundles\doxterplugin;
+namespace selvinortiz\doxter\assetbundles;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
-class DoxterPluginBundle extends AssetBundle
+class DoxterPluginAssetBundle extends AssetBundle
 {
     public function init()
     {
-        $this->sourcePath = '@selvinortiz/doxter/assetbundles/doxterplugin/dist';
+        $this->sourcePath = '@selvinortiz/doxter/assetbundles/plugin';
 
         $this->depends = [
             CpAsset::class,
@@ -16,6 +16,10 @@ class DoxterPluginBundle extends AssetBundle
 
         $this->js = [
             'js/settings.js',
+        ];
+
+        $this->css = [
+            'css/settings.css'
         ];
 
         parent::init();

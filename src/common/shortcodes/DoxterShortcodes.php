@@ -116,8 +116,11 @@ class DoxterShortcodes
 
         if (count($lines)) {
             foreach ($lines as $index => $line) {
-                $line = doxter()->api->parseMarkdownInline(preg_replace('/^([ \-\+\*\=]+)?/', '',
-                    $line));
+                $line = doxter()->api->parseMarkdownInline(preg_replace(
+                    '/^([ \-\+\*\=]+)?/',
+                    '',
+                    $line
+                ));
                 $type = $this->getUpdateTypeFromLine($line);
                 $notes[] = [
                     'text' => $line,
@@ -146,37 +149,43 @@ class DoxterShortcodes
             switch (strtolower($type)) {
                 case 'add':
                 case 'adds':
-                case 'added': {
-                    return 'added';
-                    break;
-                }
+                case 'added':
+                    {
+                        return 'added';
+                        break;
+                    }
                 case 'fix':
                 case 'fixes':
-                case 'fixed': {
-                    return 'fixed';
-                    break;
-                }
+                case 'fixed':
+                    {
+                        return 'fixed';
+                        break;
+                    }
                 case 'improve':
                 case 'improves':
-                case 'improved': {
-                    return 'improved';
-                    break;
-                }
+                case 'improved':
+                    {
+                        return 'improved';
+                        break;
+                    }
                 case 'update':
                 case 'updates':
-                case 'updated': {
-                    return 'updated';
-                    break;
-                }
+                case 'updated':
+                    {
+                        return 'updated';
+                        break;
+                    }
                 case 'remove':
                 case 'removes':
-                case 'removed': {
-                    return 'removed';
-                    break;
-                }
-                default: {
-                    return false;
-                }
+                case 'removed':
+                    {
+                        return 'removed';
+                        break;
+                    }
+                default:
+                    {
+                        return false;
+                    }
             }
         }
     }

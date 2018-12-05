@@ -8,8 +8,8 @@ use craft\base\ElementInterface;
 use craft\helpers\StringHelper;
 use Craft\helpers\Json;
 
-use selvinortiz\doxter\assetbundles\doxterfield\DoxterFieldAssetBundle;
 use selvinortiz\doxter\fields\data\DoxterData;
+use selvinortiz\doxter\assetbundles\DoxterFieldAssetBundle;
 
 class DoxterField extends Field
 {
@@ -78,7 +78,8 @@ class DoxterField extends Field
             [
              'field' => $this,
              'toolbarIconOptions' =>$this->getToolbarIconOptions()
-            ]);
+            ]
+        );
     }
 
     /**

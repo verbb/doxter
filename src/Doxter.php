@@ -13,7 +13,9 @@ use selvinortiz\doxter\models\SettingsModel;
 use selvinortiz\doxter\services\DoxterService;
 use selvinortiz\doxter\variables\DoxterVariable;
 use selvinortiz\doxter\extensions\DoxterExtension;
-use selvinortiz\doxter\assetbundles\doxterplugin\DoxterPluginBundle;
+use selvinortiz\doxter\assetbundles\DoxterFieldAssetBundle;
+use selvinortiz\doxter\assetbundles\DoxterPluginAssetBundle;
+use selvinortiz\doxter\assetbundles\DoxterShortcodesAssetBundle;
 
 /**
  * Class Doxter
@@ -91,7 +93,7 @@ class Doxter extends Plugin
             'settings' => $settings,
         ];
 
-        Craft::$app->getView()->registerAssetBundle(DoxterPluginBundle::class);
+        Craft::$app->getView()->registerAssetBundle(DoxterPluginAssetBundle::class);
 
         return Craft::$app->getView()->renderTemplate('doxter/_settings', $variables);
     }
