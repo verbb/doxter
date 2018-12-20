@@ -1,6 +1,11 @@
 # Doxter Changelog
 > Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
 
+## 3.3.0-beta-3 - 2018-12-20
+### Fixed
+- Fixed issue where footnotes would not parse properly
+- Fixed several issues with the markdown editor
+
 ## 3.2.0 - 2018-11-28
 ### Fixed
 - Fixed critical issue where Doxter could cause Twig to load prematurely
