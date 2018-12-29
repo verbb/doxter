@@ -1,6 +1,10 @@
 # Release Notes for Doxter 3
 > Beautiful Markdown Editor and Advanced Parser for [Craft CMS](http://craftcms.com)
 
+## 3.4.1 - 2018-12-29
+### Removed
+- Removed explicit require autoloader call in `Doxter::init()`
+
 ## 3.4.0 - 2018-12-29
 ### Updated
 - Updated from MIT to Craft (commercial) license
