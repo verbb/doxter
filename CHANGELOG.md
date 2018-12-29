@@ -1,6 +1,10 @@
 # Release Notes for Doxter 3
 > Beautiful Markdown Editor and Advanced Parser for [Craft CMS](http://craftcms.com)
 
+## 3.4.0 - 2018-12-29
+### Updated
+- Updated from MIT to Craft (commercial) license
+
 ## 3.4.0-beta-1 - 2018-12-28 [CRITICAL]
 ### Fixed issue [#22]
 - Fixed issue [#22] where Doxter would puke HTML instead of Markdown on secondary sites
