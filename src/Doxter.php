@@ -30,8 +30,6 @@ class Doxter extends Plugin
     {
         parent::init();
 
-        require_once __DIR__.'/../vendor/autoload.php';
-
         Craft::$app->view->registerTwigExtension(new DoxterExtension());
 
         Event::on(
