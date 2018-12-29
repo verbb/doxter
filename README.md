@@ -1,7 +1,7 @@
 ![Doxter](resources/img/Doxter3.png)
 
 # Doxter 3
-> Befautiful Markdown Editor & Advanced Parser for Craft 3
+> Beautiful Markdown Editor & Advanced Parser for Craft 3
 
 ## Docs
 👉 [Doxter Wiki](https://github.com/selvinortiz/craft-plugin-doxter/wiki)
