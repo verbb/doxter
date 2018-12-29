@@ -27,7 +27,7 @@ class DoxterData extends \Twig_Markup
 
     public function __toString()
     {
-        return (string)$this->html;
+        return (string)$this->getRaw();
     }
 
     /**

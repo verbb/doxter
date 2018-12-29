@@ -1,5 +1,16 @@
-# Doxter Changelog
-> Markdown Editor & Parser for [Craft CMS](http://craftcms.com)
+# Release Notes for Doxter 3
+> Beautiful Markdown Editor and Advanced Parser for [Craft CMS](http://craftcms.com)
+
+## 3.4.0-beta-1 - 2018-12-28 [CRITICAL]
+### Fixed issue [#22]
+- Fixed issue [#22] where Doxter would puke HTML instead of Markdown on secondary sites
+
+### Updated
+- Updated the return value of the Doxter field in string context (`__toString()`)
+
+{warning} You must update your templates from `{{ entry.doxterField }}` to `{{ entry.doxterField.getHtml() }}`
+
+[#22]: https://github.com/selvinortiz/craft-plugin-doxter/issues/22
 
 ## 3.3.0-beta-3 - 2018-12-20
 ### Fixed
@@ -23,11 +34,11 @@
 
 ## 3.1.8 - 2018-05-11
 ### Fixed
-- Fixed issue where smart typography was not applied before before parsing markdown
+- Fixed issue where smart typography did not apply before parsing markdown
 
 ## 3.1.7 - 2018-04-18
 ### Fixed
-- Fixed issue where full screen editing mode would hide editor behind sidebar
+- Fixed issue where full-screen editing mode would hide editor behind the sidebar
 
 ## 3.1.6 - 2018-04-18
 ### Fixed
@@ -48,11 +59,11 @@
 ### Fixed
 - Fixed issue where `value.raw` in the field, could break the dashboard
 
-## 3.1.2 - 2017-05 [CRITICAL]-12
+## 3.1.2 - 2017-05-12 [CRITICAL]
 ### Removed
 - Removes dependency on `FitVids` for responsive video embed shortcode
 
-## 3.1.1 - 2017-04 [CRITICAL]-17
+## 3.1.1 - 2017-04-17 [CRITICAL]
 ### Fixed
 - Fixed issue [#6](https://github.com/selvinortiz/craft-plugin-doxter/issues/6) where parsing prevented the creation of new entries
 
@@ -103,7 +114,7 @@
 - Added prettier icons
 
 ### Updated
-- Updated the way components are accessed for improved type hinting
+- Updated the way components were accessed for improved type hinting
 
 ### Fixed
 - Fixed an issue where the variable class was loaded
