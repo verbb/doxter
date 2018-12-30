@@ -4,6 +4,7 @@
 ## 3.4.2 - 2018-12-29
 ### Added
 - Added new icon
+- Added new `[esc]` shortcode to escape shortcodes for demo purposes
 
 ## 3.4.1 - 2018-12-29
 ### Removed
