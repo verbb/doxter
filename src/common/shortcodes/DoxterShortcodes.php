@@ -11,6 +11,18 @@ use function selvinortiz\doxter\doxter;
 class DoxterShortcodes
 {
     /**
+     * Used to escape cases where we want to demo a shortcode without parsing
+     *
+     * @param ShortcodeModel $code
+     *
+     * @return string
+     */
+    public function esc(ShortcodeModel $code)
+    {
+        return $code->content;
+    }
+
+    /**
      * @param ShortcodeModel $code
      *
      * @return string

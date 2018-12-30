@@ -107,6 +107,7 @@ class Doxter extends Plugin
     public function registerShortcodes()
     {
         return [
+            'esc'           => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@esc',
             'image'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@image',
             'audio'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@audio',
             'updates'       => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@updates',
