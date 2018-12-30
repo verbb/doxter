@@ -1,18 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
     <title>icon-mask</title>
     <desc>Created with Sketch.</desc>
-    <defs>
-        <polygon id="path-1" points="8 239 79 239 125 173 131 173 177 239 248 239 248 231 177 128 177 125 248 23 248 18 173 18 129 90 125 90 82 18 8 18 8 23 79 125 79 128 8 231"></polygon>
-        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-8" y="-8" width="256" height="237">
-            <rect x="0" y="10" width="256" height="237" fill="white"></rect>
-            <use xlink:href="#path-1" fill="black"></use>
-        </mask>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="icon-mask" stroke="#000000" stroke-width="16">
-            <use id="Icon" mask="url(#mask-2)" xlink:href="#path-1"></use>
-        </g>
+    <g id="icon-mask" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M30,812 L30,24 C30,17.372583 35.372583,12 42,12 L624,12 C890.666667,12 1024,145.333333 1024,412 C1024,812 1024,212 1024,612 C1024,878.666667 890.666667,1012 624,1012 L313.426805,1012 C306.799388,1012 301.426805,1006.62742 301.426805,1000 C301.426805,997.483459 302.217966,995.030603 303.688393,992.988343 L430.408393,816.988343 C432.66348,813.856278 436.287368,812 440.146805,812 L584,812 C717.333333,812 784,745.333333 784,612 C784,478.666667 784,412 784,412 C784,278.666667 717.333333,212 584,212 L276,212 C272.686292,212 270,214.686292 270,218 L270,812 L288,812 C291.313708,812 294,814.686292 294,818 C294,819.298221 293.578933,820.561423 292.8,821.6 L159.6,999.2 C155.62355,1004.50193 148.101934,1005.57645 142.8,1001.6 C141.890332,1000.91775 141.082251,1000.10967 140.4,999.2 L7.2,821.6 C5.2117749,818.949033 5.7490332,815.188225 8.4,813.2 C9.43857703,812.421067 10.7017787,812 12,812 L30,812 Z" id="Path" fill="#000000"></path>
     </g>
 </svg>
