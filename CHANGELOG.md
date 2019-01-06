@@ -1,5 +1,14 @@
 # Release Notes for Doxter
 
+## 3.4.4 - 2019-01-06
+### Added
+- Added [Dark Mode] support
+
+### Update
+- Updated typography support with better _whitespace_ and _widow_ control
+
+[Dark Mode]: https://github.com/mattgrayisok/craft-dark-mode
+
 ## 3.4.3 - 2019-01-05
 ### Added
 - Added a new **Dark Mode**

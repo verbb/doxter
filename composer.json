@@ -1,7 +1,7 @@
 {
     "name": "selvinortiz/doxter",
-    "description": "Markdown Editor & Parser for Craft 3",
-    "version": "3.4.3",
+    "description": "Slick Markdown Editor and Smart Text Parser for Craft CMS",
+    "version": "3.4.4",
     "type": "craft-plugin",
     "license": "MIT",
     "authors": [
@@ -40,6 +40,7 @@
     "require": {
         "craftcms/cms": "^3.0.0-RC1",
         "michelf/php-smartypants": "^1.8",
-        "erusev/parsedown-extra": "0.8.0-beta-1"
+        "erusev/parsedown-extra": "0.8.0-beta-1",
+        "mundschenk-at/php-typography": "^6.3"
     }
 }

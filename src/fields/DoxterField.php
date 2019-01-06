@@ -14,7 +14,7 @@ use selvinortiz\doxter\assetbundles\DoxterFieldAssetBundle;
 class DoxterField extends Field
 {
     public $tabSize = 2;
-    public $darkMode = false;
+    public $darkMode = false; // @todo Remove on next major release
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
@@ -68,7 +68,6 @@ class DoxterField extends Field
                 'name' => $this->handle,
                 'value' => $value,
                 'class' => 'doxter-editor',
-                'dark' => $this->darkMode,
                 'rows' => 5
             ]
         );

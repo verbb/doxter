@@ -1,4 +1,4 @@
-![Doxter](https://selvinortiz.com/img/plugins/doxter/social.png?3.4.2)
+![Doxter](https://selvinortiz.com/img/plugins/doxter/social.png?3.4.4)
 
 # Doxter 3
 > Slick Markdown Editor and Smart Text Parser for Craft CMS

@@ -3,6 +3,8 @@ namespace selvinortiz\doxter\common\parsers;
 
 use Michelf\SmartyPantsTypographer;
 
+use Craft;
+
 /**
  * Class Typography
  *
@@ -17,6 +19,15 @@ class Typography extends BaseParser
 
     public function parse($source, array $options = [])
     {
-        return SmartyPantsTypographer::defaultTransform($source);
+        $source = SmartyPantsTypographer::defaultTransform($source);
+
+        $settings = new \PHP_Typography\Settings();
+
+        $settings->set_hyphenation(true);
+        $settings->set_hyphenation_language(Craft::$app->language);
+
+        $typographer = new \PHP_Typography\PHP_Typography();
+
+        return $typographer->process($source, $settings);
     }
 }
