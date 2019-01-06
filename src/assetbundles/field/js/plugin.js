@@ -238,7 +238,7 @@ Doxter.prototype.getToolbar = function (settings)
             className: 'fa fa-tags doxter-primary-icon',
             title    : 'Tag Reference (Ctrl+Alt+4)'
         },
-        {
+        /*{
             name     : 'preview',
             action   : SimpleMDE.togglePreview,
             className: 'fa fa-eye no-disable',
@@ -249,7 +249,7 @@ Doxter.prototype.getToolbar = function (settings)
             action   : this.fullScreen, // Custom Full Screen
             className: 'fa fa-arrows-alt',
             title    : 'Toggle Fullscreen (F11)'
-        }
+        }*/
     ];
 
     return this.getEnabledToolbarIcons(defaultToolbarIcons, settings.enabledToolbarIconNames);

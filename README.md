@@ -1,10 +1,10 @@
-![Doxter](resources/img/Doxter3.png)
+![Doxter](https://selvinortiz.com/img/plugins/doxter/social.png?3.4.2)
 
 # Doxter 3
-> Beautiful Markdown Editor & Advanced Parser for Craft 3
+> Slick Markdown Editor and Smart Text Parser for Craft CMS
 
 ## Docs
-👉 [Doxter Wiki](https://github.com/selvinortiz/craft-plugin-doxter/wiki)
+👉 [Doxter Docs](https://selvinortiz.com/plugins/doxter)
 
 ## Features
 * [Live Preview][preview] Support
@@ -16,17 +16,6 @@
 * Advanced fenced code block parsing
 * Support for typography styles for better web typography
 * Emoji 🎉
-
-## Todo
-- ~~Fix plugin template parsing to support _Shortcodes_~~
-- ~~Bring back **Shortcodes**~~
-- ~~Bring back the plugin settings page~~
-- ~~Bring back the _Doxter_ field settings page~~
-- ~~Bring back _run time events_ for content parsing~~
-- ~~Bring back **Typography** parsing~~
-- ~~Review codebase to fully adhere to P&T standards~~
-- ~~Review reference tag parsing~~
-- Document how to extend Doxter shortcodes
 
 ## Changes
 All noteworthy changes can be found in [CHANGELOG.md][changelog]

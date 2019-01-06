@@ -20,30 +20,36 @@
 {% endset %}
 
 {{ forms.textField({
-	id:     "tabSize",
-	name:   "tabSize",
-	size:   2,
-	label:  "Tab Size"|t,
-	value:  field.tabSize ? field.tabSize : 2,
-	errors: ""
+    id:     "tabSize",
+    name:   "tabSize",
+    size:   2,
+    label:  "Tab Size"|t,
+    value:  field.tabSize ? field.tabSize : 2,
+    errors: ""
+}) }}
+
+<p>{{ "Dark Mode"|t }}</p>
+{{ forms.lightswitch({
+    name: "darkMode",
+    on:   field.darkMode
 }) }}
 
 <p>{{ "Indent with Tabs"|t }}</p>
 {{ forms.lightswitch({
-	name: "indentWithTabs",
-	on:   field.indentWithTabs
+    name: "indentWithTabs",
+    on:   field.indentWithTabs
 }) }}
 
 <p>{{ "Enable Line Wrapping"|t }}</p>
 {{ forms.lightswitch({
-	name: "enableLineWrapping",
-	on:   field.enableLineWrapping
+    name: "enableLineWrapping",
+    on:   field.enableLineWrapping
 }) }}
 
 <p>{{ "Enable Spell Checker"|t }}</p>
 {{ forms.lightswitch({
-	name: "enableSpellChecker",
-	on:   field.enableSpellChecker
+    name: "enableSpellChecker",
+    on:   field.enableSpellChecker
 }) }}
 
 <hr>

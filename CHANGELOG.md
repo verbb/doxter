@@ -1,5 +1,16 @@
-# Release Notes for Doxter 3
-> Beautiful Markdown Editor and Advanced Parser for [Craft CMS](http://craftcms.com)
+# Release Notes for Doxter
+
+## 3.4.3 - 2019-01-05
+### Added
+- Added a new **Dark Mode**
+
+### Removed
+- Removed editor preview support
+- Removed full-screen editing support
+- Removed README notes related to todos
+
+### Updated
+- Updated support for live preview
 
 ## 3.4.2 - 2018-12-29
 ### Added

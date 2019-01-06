@@ -14,6 +14,7 @@ use selvinortiz\doxter\assetbundles\DoxterFieldAssetBundle;
 class DoxterField extends Field
 {
     public $tabSize = 2;
+    public $darkMode = false;
     public $indentWithTabs = false;
     public $enableLineWrapping = true;
     public $enableSpellChecker = false;
@@ -30,8 +31,8 @@ class DoxterField extends Field
         'doxter-entries' => true,
         'doxter-assets' => true,
         'doxter-tags' => true,
-        'preview' => true,
-        'fullscreen' => true,
+        'preview' => false,
+        'fullscreen' => false,
     ];
 
     /**
@@ -42,7 +43,7 @@ class DoxterField extends Field
     /**
      * @return string
      */
-    public static function displayName(): string
+    public static function displayName() : string
     {
         return 'Doxter';
     }
@@ -52,7 +53,7 @@ class DoxterField extends Field
         parent::init();
     }
 
-    public function getInputHtml($value, ElementInterface $element = null): string
+    public function getInputHtml($value, ElementInterface $element = null) : string
     {
         $inputId = Craft::$app->view->formatInputId($this->handle);
         $namespacedId = Craft::$app->view->namespaceInputId($inputId);
@@ -67,6 +68,7 @@ class DoxterField extends Field
                 'name' => $this->handle,
                 'value' => $value,
                 'class' => 'doxter-editor',
+                'dark' => $this->darkMode,
                 'rows' => 5
             ]
         );
@@ -74,10 +76,11 @@ class DoxterField extends Field
 
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate('doxter/fields/_settings',
+        return Craft::$app->getView()->renderTemplate(
+            'doxter/fields/_settings',
             [
-             'field' => $this,
-             'toolbarIconOptions' =>$this->getToolbarIconOptions()
+                'field' => $this,
+                'toolbarIconOptions' => $this->getToolbarIconOptions()
             ]
         );
     }
@@ -88,7 +91,7 @@ class DoxterField extends Field
      *
      * @return DoxterData
      */
-    public function normalizeValue($value, ElementInterface $element = null): DoxterData
+    public function normalizeValue($value, ElementInterface $element = null) : DoxterData
     {
         return new DoxterData($value);
     }
@@ -108,7 +111,7 @@ class DoxterField extends Field
         return $value;
     }
 
-    public function getSearchKeywords($value, ElementInterface $element): string
+    public function getSearchKeywords($value, ElementInterface $element) : string
     {
         $keywords = parent::getSearchKeywords($value, $element);
         $keywords = StringHelper::encodeMb4($keywords);
@@ -119,7 +122,7 @@ class DoxterField extends Field
     /**
      * @return string
      */
-    public function getContentColumnType(): string
+    public function getContentColumnType() : string
     {
         return Schema::TYPE_TEXT;
     }
@@ -145,7 +148,7 @@ class DoxterField extends Field
      *
      * @return array
      */
-    private function getToolbarIconOptions(): array
+    private function getToolbarIconOptions() : array
     {
         return [
             'bold' => 'Bold',
@@ -159,8 +162,6 @@ class DoxterField extends Field
             'doxter-entries' => 'Entry Reference',
             'doxter-assets' => 'Assets Reference',
             'doxter-tags' => 'Tag Reference',
-            'preview' => 'Preview',
-            'fullscreen' => 'Fullscreen'
         ];
     }
 }
