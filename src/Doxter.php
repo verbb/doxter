@@ -13,9 +13,7 @@ use selvinortiz\doxter\models\SettingsModel;
 use selvinortiz\doxter\services\DoxterService;
 use selvinortiz\doxter\variables\DoxterVariable;
 use selvinortiz\doxter\extensions\DoxterExtension;
-use selvinortiz\doxter\assetbundles\DoxterFieldAssetBundle;
 use selvinortiz\doxter\assetbundles\DoxterPluginAssetBundle;
-use selvinortiz\doxter\assetbundles\DoxterShortcodesAssetBundle;
 
 /**
  * Class Doxter
@@ -26,6 +24,30 @@ use selvinortiz\doxter\assetbundles\DoxterShortcodesAssetBundle;
  */
 class Doxter extends Plugin
 {
+    /**
+     * @param string|array $message
+     */
+    public function info($message)
+    {
+        Craft::info($message, Doxter::class);
+    }
+
+    /**
+     * @param string|array $message
+     */
+    public function warning($message)
+    {
+        Craft::warning($message, Doxter::class);
+    }
+
+    /**
+     * @param string|array $message
+     */
+    public function error($message)
+    {
+        Craft::error($message, Doxter::class);
+    }
+
     public function init()
     {
         parent::init();
@@ -33,7 +55,7 @@ class Doxter extends Plugin
         Craft::$app->view->registerTwigExtension(new DoxterExtension());
 
         Event::on(
-            Fields::className(),
+            Fields::class,
             Fields::EVENT_REGISTER_FIELD_TYPES,
             function(RegisterComponentTypesEvent $event)
             {
@@ -81,7 +103,11 @@ class Doxter extends Plugin
     }
 
     /**
-     * @return string
+     * @return string|null
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     protected function settingsHtml()
     {
@@ -103,17 +129,6 @@ class Doxter extends Plugin
     {
         return DoxterVariable::class;
     }
-
-    public function registerShortcodes()
-    {
-        return [
-            'esc'           => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@esc',
-            'image'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@image',
-            'audio'         => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@audio',
-            'updates'       => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@updates',
-            'vimeo:youtube' => 'selvinortiz\\doxter\\common\\shortcodes\\DoxterShortcodes@video',
-        ];
-    }
 }
 
 /**
@@ -123,12 +138,5 @@ class Doxter extends Plugin
  */
 function doxter(): Doxter
 {
-    static $instance;
-
-    if (null === $instance)
-    {
-        $instance = Doxter::getInstance();
-    }
-
-    return $instance;
+    return Craft::$app->loadedModules[Doxter::class] ?? null;
 }
