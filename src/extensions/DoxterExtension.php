@@ -7,7 +7,7 @@ use \Twig_SimpleFunction;
 
 use Craft;
 use craft\helpers\Template;
-use craft\fields\data\RichTextData;
+use craft\redactor\FieldData;
 
 use selvinortiz\doxter\common\parsers\Typography;
 
@@ -43,8 +43,8 @@ class DoxterExtension extends Twig_Extension
     {
         $parsed = doxter()->api->parse($source, $options);
 
-        if (is_object($source) && $source instanceof RichTextData) {
-            return new RichTextData($parsed, Craft::$app->charset);
+        if (is_object($source) && $source instanceof FieldData) {
+            return new FieldData($parsed);
         }
 
         return $parsed;
