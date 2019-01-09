@@ -1,6 +1,9 @@
 <?php
 namespace selvinortiz\doxter\common\parsers;
 
+use Craft;
+
+use function selvinortiz\doxter\doxter;
 use selvinortiz\doxter\models\ShortcodeModel;
 
 /**
@@ -41,8 +44,10 @@ class Shortcode extends BaseParser
      */
     public function registerShortcodes(array $shortcodes)
     {
-        if (count($shortcodes)) {
-            foreach ($shortcodes as $shortcode => $callback) {
+        if (count($shortcodes))
+        {
+            foreach ($shortcodes as $shortcode => $callback)
+            {
                 $this->registerShortcode($shortcode, $callback);
             }
         }
@@ -67,14 +72,19 @@ class Shortcode extends BaseParser
      */
     public function registerShortcode($shortcode, $callback)
     {
-        if (is_string($shortcode)) {
-            if (strpos($shortcode, ':') !== false) {
+        if (is_string($shortcode))
+        {
+            if (strpos($shortcode, ':') !== false)
+            {
                 $shortcodes = array_filter(array_map('trim', explode(':', $shortcode)));
 
-                foreach ($shortcodes as $code) {
+                foreach ($shortcodes as $code)
+                {
                     $this->registerShortcode($code, $callback);
                 }
-            } else {
+            }
+            else
+            {
                 $this->shortcodes[$shortcode] = $callback;
             }
         }
@@ -89,14 +99,16 @@ class Shortcode extends BaseParser
      */
     public function unregisterShortcode($name)
     {
-        if ($this->exists($name)) {
+        if ($this->exists($name))
+        {
             unset($this->shortcodes[$name]);
         }
     }
 
     public function parse($source, array $options = [])
     {
-        if (!$this->canBeSafelyParsed($source)) {
+        if (!$this->canBeSafelyParsed($source))
+        {
             return $source;
         }
 
@@ -112,50 +124,69 @@ class Shortcode extends BaseParser
      */
     public function compile($content)
     {
-        if (!$this->getShortcodeCount()) {
-            return $content;
-        }
-
         $pattern = $this->getRegex();
 
         return preg_replace_callback("/{$pattern}/s", [&$this, 'render'], $content);
     }
 
     /**
-     * Renders the current called shortcode
+     * @param $matches
      *
-     * @param  array $matches
+     * @return mixed|string
      *
-     * @return mixed
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\Exception
      */
     public function render($matches)
     {
-        $shortcode = new ShortcodeModel();
-        $shortcode->name = $matches[2];
-        $shortcode->params = $this->getParameters($matches);
+        $shortcode          = new ShortcodeModel();
+        $shortcode->name    = $matches[2];
+        $shortcode->params  = $this->getParameters($matches);
         $shortcode->content = $matches[5];
 
-        if (isset($shortcode->params['raw'])) {
-            return str_replace(' raw', '', $matches[0]);
+        if (isset($shortcode->params['verbatim']))
+        {
+            return str_replace(' verbatim', '', $matches[0]);
         }
 
-        return call_user_func_array($this->getCallback($matches[2]), [$shortcode]);
+        $variables = array_merge(
+            $shortcode->params,
+            [
+                'content'   => $shortcode->content,
+                'shortcode' => $shortcode,
+            ]
+        );
+
+        $tags = doxter()->getSettings()->getRegisteredShortcodeTags();
+
+        $template = $tags[$shortcode->name] ?? '';
+
+        if (empty($template))
+        {
+            doxter()->warning(sprintf('Shortcode "%s" has not been registered', $shortcode->name));
+
+            return '';
+        }
+
+        if (!Craft::$app->view->doesTemplateExist($template))
+        {
+            doxter()->warning(sprintf('Missing template for Shortcode "%s"', $shortcode->name));
+
+            return '';
+        }
+
+        return Craft::$app->view->renderTemplate($template, $variables);
     }
 
     /**
-     * @copyright WordPress
-     *
      * @return string
      */
     protected function getRegex()
     {
-        $names = array_keys($this->shortcodes);
-        $shortcode = join('|', array_map('preg_quote', $names));
-
         return
             '\\['
             .'(\\[?)'
-            ."($shortcode)"
+            ."([a-z]{3,})"
             .'(?![\\w-])'
             .'('
             .'[^\\]\\/]*'
@@ -193,24 +224,37 @@ class Shortcode extends BaseParser
     protected function parseAttributes($text)
     {
         $attributes = [];
-        $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
-        $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
+        $pattern    = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
+        $text       = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
 
-        if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
-            foreach ($match as $m) {
-                if (!empty($m[1])) {
+        if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER))
+        {
+            foreach ($match as $m)
+            {
+                if (!empty($m[1]))
+                {
                     $attributes[strtolower($m[1])] = stripcslashes($m[2]);
-                } elseif (!empty($m[3])) {
+                }
+                elseif (!empty($m[3]))
+                {
                     $attributes[strtolower($m[3])] = stripcslashes($m[4]);
-                } elseif (!empty($m[5])) {
+                }
+                elseif (!empty($m[5]))
+                {
                     $attributes[strtolower($m[5])] = stripcslashes($m[6]);
-                } elseif (isset($m[7]) and strlen($m[7])) {
+                }
+                elseif (isset($m[7]) and strlen($m[7]))
+                {
                     $attributes[] = stripcslashes($m[7]);
-                } elseif (isset($m[8])) {
+                }
+                elseif (isset($m[8]))
+                {
                     $attributes[] = stripcslashes($m[8]);
                 }
             }
-        } else {
+        }
+        else
+        {
             $attributes = ltrim($text);
         }
 
@@ -226,14 +270,16 @@ class Shortcode extends BaseParser
      */
     public function strip($content)
     {
-        if (empty($this->shortcodes)) {
+        if (empty($this->shortcodes))
+        {
             return $content;
         }
 
         $pattern = $this->getRegex();
 
         return preg_replace_callback("/{$pattern}/s", function($m) {
-            if ($m[1] == '[' && $m[6] == ']') {
+            if ($m[1] == '[' && $m[6] == ']')
+            {
                 return substr($m[0], 1, -1);
             }
 
@@ -273,15 +319,19 @@ class Shortcode extends BaseParser
      */
     public function contains($content, $shortcode)
     {
-        if ($this->exists($shortcode)) {
+        if ($this->exists($shortcode))
+        {
             preg_match_all('/'.$this->getRegex().'/s', $content, $matches, PREG_SET_ORDER);
 
-            if (empty($matches)) {
+            if (empty($matches))
+            {
                 return false;
             }
 
-            foreach ($matches as $shortcode) {
-                if ($shortcode === $shortcode[2]) {
+            foreach ($matches as $shortcode)
+            {
+                if ($shortcode === $shortcode[2])
+                {
                     return true;
                 }
             }
@@ -301,13 +351,16 @@ class Shortcode extends BaseParser
     {
         $params = $this->parseAttributes($matches[3]);
 
-        if (!is_array($params)) {
+        if (!is_array($params))
+        {
             $params = [$params];
         }
 
-        foreach ($params as $param => $value) {
+        foreach ($params as $param => $value)
+        {
             // Handles attributes without values ([shortcode attribute])
-            if (is_numeric($param) && is_string($value)) {
+            if (is_numeric($param) && is_string($value))
+            {
                 $params[$value] = true;
 
                 unset($params[$param]);
@@ -328,19 +381,23 @@ class Shortcode extends BaseParser
     {
         $callback = $this->shortcodes[$name];
 
-        if (is_string($callback)) {
+        if (is_string($callback))
+        {
             $instance = null;
 
-            if (isset($this->registeredClasses[$callback])) {
+            if (isset($this->registeredClasses[$callback]))
+            {
                 $instance = $this->registeredClasses[$callback];
             }
 
-            if (stripos($callback, '@') !== false) {
-                $parts = explode('@', $callback);
-                $name = $parts[0];
+            if (stripos($callback, '@') !== false)
+            {
+                $parts  = explode('@', $callback);
+                $name   = $parts[0];
                 $method = $parts[1];
 
-                if (!$instance) {
+                if (!$instance)
+                {
                     $instance = new $name();
 
                     $this->registeredClasses[$callback] = $instance;
@@ -349,8 +406,10 @@ class Shortcode extends BaseParser
                 return [$instance, $method];
             }
 
-            if (class_exists($callback)) {
-                if (!$instance) {
+            if (class_exists($callback))
+            {
+                if (!$instance)
+                {
                     $instance = new $callback();
 
                     $this->registeredClasses[$callback] = $instance;
