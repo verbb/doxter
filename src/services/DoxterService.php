@@ -24,11 +24,11 @@ use function selvinortiz\doxter\doxter;
  */
 class DoxterService extends Component
 {
-    const EVENT_BEFORE_TYPOGRAPHY = 'beforeTypography';
-    const EVENT_BEFORE_HEADER_PARSE = 'beforeHeaderParsing';
-    const EVENT_BEFORE_MARKDOWN_PARSE = 'beforeMarkdownParsing';
-    const EVENT_BEFORE_SHORTCODE_PARSE = 'beforeShortcodeParsing';
-    const EVENT_BEFORE_CODEBLOCK_PARSE = 'beforeCodeBlockParsing';
+    const EVENT_BEFORE_TYPOGRAPHY         = 'beforeTypography';
+    const EVENT_BEFORE_HEADER_PARSE       = 'beforeHeaderParsing';
+    const EVENT_BEFORE_MARKDOWN_PARSE     = 'beforeMarkdownParsing';
+    const EVENT_BEFORE_SHORTCODE_PARSE    = 'beforeShortcodeParsing';
+    const EVENT_BEFORE_CODEBLOCK_PARSE    = 'beforeCodeBlockParsing';
     const EVENT_BEFORE_REFERENCETAG_PARSE = 'beforeReferenceTagParsing';
 
     /**
@@ -41,7 +41,8 @@ class DoxterService extends Component
      */
     public function parse(string $source = null, array $options = [])
     {
-        if (!$this->canBeSafelyParsed($source)) {
+        if (!$this->canBeSafelyParsed($source))
+        {
             return new \Twig_Markup('', Craft::$app->charset);
         }
 
@@ -50,22 +51,14 @@ class DoxterService extends Component
         extract($options);
 
         // Parsing reference tags first so that we can parse markdown within them
-        if ($options['parseReferenceTags']) {
+        if ($options['parseReferenceTags'])
+        {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_REFERENCETAG_PARSE,
                 new DoxterEvent(compact('source'))
             );
 
             $source = $this->parseReferenceTags($source, $options);
-        }
-
-        if ($options['parseShortcodes']) {
-            $this->trigger(
-                DoxterService::EVENT_BEFORE_SHORTCODE_PARSE,
-                new DoxterEvent(compact('source'))
-            );
-
-            $source = $this->parseShortcodes($source);
         }
 
         $this->trigger(
@@ -75,6 +68,16 @@ class DoxterService extends Component
 
         $source = $this->parseMarkdown($source);
 
+        if ($options['parseShortcodes'])
+        {
+            $this->trigger(
+                DoxterService::EVENT_BEFORE_SHORTCODE_PARSE,
+                new DoxterEvent(compact('source'))
+            );
+
+            $source = $this->parseShortcodes($source);
+        }
+
         $this->trigger(
             DoxterService::EVENT_BEFORE_CODEBLOCK_PARSE,
             new DoxterEvent(compact('source'))
@@ -82,7 +85,8 @@ class DoxterService extends Component
 
         $source = $this->parseCodeBlocks($source, compact('codeBlockSnippet'));
 
-        if ($options['addHeaderAnchors']) {
+        if ($options['addHeaderAnchors'])
+        {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_HEADER_PARSE,
                 new DoxterEvent(compact('source'))
@@ -91,7 +95,8 @@ class DoxterService extends Component
             $source = $this->parseHeaders($source, compact('addHeaderAnchorsTo', 'startingHeaderLevel'));
         }
 
-        if ($options['addTypographyStyles']) {
+        if ($options['addTypographyStyles'])
+        {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_TYPOGRAPHY,
                 new DoxterEvent(compact('source'))
@@ -167,8 +172,6 @@ class DoxterService extends Component
      */
     public function parseShortcodes($source, array $options = [])
     {
-        Shortcode::instance()->registerShortcodes(doxter()->registerShortcodes());
-
         return Shortcode::instance()->parse($source, $options);
     }
 
@@ -190,11 +193,14 @@ class DoxterService extends Component
 
         $headers = ArrayHelper::filterEmptyStringsFromArray(ArrayHelper::toArray($headerString));
 
-        if (count($headers)) {
-            foreach ($headers as $key => $header) {
+        if (count($headers))
+        {
+            foreach ($headers as $key => $header)
+            {
                 $header = strtolower($header);
 
-                if (!in_array($header, $allowedHeaders)) {
+                if (!in_array($header, $allowedHeaders))
+                {
                     unset($headers[$key]);
                 }
             }
@@ -204,23 +210,24 @@ class DoxterService extends Component
     }
 
     /**
-     * Renders a plugin template whether the request is from the control panel or the site
-     *
      * @param string $template
      * @param array  $vars
      *
-     * @return string
+     * @return string|null
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\Exception
      */
     public function renderPluginTemplate($template, array $vars = [])
     {
-
         $rendered = null;
         $template = sprintf('doxter/%s', $template);
-        $oldMode = Craft::$app->view->getTemplateMode();
+        $oldMode  = Craft::$app->view->getTemplateMode();
 
         Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
 
-        if (Craft::$app->view->doesTemplateExist($template)) {
+        if (Craft::$app->view->doesTemplateExist($template))
+        {
             $rendered = Craft::$app->view->renderTemplate($template, $vars);
         }
 
@@ -234,7 +241,6 @@ class DoxterService extends Component
      */
     public function registerShortcodes(array $shortcodes)
     {
-
         Shortcode::instance()->registerShortcodes($shortcodes);
     }
 
@@ -252,15 +258,15 @@ class DoxterService extends Component
      * Decodes html entities starting with &#x generally associated with emoji
      * Handles emoji within code blocks that are in the &amp;#x format
      *
-     * @param string $value
+     * @param $value
+     *
+     * @return string|string[]|null
      */
     public function decodeUnicodeEntities($value)
     {
-
         return preg_replace_callback(
             '/((\&\#x[a-z0-9]+\;)|(\&amp\;\#x[a-z0-9]+\;))/i',
             function($matches) {
-
                 return html_entity_decode($matches[1], ENT_HTML5, Craft::$app->charset);
             },
             $value
@@ -276,11 +282,11 @@ class DoxterService extends Component
      */
     public function canBeSafelyParsed($source = null)
     {
-        if (empty($source)) {
+        if (empty($source))
+        {
             return false;
         }
 
         return (is_string($source) || is_callable([$source, '__toString']));
     }
-
 }
