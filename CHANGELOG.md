@@ -1,5 +1,22 @@
 # Release Notes for Doxter
 
+## 3.4.5 - 2019-01-09
+### Added
+- Added an easy way for you to add your own [Shortcodes](https://selvinortiz.com/plugins/doxter/shortcodes) without touching PHP
+- Added support for a new `verbatim` attribute in shortcode tags that will display the shortcode _as is_ (think code demos)
+- Added support for shortcode tag registration via `config/doxter.php`
+- Added logging of unregistered shortcodes and missing shortcode templates
+
+### Updated
+- Updated the `ShortcodeModel` class to make it easy for you to work with it in your shortcode templates
+- Updated **footnote** support to address issues in a previous version of **Parsedown**
+- Updated parsing order to allow Shortcodes to be parsed before Markdown
+- Updated typography support with protection against **widows** and **orphans**
+
+### Removed
+- Removed support for registering shortcodes using the event system
+- Removed all shortcodes originally shipped with Doxter to reduce codebase and let you write your custom markup easily
+
 ## 3.4.4 - 2019-01-06
 ### Added
 - Added [Dark Mode] support

@@ -1,7 +1,7 @@
 {
     "name": "selvinortiz/doxter",
     "description": "Slick Markdown Editor and Smart Text Parser for Craft CMS",
-    "version": "3.4.4",
+    "version": "3.4.5",
     "type": "craft-plugin",
     "license": "MIT",
     "authors": [
@@ -30,8 +30,6 @@
         "developerUrl": "https://selvinortiz.com",
         "documentationUrl": "https://selvinortiz.com/plugins/doxter",
         "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/craft-plugin-doxter/master/CHANGELOG.md",
-        "hasCpSection": false,
-        "hasCpSettings": false,
         "components": {
             "api": "selvinortiz\\doxter\\services\\DoxterService"
         }
