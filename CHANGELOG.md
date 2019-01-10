@@ -1,5 +1,10 @@
 # Release Notes for Doxter
 
+## 3.4.6 - 2019-01-09
+### Fixed
+- Fixed issue where shortcodes were parsed and (incorrectly) wrapped with `<p>` tags
+- Fixes issue where parsing order caused some shortcode attributes to be mangled
+
 ## 3.4.5 - 2019-01-09
 ### Added
 - Added an easy way for you to add your own [Shortcodes](https://selvinortiz.com/plugins/doxter/shortcodes) without touching PHP

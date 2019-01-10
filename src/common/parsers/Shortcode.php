@@ -144,9 +144,11 @@ class Shortcode extends BaseParser
         $shortcode->params  = $this->getParameters($matches);
         $shortcode->content = $matches[5];
 
+        $matchedContent = $matches[0];
+
         if (isset($shortcode->params['verbatim']))
         {
-            return str_replace(' verbatim', '', $matches[0]);
+            return str_replace(' verbatim', '', $matchedContent);
         }
 
         $variables = array_merge(
@@ -163,16 +165,16 @@ class Shortcode extends BaseParser
 
         if (empty($template))
         {
-            doxter()->warning(sprintf('Shortcode "%s" has not been registered', $shortcode->name));
-
-            return '';
+            // Shortcode has not been registered
+            // It could be a link: e.g. [title]: https://domain.com
+            return $matchedContent;
         }
 
         if (!Craft::$app->view->doesTemplateExist($template))
         {
             doxter()->warning(sprintf('Missing template for Shortcode "%s"', $shortcode->name));
 
-            return '';
+            return $matchedContent;
         }
 
         return Craft::$app->view->renderTemplate($template, $variables);

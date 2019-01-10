@@ -61,13 +61,6 @@ class DoxterService extends Component
             $source = $this->parseReferenceTags($source, $options);
         }
 
-        $this->trigger(
-            DoxterService::EVENT_BEFORE_MARKDOWN_PARSE,
-            new DoxterEvent(compact('source'))
-        );
-
-        $source = $this->parseMarkdown($source);
-
         if ($options['parseShortcodes'])
         {
             $this->trigger(
@@ -77,6 +70,13 @@ class DoxterService extends Component
 
             $source = $this->parseShortcodes($source);
         }
+
+        $this->trigger(
+            DoxterService::EVENT_BEFORE_MARKDOWN_PARSE,
+            new DoxterEvent(compact('source'))
+        );
+
+        $source = $this->parseMarkdown($source);
 
         $this->trigger(
             DoxterService::EVENT_BEFORE_CODEBLOCK_PARSE,
