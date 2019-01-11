@@ -20,7 +20,7 @@ abstract class BaseParser
     /**
      * Returns an instance of the class in called static context
      *
-     * @return BaseParser|Markdown|ReferenceTag|Shortcode|CodeBlock|Header|Object
+     * @return BaseParser|Toc|Markdown|ReferenceTag|Shortcode|CodeBlock|Header|Object
      */
     public static function instance()
     {

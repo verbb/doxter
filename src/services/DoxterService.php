@@ -8,6 +8,7 @@ use craft\helpers\Template;
 use craft\helpers\ArrayHelper;
 
 use selvinortiz\doxter\events\DoxterEvent;
+use selvinortiz\doxter\common\parsers\Toc;
 use selvinortiz\doxter\common\parsers\Header;
 use selvinortiz\doxter\common\parsers\Markdown;
 use selvinortiz\doxter\common\parsers\CodeBlock;
@@ -106,6 +107,14 @@ class DoxterService extends Component
         }
 
         $source = doxter()->api->decodeUnicodeEntities($source);
+
+        return Template::raw($source);
+    }
+
+    public function parseToc(string $source = null, array $options = [])
+    {
+        $source = Toc::instance()->parse($source, $options);
+        $source = $this->parseMarkdown($source);
 
         return Template::raw($source);
     }

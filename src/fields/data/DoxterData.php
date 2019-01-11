@@ -58,6 +58,11 @@ class DoxterData extends \Twig_Markup
         return $this->parse($options);
     }
 
+    public function getToc(array $options = [])
+    {
+        return doxter()->api->parseToc($this->raw, $options);
+    }
+
     /**
      * Returns the field type html (parsed output)
      *
@@ -67,7 +72,8 @@ class DoxterData extends \Twig_Markup
      */
     protected function parse(array $options = [])
     {
-        if (!empty($options)) {
+        if (!empty($options))
+        {
             $this->html = doxter()->api->parse($this->raw, $options);
         }
 
