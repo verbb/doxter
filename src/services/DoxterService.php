@@ -113,10 +113,7 @@ class DoxterService extends Component
 
     public function parseToc(string $source = null, array $options = [])
     {
-        $source = Toc::instance()->parse($source, $options);
-        $source = $this->parseMarkdown($source);
-
-        return Template::raw($source);
+        return Toc::instance()->parse($source, $options);
     }
 
     /**

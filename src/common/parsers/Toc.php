@@ -15,118 +15,64 @@ class Toc extends BaseParser
      */
     protected static $_instance;
 
-    protected $markdown = '';
-    protected $headings = [];
-    protected $anchors  = [];
-
     /**
      * Parses reference tags recursively
      *
      * @param string $source
      * @param array  $options
      *
-     * @return    string
+     * @return    array
      */
     public function parse($source, array $options = [])
     {
-        $this->markdown = $source;
-
-        return $this->process();
+        return $this->getToc($source);
     }
 
-    public function process(): string
+    protected function getToc($source)
     {
-        $this->buildLinkedMarkdown();
+        $toc = [];
 
-        return $this->buildTableOfContents();
-    }
+        // Ensure using only "\n" as line-break
+        $source = str_replace(["\r\n", "\r"], "\n", $source);
 
-    protected function stringToStream(string $markdown)
-    {
-        $stream = fopen('php://temp', 'rb+');
+        preg_match_all(
+            '/^(?:=|-|#).*$/m',
+            $source,
+            $matches,
+            PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE
+        );
 
-        fwrite($stream, $markdown);
-        rewind($stream);
-
-        return $stream;
-    }
-
-    protected function buildLinkedMarkdown()
-    {
-        $stream   = $this->stringToStream($this->markdown);
-        $markdown = '';
-
-        while ($line = fgets($stream))
+        // preprocess: iterate matched lines to create an array of items
+        // where each item is an array(level, text)
+        $sourceLength = strlen($source);
+        foreach ($matches[0] as $item)
         {
-            if (
-                false !== strpos($line, '#') &&
-                preg_match('/^(?P<prespace>\s+)?(?P<level>#{1,6})(?P<title>.*)(?P<postspace>\s+)?$/', $line, $matches) &&
-                isset($matches['level'], $matches['title']))
+            $mark = substr($item[0], 0, 1);
+
+            if ($mark == '#')
             {
-                $anchor = $this->getAnchorSlug($matches['title']);
-
-                $this->headings[] = [
-                    'level'  => strlen($matches['level']),
-                    'title'  => $matches['title'],
-                    'anchor' => $anchor,
-                ];
-
-                $markdown .= sprintf(
-                    '%s%s <a name="%s" id="%s">%s</a>%s',
-                    $matches['prespace'] ?? '',
-                    $matches['level'],
-                    $anchor,
-                    $anchor,
-                    trim($matches['title']),
-                    $matches['postspace'] ?? ''
-                );
+                $item_text  = $item[0];
+                $item_level = strrpos($item_text, '#') + 1;
+                $item_text  = substr($item_text, $item_level);
             }
             else
             {
-                $markdown .= $line;
+                // text is the previous line (empty if <hr>)
+                $item_offset      = $item[1];
+                $prev_line_offset = strrpos($source, "\n", -($sourceLength - $item_offset + 2));
+                $item_text        =
+                    substr($source, $prev_line_offset, $item_offset - $prev_line_offset - 1);
+                $item_text        = trim($item_text);
+                $item_level       = $mark == '=' ? 1 : 2;
             }
+            if (!trim($item_text) || strpos($item_text, '|') !== false)
+            {
+                // item is an horizontal separator or a table header, don't mind
+                continue;
+            }
+            $toc[] = ['level' => $item_level, 'slug' => ElementHelper::createSlug(trim($item_text)), 'text' => trim($item_text)];
         }
 
-        return $markdown;
-    }
-
-    protected function getAnchorSlug(string $string): string
-    {
-        $anchor = ElementHelper::createSlug(trim($string));
-
-        if (isset($this->anchors[$anchor]))
-        {
-            $this->anchors[$anchor] = ($this->anchors[$anchor] + 1);
-
-            $anchor .= '-'.$this->anchors[$anchor];
-        }
-        else
-        {
-            $this->anchors[$anchor] = 1;
-        }
-
-        return $anchor;
-    }
-
-    protected function buildTableOfContents(): string
-    {
-        if (!count($this->headings))
-        {
-            return '';
-        }
-
-        $markdown = '';
-
-        foreach ($this->headings as $heading)
-        {
-            $markdown .= sprintf(
-                '%s [%s](#%s)'."\n",
-                str_repeat('    ', $heading['level'] - 1).'*',
-                trim($heading['title']),
-                $heading['anchor']
-            );
-        }
-
-        return $markdown;
+        return $toc;
     }
 }
