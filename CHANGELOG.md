@@ -1,5 +1,9 @@
 # Release Notes for Doxter
 
+## 3.4.7 - 2019-01-11
+### Added
+- Added support for Table of Contents 🎉
+
 ## 3.4.6 - 2019-01-09
 ### Fixed
 - Fixed issue where shortcodes were parsed and (incorrectly) wrapped with `<p>` tags

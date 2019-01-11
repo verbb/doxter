@@ -2,6 +2,7 @@
 namespace selvinortiz\doxter\common\parsers;
 
 use craft\helpers\ElementHelper;
+use selvinortiz\doxter\models\TocModel;
 
 /**
  * Class Toc
@@ -35,7 +36,7 @@ class Toc extends BaseParser
      */
     protected function getToc($source)
     {
-        $toc = [];
+        $tocs = [];
 
         // Ensure using only "\n" as line-break
         $source = str_replace(["\r\n", "\r"], "\n", $source);
@@ -75,16 +76,16 @@ class Toc extends BaseParser
                 continue;
             }
 
-            $id = ElementHelper::createSlug(trim($text));
+            $id  = ElementHelper::createSlug(trim($text));
+            $toc = new TocModel();
 
-            $toc[] = [
-                'id'    => $id,
-                'text'  => trim($text),
-                'hash'  => '#'.$id,
-                'level' => $level,
-            ];
+            $toc->id    = $id;
+            $toc->text  = trim($text);
+            $toc->level = $level;
+
+            $tocs[] = $toc;
         }
 
-        return $toc;
+        return $tocs;
     }
 }
