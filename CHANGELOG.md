@@ -1,5 +1,9 @@
 # Release Notes for Doxter
 
+## 3.4.7 - 2019-05-26
+### Fixed
+- Fixed support for Feed Me imports
+
 ## 3.4.7 - 2019-01-11
 ### Added
 - Added support for Table of Contents 🎉
