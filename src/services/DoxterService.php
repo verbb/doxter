@@ -31,6 +31,7 @@ class DoxterService extends Component
     const EVENT_BEFORE_SHORTCODE_PARSE    = 'beforeShortcodeParsing';
     const EVENT_BEFORE_CODEBLOCK_PARSE    = 'beforeCodeBlockParsing';
     const EVENT_BEFORE_REFERENCETAG_PARSE = 'beforeReferenceTagParsing';
+    const EVENT_AFTER_PARSE               = 'afterParsing';
 
     /**
      * Parses source markdown into valid html using various rules and parsers
@@ -107,6 +108,16 @@ class DoxterService extends Component
         }
 
         $source = doxter()->api->decodeUnicodeEntities($source);
+
+        // Create an event so we can update the source from it later
+        $event = new DoxterEvent(compact('source'));
+
+        $this->trigger(
+            DoxterService::EVENT_AFTER_PARSE,
+            $event
+        );
+
+        $source = $event->source;
 
         return Template::raw($source);
     }
