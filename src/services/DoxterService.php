@@ -103,7 +103,7 @@ class DoxterService extends Component
                 new DoxterEvent(compact('source'))
             );
 
-            $source = $this->parseTypography($source);
+            $source = $this->parseTypography($source, compact('addTypographyHyphenation'));
         }
 
         $source = doxter()->api->decodeUnicodeEntities($source);
