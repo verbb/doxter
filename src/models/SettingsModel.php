@@ -57,6 +57,13 @@ class SettingsModel extends Model
     public $addTypographyStyles = true;
 
     /**
+     * Whether hyphenation should be applied to typography styling of rendered content
+     *
+     * @var boolean
+     */
+    public $addTypographyHyphenation = true;
+
+    /**
      * Whether or not Reference Tags should be parsed
      *
      * @var boolean
