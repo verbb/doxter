@@ -63,7 +63,7 @@ class Header extends BaseParser
     {
         $tag = $matches['tag'];
         $text = $matches['text'];
-        $slug = ElementHelper::createSlug($text);
+        $slug = ElementHelper::createSlug(htmlspecialchars_decode($text));
         $clean = strip_tags($text);
 
         $currentHeaderLevel = (int)substr($tag, 1, 1);
