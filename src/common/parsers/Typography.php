@@ -23,10 +23,8 @@ class Typography extends BaseParser
 
         $settings = new \PHP_Typography\Settings();
 
-        if ($options['addTypographyHyphenation']) {
-            $settings->set_hyphenation(true);
-            $settings->set_hyphenation_language(Craft::$app->language);
-        }
+        $settings->set_hyphenation($options['addTypographyHyphenation']);
+        $settings->set_hyphenation_language(Craft::$app->language);
         
         $typographer = new \PHP_Typography\PHP_Typography();
 
