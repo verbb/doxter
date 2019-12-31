@@ -36,9 +36,9 @@
     },
     "minimum-stability": "beta",
     "require": {
-        "craftcms/cms": "^3.0.0-RC1",
+        "craftcms/cms": "^3.0",
         "michelf/php-smartypants": "^1.8",
-        "erusev/parsedown-extra": "0.8.0-beta-1",
+        "erusev/parsedown-extra": "^0.8",
         "mundschenk-at/php-typography": "^6.3"
     }
 }
