@@ -1,6 +1,10 @@
 # Release Notes for Doxter
 
-## 3.4.7 - 2019-05-26
+## 3.4.9 - 2019-12-30
+### Update
+- Update Parsedown Extra to latest stable release (0.8.1)
+
+## 3.4.8 - 2019-05-26
 ### Fixed
 - Fixed support for Feed Me imports
 
