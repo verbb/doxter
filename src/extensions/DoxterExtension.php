@@ -1,13 +1,12 @@
 <?php
 namespace selvinortiz\doxter\extensions;
 
-use \Twig_Extension;
-use \Twig_SimpleFilter;
-use \Twig_SimpleFunction;
-
-use Craft;
 use craft\helpers\Template;
 use craft\redactor\FieldData;
+
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
 use selvinortiz\doxter\common\parsers\Typography;
 
@@ -18,7 +17,7 @@ use function selvinortiz\doxter\doxter;
  *
  * @package Craft
  */
-class DoxterExtension extends Twig_Extension
+class DoxterExtension extends AbstractExtension
 {
     /**
      * @return string
@@ -51,6 +50,19 @@ class DoxterExtension extends Twig_Extension
     }
 
     /**
+     * Convert markdown and front matter from a file to structured entry
+     *
+     * @param string $slug    The slug string that implements __toString
+     * @param array  $options Filter arguments passed in from twig
+     *
+     * @return string|null The parsed string or null if not a valid slug
+     */
+    public function doxterFile($slug = '', array $options = [])
+    {
+        return doxter()->api->parseFile($slug, $options);
+    }
+
+    /**
      * @param string $source
      *
      * @return \Twig_Markup
@@ -68,16 +80,18 @@ class DoxterExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('doxter', [$this, 'doxter']),
-            new Twig_SimpleFilter('doxterTypography', [$this, 'doxterTypography'])
+            new TwigFilter('doxter', [$this, 'doxter']),
+            new TwigFilter('doxterFile', [$this, 'doxterFile']),
+            new TwigFilter('doxterTypography', [$this, 'doxterTypography'])
         ];
     }
 
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('doxter', [$this, 'doxter']),
-            new Twig_SimpleFunction('doxterTypography', [$this, 'doxterTypography'])
+            new TwigFunction('doxter', [$this, 'doxter']),
+            new TwigFunction('doxterFile', [$this, 'doxterFile']),
+            new TwigFunction('doxterTypography', [$this, 'doxterTypography'])
         ];
     }
 }

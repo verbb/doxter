@@ -7,6 +7,8 @@ use craft\base\Component;
 use craft\helpers\Template;
 use craft\helpers\ArrayHelper;
 
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+
 use selvinortiz\doxter\events\DoxterEvent;
 use selvinortiz\doxter\common\parsers\Toc;
 use selvinortiz\doxter\common\parsers\Header;
@@ -120,6 +122,33 @@ class DoxterService extends Component
         $source = $event->source;
 
         return Template::raw($source);
+    }
+
+
+    /**
+     * Parses markdown and front matter from a file into valid html using various rules and parsers
+     *
+     * @param string $source  The markdown source to parse
+     * @param array  $options Passed in parameters via a template filter call
+     *
+     * @return \Twig_Markup
+     */
+    public function parseFile($slug, array $options = [])
+    {
+        $file = sprintf('%s/_doxter/%s.md', Craft::$app->path->getSiteTemplatesPath(), $slug);
+
+        if (!is_readable($file)) {
+            return null;
+        }
+
+        $md = YamlFrontMatter::parseFile($file);
+
+        return array_merge(
+            $md->matter(),
+            [
+                'body' => $this->parse($md->body(), $options)
+            ]
+        );
     }
 
     public function parseToc(string $source = null, array $options = [])
