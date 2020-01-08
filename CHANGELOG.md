@@ -1,5 +1,12 @@
 # Release Notes for Doxter
 
+## 3.5.0-beta - 2019-20-07
+### Added
+- Added an experimental feature to allow Doxter to parse files
+
+### Updated
+- Updated hyphenation config to be set explicitely
+
 ## 3.4.9 - 2019-12-30
 ### Update
 - Update Parsedown Extra to latest stable release (0.8.1)
