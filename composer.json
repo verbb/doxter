@@ -34,7 +34,6 @@
             "api": "selvinortiz\\doxter\\services\\DoxterService"
         }
     },
-    "minimum-stability": "beta",
     "require": {
         "craftcms/cms": "^3.0",
         "michelf/php-smartypants": "^1.8",
