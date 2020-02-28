@@ -1,6 +1,8 @@
 <?php
 namespace selvinortiz\doxter\common\parsers;
 
+use yii\helpers\Markdown as MarkdownHelper;
+
 /**
  * The markdown parser
  *
@@ -33,7 +35,7 @@ class Markdown extends BaseParser
      */
     public function parse($source, array $options = [])
     {
-        return static::$_parser->text($source);
+        return MarkdownHelper::process($source, 'gfm'); // static::$_parser->text($source);
     }
 
     /**
@@ -43,7 +45,7 @@ class Markdown extends BaseParser
      */
     public function parseInline($source)
     {
-        $source = static::$_parser->text($source);
+        $source = MarkdownHelper::processParagraph($source, 'gfm'); // static::$_parser->text($source);
 
         return preg_replace('/^[ ]*\<p\>(.*)\<\/p\>[ ]*$/', '$1', $source);
     }
