@@ -1,4 +1,5 @@
 <?php
+
 namespace selvinortiz\doxter\models;
 
 use craft\base\Model;
@@ -101,7 +102,7 @@ class SettingsModel extends Model
     public function rules()
     {
         return [
-            [['codeBlockSnippet', 'addHeaderAnchors'], 'required']
+            [['codeBlockSnippet'], 'required']
         ];
     }
 
@@ -114,19 +115,15 @@ class SettingsModel extends Model
      */
     public function getRegisteredShortcodeTags()
     {
-        if (!$this->_didRegisterShortcodeTags)
-        {
+        if (!$this->_didRegisterShortcodeTags) {
             $map  = $this->shortcodes['tags'] ?? [];
             $tags = [];
 
-            if (!empty($map))
-            {
-                foreach ($map as $tag => $template)
-                {
+            if (!empty($map)) {
+                foreach ($map as $tag => $template) {
                     $aliases = explode(':', $tag);
 
-                    foreach ($aliases as $alias)
-                    {
+                    foreach ($aliases as $alias) {
                         $tags[$alias] = $template;
                     }
                 }

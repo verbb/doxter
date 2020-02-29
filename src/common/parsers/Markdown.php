@@ -1,7 +1,8 @@
 <?php
+
 namespace selvinortiz\doxter\common\parsers;
 
-use yii\helpers\Markdown as MarkdownHelper;
+use cebe\markdown\Parser;
 
 /**
  * The markdown parser
@@ -18,13 +19,13 @@ class Markdown extends BaseParser
     protected static $_instance;
 
     /**
-     * @var \ParsedownExtra
+     * @var Parser
      */
     protected static $_parser;
 
     public function __construct($parser = null)
     {
-        self::$_parser = $parser ? $parser : new \ParsedownExtra();
+        self::$_parser = $parser ? $parser : new \cebe\markdown\GithubMarkdown();
     }
 
     /**
@@ -35,7 +36,7 @@ class Markdown extends BaseParser
      */
     public function parse($source, array $options = [])
     {
-        return MarkdownHelper::process($source, 'gfm'); // static::$_parser->text($source);
+        return static::$_parser->parse($source);
     }
 
     /**
@@ -45,8 +46,6 @@ class Markdown extends BaseParser
      */
     public function parseInline($source)
     {
-        $source = MarkdownHelper::processParagraph($source, 'gfm'); // static::$_parser->text($source);
-
-        return preg_replace('/^[ ]*\<p\>(.*)\<\/p\>[ ]*$/', '$1', $source);
+        return static::$_parser->parseParagraph($source);
     }
 }

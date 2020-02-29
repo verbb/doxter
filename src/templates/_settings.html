@@ -7,9 +7,9 @@
         <h2>{{ plugin.name }}&nbsp;<span class="subtle">V{{ plugin.version }}</span></h2>
 
         <div class="section">
-            <h3 class="ico syntax">{{ "Default Parsing Settings"|t }}</h3>
+            <h3>{{ "Default Parsing Settings"|t }}</h3>
 
-            <div class="doxterBlock doxterFirst">
+            <div class="block">
                 <p>{{ "Enable Typography Styles?"|t }}</p>
                 {{ forms.lightswitch({
                     name: "addTypographyStyles",
@@ -17,7 +17,7 @@
                 }) }}
             </div>
 
-            <div class="doxterBlock">
+            <div class="block">
                 <p>{{ "Enable Shortcode Parsing?"|t }}</p>
                 {{ forms.lightswitch({
                     name: "parseShortcodes",
@@ -25,15 +25,19 @@
                 }) }}
             </div>
 
-            <div class="doxterBlock">
+            <div class="block">
                 <p>{{ "Enable Reference Tag Parsing?"|t }} </p>
                 {{ forms.lightswitch({
                     name:    "parseReferenceTags",
                     on:        settings.parseReferenceTags
                 }) }}
             </div>
+        </div>
 
-            <div class="doxterBlock">
+        <div class="section">
+            <h3>{{ "Header Parsing Settings"|t }}</h3>
+
+            <div class="block">
                 <p>{{ "Enable Header Parsing?"|t }}</p>
                 {{ forms.lightswitch({
                     name: "addHeaderAnchors",
@@ -41,7 +45,18 @@
                 }) }}
             </div>
 
-            <div class="doxterBlock">
+            <div class="block">
+                {{ forms.selectField({
+                    id:           "startingHeaderLevel",
+                    name:         "startingHeaderLevel",
+                    label:        "What do you want the starting header level to be?"|t,
+                    options:      { "1": "Level 1", "2": "Level 2", "3": "Level 3", "4": "Level 4", "5": "Level 5", "6": "Level 6" },
+                    value:        settings.startingHeaderLevel,
+                    errors:       ""
+                }) }}
+            </div>
+
+            <div class="block">
                 <p>{{ "Which headers do you want to make linkable by default?"|t }}</p>
                 <div class="checkboxGroup">
                     {{ forms.checkboxGroup({
@@ -53,27 +68,18 @@
                     }) }}
                 </div>
             </div>
+        </div>
 
-            <div class="doxterBlock">
-                {{ forms.selectField({
-                    id:           "startingHeaderLevel",
-                    name:         "startingHeaderLevel",
-                    label:        "What do you want the starting header level to be?"|t,
-                    options:      { "1": "H1", "2": "H2", "3": "H3", "4": "H4", "5": "H5", "6": "H6" },
-                    value:        settings.startingHeaderLevel,
-                    errors:       ""
-                }) }}
-            </div>
+        <div class="section">
+            <h3>{{ "Code Block Settings"|t }}</h3>
 
-            <hr>
-
-            <div class="doxterBlock">
+            <div class="block">
                 {{ forms.textareaField({
                     id:           "codeBlockSnippet",
                     name:         "codeBlockSnippet",
                     class:        "code codeBlockSnippet",
                     rows:         3,
-                    label:        "Code Block Snippet",
+                    label:        "Container Snippet",
                     instructions: "A snippet to wrap fenced code blocks for your syntax highlighter to use. <kbd>{languageClass}<kbd> <kbd>{sourceCode}</kbd>"|md|t,
                     value:        settings.codeBlockSnippet,
                     required: true,

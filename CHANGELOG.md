@@ -1,5 +1,19 @@
 # Release Notes for Doxter
 
+## 3.5.0-beta-2 - 2019-20-07
+### Added
+- Added `cebe/markdown` as a dependency
+### Updated
+- Updated the markdown parser abstraction to use `cebe/markdown` under the hood
+- Updated the markdown parsing flavor to be **GitHub Flavored Markdown**
+
+### Fixed
+- Fixed issue where settings could not be saved if header parsing was disabled
+- Fixed several small compatability issues with **Craft 3.4**
+
+### Removed
+- Removed Parsedown as a dependency
+
 ## 3.5.0-beta - 2019-20-07
 ### Added
 - Added an experimental feature to allow Doxter to parse files

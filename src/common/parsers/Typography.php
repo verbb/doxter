@@ -1,4 +1,5 @@
 <?php
+
 namespace selvinortiz\doxter\common\parsers;
 
 use Michelf\SmartyPantsTypographer;
@@ -25,7 +26,7 @@ class Typography extends BaseParser
 
         $settings->set_hyphenation($options['addTypographyHyphenation'] ?? true);
         $settings->set_hyphenation_language(Craft::$app->language);
-        
+
         $typographer = new \PHP_Typography\PHP_Typography();
 
         return $typographer->process($source, $settings);

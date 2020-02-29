@@ -1,4 +1,5 @@
 <?php
+
 namespace selvinortiz\doxter\common\parsers;
 
 use craft\helpers\ElementHelper;
@@ -16,6 +17,13 @@ class Header extends BaseParser
      * @var Header
      */
     protected static $_instance;
+
+    /**
+     * The headers to add anchors to
+     *
+     * @var array
+     */
+    protected $addHeaderAnchorsTo;
 
     /**
      * The header level to start output at
@@ -43,9 +51,11 @@ class Header extends BaseParser
             $addHeaderAnchorsTo = doxter()->api->getHeadersToParse($addHeaderAnchorsTo);
         }
 
+        $this->addHeaderAnchorsTo = $addHeaderAnchorsTo;
         $this->startingHeaderLevel = $startingHeaderLevel;
 
-        $headers = implode('|', array_map('trim', $addHeaderAnchorsTo));
+        // Match against all header tags
+        $headers = implode('|', array_map('trim', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']));
         $pattern = sprintf('/<(?<tag>%s)>(?<text>.*?)<\/(%s)>/i', $headers, $headers);
         $source = preg_replace_callback($pattern, [$this, 'handleMatch'], $source);
 
@@ -66,12 +76,17 @@ class Header extends BaseParser
         $slug = ElementHelper::createSlug(htmlspecialchars_decode($text));
         $clean = strip_tags($text);
 
-        $currentHeaderLevel = (int)substr($tag, 1, 1);
+        $currentHeaderLevel = (int) substr($tag, 1, 1);
+        $updatedHeaderLevel = min(6, $currentHeaderLevel + ($this->startingHeaderLevel - 1));
 
         if ($this->startingHeaderLevel) {
-            $tag = sprintf('h%s', min(6, $currentHeaderLevel + ($this->startingHeaderLevel - 1)));
+            $tag = sprintf('h%s', $updatedHeaderLevel);
         }
 
-        return "<{$tag} id=\"{$slug}\">{$text} <a class=\"anchor\" href=\"#{$slug}\" title=\"{$clean}\">#</a></{$tag}>";
+        if (in_array($tag, $this->addHeaderAnchorsTo)) {
+            return "<{$tag} id=\"{$slug}\">{$text} <a class=\"anchor\" href=\"#{$slug}\" title=\"{$clean}\">#</a></{$tag}>";
+        }
+
+        return "<{$tag}>{$text}</{$tag}>";
     }
 }

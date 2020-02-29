@@ -41,13 +41,13 @@ class DoxterService extends Component
      * @param string $source  The markdown source to parse
      * @param array  $options Passed in parameters via a template filter call
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function parse(string $source = null, array $options = [])
     {
         if (!$this->canBeSafelyParsed($source))
         {
-            return new \Twig_Markup('', Craft::$app->charset);
+            return new \Twig\Markup('', Craft::$app->charset);
         }
 
         $options = array_merge(doxter()->getSettings()->getAttributes(), $options);
@@ -55,7 +55,7 @@ class DoxterService extends Component
         extract($options);
 
         // Parsing reference tags first so that we can parse markdown within them
-        if ($options['parseReferenceTags'])
+        if ($options['parseReferenceTags'] ?? false)
         {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_REFERENCETAG_PARSE,
@@ -65,7 +65,7 @@ class DoxterService extends Component
             $source = $this->parseReferenceTags($source, $options);
         }
 
-        if ($options['parseShortcodes'])
+        if ($options['parseShortcodes'] ?? false)
         {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_SHORTCODE_PARSE,
@@ -89,7 +89,7 @@ class DoxterService extends Component
 
         $source = $this->parseCodeBlocks($source, compact('codeBlockSnippet'));
 
-        if ($options['addHeaderAnchors'])
+        if ($options['addHeaderAnchors'] ?? false)
         {
             $this->trigger(
                 DoxterService::EVENT_BEFORE_HEADER_PARSE,
@@ -131,7 +131,7 @@ class DoxterService extends Component
      * @param string $source  The markdown source to parse
      * @param array  $options Passed in parameters via a template filter call
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function parseFile($slug, array $options = [])
     {
