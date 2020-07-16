@@ -1,5 +1,9 @@
 # Release Notes for Doxter
 
+## 3.5.0 - 2020-07-15
+### Updated
+- Updated Doxter to use the same markdown parser used by Craft under the hood
+
 ## 3.5.0-beta-2 - 2019-20-07
 ### Added
 - Added `cebe/markdown` as a dependency

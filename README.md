@@ -26,8 +26,7 @@ If you have any feedback, questions, or concerns, please reach out to me on twit
 ## Credits
 Doxter was lovingly crafted by [Selvin Ortiz][developer] with the help of these third party libraries.
 
-1. [Parsedown][parsedown] _for lightening fast and consistent markdown parsing_
-2. [Parsedown Extra][parsedown] _for lightening fast and consistent markdown_
+1. [Markdown](https://github.com/cebe/markdown) _for super fast, highly extensible markdown parsing_
 
 _Special thanks to their developer and maintainers!_
 
@@ -43,8 +42,6 @@ Doxter is a commercial plugin licensed under the [Craft license][license]
 [matrix]:http://buildwithcraft.com/features/matrix "Matrix"
 [entrytypes]:http://buildwithcraft.com/features/entry-types "Entry Types"
 [gfm]: https://help.github.com/articles/github-flavored-markdown "Github Flavored Markdown"
-[parsedown]:https://github.com/erusev/parsedown "Parsedown"
-[parsedown]:https://github.com/erusev/parsedown-extra "Parsedown Extra"
 [changelog]:https://github.com/selvinortiz/craft-plugin-doxter/blob/master/CHANGELOG.md "The Changelog"
 [license]:https://raw.github.com/selvinortiz/craft-plugin-doxter/master/LICENSE "Craft License"
 [osilogo]:https://github.com/selvinortiz/craft-plugin-doxter/raw/master/doxter/resources/img/osilogo.png "Open Source Initiative"
