@@ -1,5 +1,9 @@
 # Release Notes for Doxter
 
+## 3.5.1 - 2020-07-27
+### Updated
+- Updated version to trigger update prompt (after reaching stable)
+
 ## 3.5.0 - 2020-07-15
 ### Updated
 - Updated Doxter to use the same markdown parser used by Craft under the hood

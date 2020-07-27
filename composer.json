@@ -1,7 +1,7 @@
 {
     "name": "selvinortiz/doxter",
     "description": "Slick Markdown Editor and Smart Text Parser for Craft CMS",
-    "version": "3.5.0",
+    "version": "3.5.1",
     "type": "craft-plugin",
     "license": "MIT",
     "authors": [
