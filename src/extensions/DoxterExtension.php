@@ -1,14 +1,15 @@
 <?php
 namespace selvinortiz\doxter\extensions;
 
+use Craft;
 use craft\helpers\Template;
-use craft\redactor\FieldData;
 
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 
 use selvinortiz\doxter\common\parsers\Typography;
+use Twig\Markup;
 
 use function selvinortiz\doxter\doxter;
 
@@ -42,8 +43,9 @@ class DoxterExtension extends AbstractExtension
     {
         $parsed = doxter()->api->parse($source, $options);
 
-        if (is_object($source) && $source instanceof FieldData) {
-            return new FieldData($parsed);
+        if (is_object($source) && $source instanceof Markup)
+        {
+            return new Markup($parsed, Craft::$app->charset);
         }
 
         return $parsed;
