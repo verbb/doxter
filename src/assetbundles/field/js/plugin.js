@@ -129,11 +129,11 @@ Doxter.prototype.selectTag = function()
 /**
  * Adds a toggle class fullscreen in order to stay on top sidebar nav ( Craft )
  * Leverages jQuery to perform the toggleClass on #container element
- * Uses SimpleMDE building Fullscreen Action.
- * @param {SimpleMDE} Object
+ * Uses EasyMDE building Fullscreen Action.
+ * @param {EasyMDE} Object
  *
  */
-Doxter.prototype.fullScreen = function (SimpleMDE) {
+Doxter.prototype.fullScreen = function (EasyMDE) {
     var $container = $('#main-container');
 
     /**
@@ -151,7 +151,7 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
     $container.toggleClass('fullscreen');
 
     // Built-in Method
-    SimpleMDE.toggleFullScreen();
+    EasyMDE.toggleFullScreen();
 };
 
 /**
@@ -175,42 +175,42 @@ Doxter.prototype.getToolbar = function (settings)
         {
             name: 'bold',
             title: 'Bold (Ctrl+B',
-            action: SimpleMDE.toggleBold,
+            action: EasyMDE.toggleBold,
             className: 'fa fa-bold'
         },
         {
             name     : 'italic',
-            action   : SimpleMDE.toggleItalic,
+            action   : EasyMDE.toggleItalic,
             className: 'fa fa-italic',
             title    : 'Italic (Ctrl+I)'
         },
         {
             name     : 'quote',
-            action   : SimpleMDE.toggleBlockquote,
+            action   : EasyMDE.toggleBlockquote,
             className: 'fa fa-quote-left',
             title    : 'Quote (Ctrl+\')'
         },
         {
             name     : 'ordered-list',
-            action   : SimpleMDE.toggleOrderedList,
+            action   : EasyMDE.toggleOrderedList,
             className: 'fa fa-list-ol',
             title    : 'Numbered List (Ctrl+Alt+L)'
         },
         {
             name     : 'unordered-list',
-            action   : SimpleMDE.toggleUnorderedList,
+            action   : EasyMDE.toggleUnorderedList,
             className: 'fa fa-list-ul',
             title    : 'Generic List (Ctrl+L)'
         },
         {
             name     : 'link',
-            action   : SimpleMDE.drawLink,
+            action   : EasyMDE.drawLink,
             className: 'fa fa-link',
             title    : 'Create Link (Ctrl+K)'
         },
         {
             name     : 'image',
-            action   : SimpleMDE.drawImage,
+            action   : EasyMDE.drawImage,
             className: 'fa fa-picture-o',
             title    : 'Insert Image (Ctrl+Alt+I)'
         },
@@ -240,7 +240,7 @@ Doxter.prototype.getToolbar = function (settings)
         },
         /*{
             name     : 'preview',
-            action   : SimpleMDE.togglePreview,
+            action   : EasyMDE.togglePreview,
             className: 'fa fa-eye no-disable',
             title    : 'Toggle Preview (Ctrl+P)'
         },
@@ -300,7 +300,7 @@ Doxter.prototype.configure = function (settings)
  */
 Doxter.prototype.render = function ()
 {
-    this.editor = new SimpleMDE(this.config);
+    this.editor = new EasyMDE(this.config);
     /*
         Refresh the editor when switching between tabs on the content-editor.
          More info: https://github.com/selvinortiz/craft-plugin-doxter/issues/14

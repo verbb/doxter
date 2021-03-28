@@ -11,12 +11,12 @@ class DoxterFieldAssetBundle extends AssetBundle {
         $this->depends    = [CpAsset::class];
 
         $this->js = [
-            'js/simplemde.js',
+            'js/easymde.js',
             'js/plugin.js',
         ];
 
         $this->css = [
-            'css/simplemde.css',
+            'css/easymde.css',
             'css/plugin.css',
         ];
 
