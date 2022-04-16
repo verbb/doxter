@@ -76,7 +76,7 @@ class Toc extends BaseParser
                 continue;
             }
 
-            $id  = ElementHelper::createSlug(trim($text));
+            $id  = ElementHelper::generateSlug(trim($text));
             $toc = new TocModel();
 
             $toc->id    = $id;

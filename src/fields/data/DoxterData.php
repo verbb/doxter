@@ -12,7 +12,7 @@ use function selvinortiz\doxter\doxter;
  *
  * @package selvinortiz\doxter\fields\data
  */
-class DoxterData extends \Twig_Markup
+class DoxterData extends \Twig\Markup
 {
     protected $raw;
     protected $html;
@@ -51,7 +51,7 @@ class DoxterData extends \Twig_Markup
      *
      * @param array $options
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function getHtml(array $options = [])
     {
@@ -68,7 +68,7 @@ class DoxterData extends \Twig_Markup
      *
      * @param array $options Parsing options if any
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     protected function parse(array $options = [])
     {

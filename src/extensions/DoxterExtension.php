@@ -67,7 +67,7 @@ class DoxterExtension extends AbstractExtension
     /**
      * @param string $source
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function doxterTypography($source = '')
     {

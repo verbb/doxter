@@ -99,7 +99,7 @@ class SettingsModel extends Model
      */
     protected $_didRegisterShortcodeTags = false;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['codeBlockSnippet'], 'required']

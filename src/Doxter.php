@@ -63,7 +63,7 @@ class Doxter extends Plugin
             }
         );
 
-        if (class_exists(\markhuot\CraftQL\CraftQL::class))
+        if (class_exists('\markhuot\CraftQL\CraftQL'))
         {
             Event::on(
                 DoxterField::class,
@@ -97,7 +97,7 @@ class Doxter extends Plugin
     /**
      * @return SettingsModel
      */
-    public function createSettingsModel()
+    public function createSettingsModel(): SettingsModel
     {
         return new SettingsModel();
     }
@@ -105,11 +105,11 @@ class Doxter extends Plugin
     /**
      * @return string|null
      *
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
      */
-    protected function settingsHtml()
+    protected function settingsHtml(): ?string
     {
         $settings  = $this->getSettings();
         $variables = [
@@ -134,9 +134,9 @@ class Doxter extends Plugin
 /**
  * Allows me to use a more expressive syntax and have more control over type hints
  *
- * @return Doxter
+ * @return Doxter|null
  */
-function doxter(): Doxter
+function doxter(): ?Doxter
 {
     return Craft::$app->loadedModules[Doxter::class] ?? null;
 }

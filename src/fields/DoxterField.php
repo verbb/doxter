@@ -5,6 +5,7 @@ use Craft;
 use craft\base\Field;
 use craft\db\mysql\Schema;
 use craft\base\ElementInterface;
+use craft\helpers\Html;
 use craft\helpers\StringHelper;
 use Craft\helpers\Json;
 
@@ -48,14 +49,14 @@ class DoxterField extends Field
         return 'Doxter';
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
     }
 
     public function getInputHtml($value, ElementInterface $element = null) : string
     {
-        $inputId = Craft::$app->view->formatInputId($this->handle);
+        $inputId = Html::id($this->handle);
         $namespacedId = Craft::$app->view->namespaceInputId($inputId);
 
         Craft::$app->getView()->registerAssetBundle(DoxterFieldAssetBundle::class);
@@ -73,7 +74,7 @@ class DoxterField extends Field
         );
     }
 
-    public function getSettingsHtml()
+    public function getSettingsHtml(): string
     {
         return Craft::$app->getView()->renderTemplate(
             'doxter/fields/_settings',
@@ -102,7 +103,7 @@ class DoxterField extends Field
      * @return mixed
      */
 
-    public function serializeValue($value, ElementInterface $element = null)
+    public function serializeValue($value, ElementInterface $element = null): string
     {
         $value = is_string($value) ? $value : $value->getRaw();
         $value = StringHelper::encodeMb4($value);

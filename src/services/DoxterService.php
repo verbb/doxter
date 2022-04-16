@@ -261,7 +261,7 @@ class DoxterService extends Component
      *
      * @return string|null
      *
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      * @throws \yii\base\Exception
      */
     public function renderPluginTemplate($template, array $vars = [])
