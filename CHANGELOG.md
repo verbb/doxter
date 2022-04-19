@@ -1,5 +1,9 @@
 # Release Notes for Doxter
 
+## 4.0.0-beta.1 - 2022-04-16
+### Added
+- Added compatibility with Craft 4.
+
 ## 3.5.1 - 2020-07-27
 ### Updated
 - Updated version to trigger update prompt (after reaching stable)

@@ -134,7 +134,7 @@ class Shortcode extends BaseParser
      *
      * @return mixed|string
      *
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      * @throws \yii\base\Exception
      */
     public function render($matches)
