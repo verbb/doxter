@@ -40,5 +40,11 @@
         "michelf/php-smartypants": "^1.8",
         "mundschenk-at/php-typography": "^6.3",
         "spatie/yaml-front-matter": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
     }
 }
