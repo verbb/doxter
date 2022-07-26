@@ -26,9 +26,6 @@ abstract class BaseParser implements BaseParserInterface
     // Properties
     // =========================================================================
 
-    /**
-     * @var object The parser instance which should be defined in each extending class
-     */
     protected static ?BaseParserInterface $_instance = null;
 
 

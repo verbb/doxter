@@ -303,7 +303,7 @@ class Shortcode extends BaseParser
      *
      * @param string $name
      *
-     * @return array|closure
+     * @return array|closure|string
      */
     protected function getCallback(string $name): array|closure|string
     {
