@@ -246,7 +246,7 @@ class Shortcode extends BaseParser
      *
      * @param string $text
      *
-     * @return array
+     * @return array|string
      */
     protected function parseAttributes(string $text): array
     {
@@ -268,8 +268,6 @@ class Shortcode extends BaseParser
                     $attributes[] = stripcslashes($m[8]);
                 }
             }
-        } else {
-            $attributes = ltrim($text);
         }
 
         return $attributes;
