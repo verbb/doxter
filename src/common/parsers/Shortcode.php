@@ -246,7 +246,7 @@ class Shortcode extends BaseParser
      *
      * @param string $text
      *
-     * @return array|string
+     * @return array
      */
     protected function parseAttributes(string $text): array
     {
