@@ -5,6 +5,7 @@
 ### Changed
 - Now requires PHP `8.0.2+`.
 - Now requires Craft `4.0.0+`.
+- Renamed `verbb\doxter\services\DoxterService` to `verbb\doxter\services\Service`.
 
 ### Removed
 - Remove `CraftQL` plugin support.
