@@ -11,6 +11,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
+use yii\base\Exception;
 
 class Extension extends AbstractExtension
 {
@@ -49,12 +50,12 @@ class Extension extends AbstractExtension
      * - Handle empty strings safely @link https://github.com/selvinortiz/craft.doxter/issues/5
      * - Handle parseRefs returned value @link https://github.com/selvinortiz/craft.doxter/issues/6
      *
-     * @param string $source The source string or object that implements __toString
+     * @param mixed $source The source string or object that implements __toString
      * @param array $options Filter arguments passed in from twig
      *
      * @return mixed The parsed string or false if not a valid source
      */
-    public function doxter(string $source = '', array $options = [])
+    public function doxter(mixed $source = '', array $options = []): mixed
     {
         $parsed = Doxter::$plugin->getService()->parse($source, $options);
 
@@ -72,6 +73,8 @@ class Extension extends AbstractExtension
      * @param array $options Filter arguments passed in from twig
      *
      * @return string|null The parsed string or null if not a valid slug
+     * @throws Exception
+     * @throws Exception
      */
     public function doxterFile(string $slug = '', array $options = []): ?string
     {

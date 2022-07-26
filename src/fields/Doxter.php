@@ -29,14 +29,13 @@ class Doxter extends Field
     // Properties
     // =========================================================================
 
-    public $tabSize = 2;
-    public $darkMode = false; // @todo Remove on next major release
-    public $indentWithTabs = false;
-    public $enableLineWrapping = true;
-    public $enableSpellChecker = false;
-    public $showToolbar = true;
+    public int $tabSize = 2;
+    public bool $indentWithTabs = false;
+    public bool $enableLineWrapping = true;
+    public bool $enableSpellChecker = false;
+    public bool $showToolbar = true;
 
-    public $enabledToolbarIconNames = [
+    public array $enabledToolbarIconNames = [
         'bold' => true,
         'italic' => true,
         'quote' => true,
@@ -52,14 +51,23 @@ class Doxter extends Field
         'fullscreen' => false,
     ];
 
-    /**
-     * @todo Remove once we're able to clean up the db
-     */
-    public $toolbarSettings;
-
 
     // Public Methods
     // =========================================================================
+
+    public function __construct(array $config = [])
+    {
+        // Config normalization
+        if (array_key_exists('darkMode', $config)) {
+            unset($config['darkMode']);
+        }
+
+        if (array_key_exists('toolbarSettings', $config)) {
+            unset($config['toolbarSettings']);
+        }
+
+        parent::__construct($config);
+    }
 
     public function getInputHtml($value, ElementInterface $element = null): string
     {

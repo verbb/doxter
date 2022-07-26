@@ -8,8 +8,5 @@ class DoxterEvent extends Event
     // Properties
     // =========================================================================
 
-    /**
-     * @var string
-     */
-    public $source;
+    public string $source = '';
 }

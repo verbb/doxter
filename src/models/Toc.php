@@ -8,30 +8,12 @@ class Toc extends Model
     // Properties
     // =========================================================================
 
-    /**
-     * @var string
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $text;
-
-    /**
-     * @var int
-     */
-    public $level;
-
-    /**
-     * @var string
-     */
-    private $_hash = null;
-
-    /**
-     * @var string
-     */
-    private $_uid = null;
+    public ?string $id = null;
+    public ?string $text = null;
+    public ?int $level = null;
+    
+    private ?string $_hash = null;
+    private ?string $_uid = null;
 
 
     // Public Methods

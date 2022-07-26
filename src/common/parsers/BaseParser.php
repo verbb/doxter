@@ -3,7 +3,7 @@ namespace verbb\doxter\common\parsers;
 
 use verbb\doxter\Doxter;
 
-abstract class BaseParser
+abstract class BaseParser implements BaseParserInterface
 {
     // Static Methods
     // =========================================================================
@@ -13,7 +13,7 @@ abstract class BaseParser
      *
      * @return Object
      */
-    public static function instance()
+    public static function instance(): object
     {
         if (null === static::$_instance) {
             static::$_instance = new static;
@@ -29,7 +29,7 @@ abstract class BaseParser
     /**
      * @var object The parser instance which should be defined in each extending class
      */
-    protected static $_instance;
+    protected static ?BaseParserInterface $_instance = null;
 
 
     // Public Methods
@@ -38,11 +38,11 @@ abstract class BaseParser
     /**
      * Reports whether the source string can be safely parsed
      *
-     * @param mixed $source
+     * @param mixed|null $source
      *
      * @return bool
      */
-    public function canBeSafelyParsed($source = null): bool
+    public function canBeSafelyParsed(mixed $source = null): bool
     {
         return Doxter::$plugin->getService()->canBeSafelyParsed($source);
     }
@@ -55,5 +55,5 @@ abstract class BaseParser
      *
      * @return mixed
      */
-    abstract public function parse(string $source, array $options = []);
+    abstract public function parse(string $source, array $options = []): mixed;
 }

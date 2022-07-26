@@ -12,8 +12,8 @@ class DoxterData extends Markup
     // Public Methods
     // =========================================================================
 
-    protected $raw;
-    protected $html;
+    protected ?string $raw = null;
+    protected ?Markup $html = null;
 
 
     // Public Methods

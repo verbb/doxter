@@ -9,15 +9,8 @@ class Markdown extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var Markdown
-     */
-    protected static $_instance;
-
-    /**
-     * @var Parser
-     */
-    protected static $_parser;
+    protected static ?BaseParserInterface $_instance = null;
+    protected static ?Parser $_parser = null;
 
 
     // Public Methods
@@ -32,9 +25,9 @@ class Markdown extends BaseParser
      * @param string $source
      * @param array $options
      *
-     * @return string
+     * @return mixed
      */
-    public function parse(string $source, array $options = []): string
+    public function parse(string $source, array $options = []): mixed
     {
         return static::$_parser->parse($source);
     }

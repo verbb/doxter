@@ -10,10 +10,7 @@ class Toc extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var Toc
-     */
-    protected static $_instance;
+    protected static ?BaseParserInterface $_instance = null;
 
 
     // Public Methods
@@ -25,9 +22,9 @@ class Toc extends BaseParser
      * @param string $source
      * @param array $options
      *
-     * @return array
+     * @return mixed
      */
-    public function parse(string $source, array $options = []): array
+    public function parse(string $source, array $options = []): mixed
     {
         return $this->getToc($source);
     }
@@ -73,7 +70,7 @@ class Toc extends BaseParser
                 $level = $mark == '=' ? 1 : 2;
             }
 
-            if (!trim($text) || strpos($text, '|') !== false) {
+            if (!trim($text) || str_contains($text, '|')) {
                 // Item is a horizontal separator or a table header, don't mind
                 continue;
             }

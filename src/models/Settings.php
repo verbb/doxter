@@ -8,86 +8,34 @@ class Settings extends Model
     // Properties
     // =========================================================================
 
-    /**
-     * Defines how shortcodes should be rendered
-     *
-     * @var array
-     */
-    public $shortcodes = [];
-
-    /**
-     * Defines how code blocks should be rendered
-     *
-     * @var string
-     */
-    public $codeBlockSnippet = '';
-
-    /**
-     * Whether anchors should be added to headers
-     *
-     * @var boolean
-     */
-    public $addHeaderAnchors = true;
-
-    /**
-     * Defines a list of headers to which anchors should be added
-     *
-     * @note Only applies if $addHeaderAnchors is true
-     *
-     * @var array
-     */
-    public $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
-
-    /**
-     * Defines the header level that will be considered the first (h1)
-     *
-     * @var integer
-     */
-    public $startingHeaderLevel = 1;
-
-    /**
-     * Whether typography styles should be applied to rendered content
-     *
-     * @var boolean
-     */
-    public $addTypographyStyles = true;
-
-    /**
-     * Whether hyphenation should be applied to typography styling of rendered content
-     *
-     * @var boolean
-     */
-    public $addTypographyHyphenation = true;
-
-    /**
-     * Whether Reference Tags should be parsed
-     *
-     * @var boolean
-     */
-    public $parseReferenceTags = true;
-
-    /**
-     * Whether Shortcodes should be parsed
-     *
-     * @var boolean
-     */
-    public $parseShortcodes = true;
-
-    /**
-     * Whether  shortcode tags have been registered
-     *
-     * @var bool
-     */
-    protected $_didRegisterShortcodeTags = false;
-
-
-    // TODO - to remove
-    public $pluginAlias = 'Doxter';
-    public $enableCpTab = false;
+    public array $shortcodes = [];
+    public string $codeBlockSnippet = '';
+    public bool $addHeaderAnchors = true;
+    public array $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
+    public int $startingHeaderLevel = 1;
+    public bool $addTypographyStyles = true;
+    public bool $addTypographyHyphenation = true;
+    public bool $parseReferenceTags = true;
+    public bool $parseShortcodes = true;
+    protected bool $_didRegisterShortcodeTags = false;
 
 
     // Public Methods
     // =========================================================================
+
+    public function __construct(array $config = [])
+    {
+        // Config normalization
+        if (array_key_exists('$pluginAlias', $config)) {
+            unset($config['$pluginAlias']);
+        }
+
+        if (array_key_exists('$enableCpTab', $config)) {
+            unset($config['$enableCpTab']);
+        }
+
+        parent::__construct($config);
+    }
 
     public function defineRules(): array
     {

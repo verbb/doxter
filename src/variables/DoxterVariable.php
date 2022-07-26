@@ -8,7 +8,7 @@ class DoxterVariable
     // Public Methods
     // =========================================================================
 
-    public function getPluginName()
+    public function getPluginName(): string
     {
         return Doxter::$plugin->getPluginName();
     }

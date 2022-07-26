@@ -8,10 +8,7 @@ class ReferenceTag extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var ReferenceTag
-     */
-    protected static $_instance;
+    protected static ?BaseParserInterface $_instance = null;
 
 
     // Public Methods
@@ -23,9 +20,9 @@ class ReferenceTag extends BaseParser
      * @param string $source
      * @param array $options
      *
-     * @return string
+     * @return mixed
      */
-    public function parse(string $source, array $options = []): string
+    public function parse(string $source, array $options = []): mixed
     {
         return Craft::$app->getElements()->parseRefs($source);
     }

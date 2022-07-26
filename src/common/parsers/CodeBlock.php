@@ -6,15 +6,8 @@ class CodeBlock extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var CodeBlock
-     */
-    protected static $_instance;
-
-    /**
-     * @var string
-     */
-    protected static $codeBlockSnippet;
+    protected static ?BaseParserInterface $_instance = null;
+    protected static ?string $codeBlockSnippet = null;
 
 
     // Public Methods
@@ -26,13 +19,11 @@ class CodeBlock extends BaseParser
      * @param string $source
      * @param array $options
      *
-     * @return string
+     * @return mixed
      */
-    public function parse(string $source, array $options = []): string
+    public function parse(string $source, array $options = []): mixed
     {
-        $codeBlockSnippet = null;
-
-        extract($options);
+        $codeBlockSnippet = $options['codeBlockSnippet'] ?? null;
 
         if (empty($codeBlockSnippet)) {
             return $source;

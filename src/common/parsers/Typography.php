@@ -13,16 +13,13 @@ class Typography extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var Typography
-     */
-    protected static $_instance;
+    protected static ?BaseParserInterface $_instance = null;
 
 
     // Public Methods
     // =========================================================================
 
-    public function parse(string $source, array $options = [])
+    public function parse(string $source, array $options = []): mixed
     {
         $source = SmartyPantsTypographer::defaultTransform($source);
 

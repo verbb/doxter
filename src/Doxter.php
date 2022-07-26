@@ -24,8 +24,8 @@ class Doxter extends Plugin
     // Properties
     // =========================================================================
 
-    public $schemaVersion = '4.0.0';
-    public $hasCpSettings = true;
+    public string $schemaVersion = '4.0.0';
+    public bool $hasCpSettings = true;
 
 
     // Traits
@@ -57,9 +57,9 @@ class Doxter extends Plugin
         return Craft::t('doxter', 'Doxter');
     }
 
-    public function getSettingsResponse()
+    public function getSettingsResponse(): mixed
     {
-        Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('doxter/settings'));
+        return Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('doxter/settings'));
     }
 
 

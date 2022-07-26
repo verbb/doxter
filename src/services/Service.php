@@ -17,8 +17,10 @@ use craft\helpers\ArrayHelper;
 use craft\helpers\Template;
 use craft\web\View;
 
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 use yii\base\Exception;
+
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+
 use Twig\Markup;
 use Twig\Error\SyntaxError;
 use Twig\Error\RuntimeError;
@@ -29,13 +31,13 @@ class Service extends Component
     // Constants
     // =========================================================================
 
-    const EVENT_BEFORE_TYPOGRAPHY = 'beforeTypography';
-    const EVENT_BEFORE_HEADER_PARSE = 'beforeHeaderParsing';
-    const EVENT_BEFORE_MARKDOWN_PARSE = 'beforeMarkdownParsing';
-    const EVENT_BEFORE_SHORTCODE_PARSE = 'beforeShortcodeParsing';
-    const EVENT_BEFORE_CODEBLOCK_PARSE = 'beforeCodeBlockParsing';
-    const EVENT_BEFORE_REFERENCETAG_PARSE = 'beforeReferenceTagParsing';
-    const EVENT_AFTER_PARSE = 'afterParsing';
+    public const EVENT_BEFORE_TYPOGRAPHY = 'beforeTypography';
+    public const EVENT_BEFORE_HEADER_PARSE = 'beforeHeaderParsing';
+    public const EVENT_BEFORE_MARKDOWN_PARSE = 'beforeMarkdownParsing';
+    public const EVENT_BEFORE_SHORTCODE_PARSE = 'beforeShortcodeParsing';
+    public const EVENT_BEFORE_CODEBLOCK_PARSE = 'beforeCodeBlockParsing';
+    public const EVENT_BEFORE_REFERENCETAG_PARSE = 'beforeReferenceTagParsing';
+    public const EVENT_AFTER_PARSE = 'afterParsing';
 
 
     // Public Methods
@@ -56,8 +58,10 @@ class Service extends Component
         }
 
         $options = array_merge(Doxter::$plugin->getSettings()->getAttributes(), $options);
-
-        extract($options);
+        $codeBlockSnippet = $options['codeBlockSnippet'] ?? null;
+        $addHeaderAnchorsTo = $options['addHeaderAnchorsTo'] ?? null;
+        $startingHeaderLevel = $options['startingHeaderLevel'] ?? null;
+        $addTypographyHyphenation = $options['addTypographyHyphenation'] ?? null;
 
         // Parsing reference tags first so that we can parse markdown within them
         if ($options['parseReferenceTags'] ?? false) {
@@ -72,10 +76,7 @@ class Service extends Component
             $source = $this->parseShortcodes($source);
         }
 
-        $this->trigger(
-            self::EVENT_BEFORE_MARKDOWN_PARSE,
-            new DoxterEvent(compact('source'))
-        );
+        $this->trigger(self::EVENT_BEFORE_MARKDOWN_PARSE, new DoxterEvent(compact('source')));
 
         $source = $this->parseMarkdown($source);
 
@@ -113,7 +114,7 @@ class Service extends Component
      * @param $slug
      * @param array $options Passed in parameters via a template filter call
      *
-     * @return Markup
+     * @return Markup|null
      * @throws Exception
      */
     public function parseFile($slug, array $options = []): ?Markup
@@ -126,9 +127,11 @@ class Service extends Component
 
         $md = YamlFrontMatter::parseFile($file);
 
-        return array_merge($md->matter(), [
+        $string = array_merge($md->matter(), [
             'body' => $this->parse($md->body(), $options),
         ]);
+
+        return Template::raw($string);
     }
 
     public function parseToc(string $source = null, array $options = [])
@@ -294,7 +297,7 @@ class Service extends Component
      *
      * @return string|string[]|null
      */
-    public function decodeUnicodeEntities($value)
+    public function decodeUnicodeEntities($value): array|string|null
     {
         return preg_replace_callback('/((\&\#x[a-z\d]+\;)|(\&amp\;\#x[a-z\d]+\;))/i', function($matches) {
             return html_entity_decode($matches[1], ENT_HTML5, Craft::$app->charset);
@@ -304,11 +307,11 @@ class Service extends Component
     /**
      * Reports whether the source string can be safely parsed
      *
-     * @param mixed $source
+     * @param mixed|null $source
      *
      * @return bool
      */
-    public function canBeSafelyParsed($source = null): bool
+    public function canBeSafelyParsed(mixed $source = null): bool
     {
         if (empty($source)) {
             return false;

@@ -1,6 +1,7 @@
 <?php
 namespace verbb\doxter\base;
 
+use verbb\doxter\Doxter;
 use verbb\doxter\services\Service;
 
 use Craft;
@@ -14,7 +15,7 @@ trait PluginTrait
     // Static Properties
     // =========================================================================
 
-    public static $plugin;
+    public static Doxter $plugin;
 
 
     // Public Methods

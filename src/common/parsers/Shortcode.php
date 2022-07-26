@@ -19,29 +19,10 @@ class Shortcode extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var Shortcode
-     */
-    protected static $_instance;
-
-    /**
-     * The method that should be called if a class name is provided as the callback
-     *
-     * @var string
-     */
-    protected static $defaultMethod = 'parse';
-
-    /**
-     * @var array
-     */
-    protected $registeredClasses = [];
-
-    /**
-     * Registered shortcodes
-     *
-     * @var array
-     */
-    protected $shortcodes = [];
+    protected static ?BaseParserInterface $_instance = null;
+    protected static string $defaultMethod = 'parse';
+    protected array $registeredClasses = [];
+    protected array $shortcodes = [];
 
 
     // Public Methods
@@ -78,18 +59,16 @@ class Shortcode extends BaseParser
      *
      * @return void
      */
-    public function registerShortcode(string $shortcode, $callback): void
+    public function registerShortcode(string $shortcode, mixed $callback): void
     {
-        if (is_string($shortcode)) {
-            if (strpos($shortcode, ':') !== false) {
-                $shortcodes = array_filter(array_map('trim', explode(':', $shortcode)));
+        if (str_contains($shortcode, ':')) {
+            $shortcodes = array_filter(array_map('trim', explode(':', $shortcode)));
 
-                foreach ($shortcodes as $code) {
-                    $this->registerShortcode($code, $callback);
-                }
-            } else {
-                $this->shortcodes[$shortcode] = $callback;
+            foreach ($shortcodes as $code) {
+                $this->registerShortcode($code, $callback);
             }
+        } else {
+            $this->shortcodes[$shortcode] = $callback;
         }
     }
 
@@ -107,7 +86,7 @@ class Shortcode extends BaseParser
         }
     }
 
-    public function parse(string $source, array $options = [])
+    public function parse(string $source, array $options = []): mixed
     {
         if (!$this->canBeSafelyParsed($source)) {
             return $source;
@@ -140,7 +119,7 @@ class Shortcode extends BaseParser
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render($matches)
+    public function render($matches): mixed
     {
         $shortcode = new ShortcodeModel();
         $shortcode->name = $matches[2];
@@ -169,7 +148,7 @@ class Shortcode extends BaseParser
         }
 
         if (!Craft::$app->getView()->doesTemplateExist($template)) {
-            Doxter::$plugin->info(sprintf('Missing template for Shortcode "%s"', $shortcode->name));
+            Doxter::log('Missing template for Shortcode "' . $shortcode->name . '"');
 
             return $matchedContent;
         }
@@ -307,10 +286,6 @@ class Shortcode extends BaseParser
     {
         $params = $this->parseAttributes($matches[3]);
 
-        if (!is_array($params)) {
-            $params = [$params];
-        }
-
         foreach ($params as $param => $value) {
             // Handles attributes without values ([shortcode attribute])
             if (is_numeric($param) && is_string($value)) {
@@ -330,14 +305,14 @@ class Shortcode extends BaseParser
      *
      * @return array|closure
      */
-    protected function getCallback(string $name)
+    protected function getCallback(string $name): array|closure|string
     {
         $callback = $this->shortcodes[$name];
 
         if (is_string($callback)) {
             $instance = $this->registeredClasses[$callback] ?? null;
 
-            if (strpos($callback, '@') !== false) {
+            if (str_contains($callback, '@')) {
                 $parts = explode('@', $callback);
                 $name = $parts[0];
                 $method = $parts[1];

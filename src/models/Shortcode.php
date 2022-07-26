@@ -1,7 +1,7 @@
 <?php
 namespace verbb\doxter\models;
 
-use verbb\doxter\common\parsers\Shortcode;
+use verbb\doxter\common\parsers\Shortcode as ShortcodeParser;
 
 use craft\base\Model;
 
@@ -10,29 +10,9 @@ class Shortcode extends Model
     // Properties
     // =========================================================================
 
-    /**
-     * Shortcode name/abbreviation
-     * e.g. [img] 👉 "img"
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
-     * All key/value pairs found in the shortcode definition
-     * e.g. [img src=image.png size=large] 👉 ['src' => 'image.png', 'size' => 'large']
-     *
-     * @var array
-     */
-    public $params;
-
-    /**
-     * Content between start and end shortcode tags
-     * e.g. [quote]Quote text goes here...[/quote]
-     *
-     * @var string
-     */
-    public $content;
+    public string $name = '';
+    public array $params = [];
+    public string $content = '';
 
 
     // Public Methods
@@ -55,11 +35,11 @@ class Shortcode extends Model
      * Returns a parsed shortcode parameter value if found or $default value
      *
      * @param string $name
-     * @param null|mixed $default
+     * @param mixed|null $default
      *
      * @return null|mixed
      */
-    public function getParam(string $name, $default = null)
+    public function getParam(string $name, mixed $default = null): mixed
     {
         return $this->params[$name] ?? $default;
     }
@@ -67,14 +47,14 @@ class Shortcode extends Model
     /**
      * @return mixed|string
      */
-    public function parseContent()
+    public function parseContent(): mixed
     {
         if (empty($this->content)) {
             return '';
         }
 
         if (mb_stripos($this->content, '[') !== false || mb_stripos($this->content, '{') !== false) {
-            return Shortcode::instance()->parse($this->content);
+            return ShortcodeParser::instance()->parse($this->content);
         }
 
         return $this->content;

@@ -1,8 +1,6 @@
 <?php
 namespace verbb\doxter\common\parsers;
 
-use verbb\doxter\Doxter;
-
 use craft\helpers\ElementHelper;
 
 class Header extends BaseParser
@@ -10,24 +8,9 @@ class Header extends BaseParser
     // Properties
     // =========================================================================
 
-    /**
-     * @var Header
-     */
-    protected static $_instance;
-
-    /**
-     * The headers to add anchors to
-     *
-     * @var array
-     */
-    protected $addHeaderAnchorsTo;
-
-    /**
-     * The header level to start output at
-     *
-     * @var int
-     */
-    protected $startingHeaderLevel;
+    protected static ?BaseParserInterface $_instance = null;
+    protected ?array $addHeaderAnchorsTo = null;
+    protected ?int $startingHeaderLevel = null;
 
 
     // Public Methods
@@ -39,18 +22,12 @@ class Header extends BaseParser
      * @param string $source HTML source to search for headers within
      * @param array $options Passed in parsing options
      *
-     * @return string
+     * @return mixed
      */
-    public function parse(string $source, array $options = []): string
+    public function parse(string $source, array $options = []): mixed
     {
-        $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
-        $startingHeaderLevel = 1;
-
-        extract($options);
-
-        if (!is_array($addHeaderAnchorsTo)) {
-            $addHeaderAnchorsTo = Doxter::$plugin->getService()->getHeadersToParse($addHeaderAnchorsTo);
-        }
+        $addHeaderAnchorsTo = $options['$addHeaderAnchorsTo'] ?? ['h1', 'h2', 'h3'];
+        $startingHeaderLevel = $options['$startingHeaderLevel'] ?? 1;
 
         $this->addHeaderAnchorsTo = $addHeaderAnchorsTo;
         $this->startingHeaderLevel = $startingHeaderLevel;
