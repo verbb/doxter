@@ -224,11 +224,13 @@ Standard code blocks are defined by one or more levels levels of indentation to 
 ### Fenced Code Blocks
 Fenced code blocks use three or five backticks to denote where the code block begins/​ends. You can also append a language identifier to the first set of backticks.
 
-\`\`\`php
+````
+```php
 $greeting = 'Hello';
 
 echo $greeting;
-\`\`\`
+```
+````
 
 ### Custom Block Template String
 Since different syntax highlighters require slightly different markup in order to work, Doxter provides a way for you to define exactly how your code should be rendered. This is done by allowing you to define a _code block template string_ that uses the placeholders `{languageClass}` and `{sourceCode}`.
