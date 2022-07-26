@@ -1,47 +1,44 @@
-![Doxter](https://selvinortiz.com/img/plugins/doxter/social.png?3.4.4)
-
-# Doxter 3
-> Slick Markdown Editor and Smart Text Parser for Craft CMS
-
-## Docs
-👉 [Doxter Docs](https://selvinortiz.com/plugins/doxter)
+# Doxter plugin for Craft CMS
+Slick Markdown Editor and Smart Text Parser for Craft CMS.
 
 ## Features
-* [Live Preview][preview] Support
-* Fast and consistent [Github Flavored Markdown][gfm] Parsing
-* **Linkable Headers** via named anchors
-* [Reference Tags][refTags] parsing
-* Extensible **Shortcode** parsing support
-* Event driven parsing API for developers
-* Advanced fenced code block parsing
-* Support for typography styles for better web typography
-* Emoji 🎉
+- [Live Preview][preview] Support
+- Fast and consistent [Github Flavored Markdown][gfm] Parsing
+- **Linkable Headers** via named anchors
+- [Reference Tags][refTags] parsing
+- Extensible **Shortcode** parsing support
+- Event driven parsing API for developers
+- Advanced fenced code block parsing
+- Support for typography styles for better web typography
+- Emoji 🎉
 
-## Changes
-All noteworthy changes can be found in [CHANGELOG.md][changelog]
+## Installation
+You can install Doxter via the plugin store, or through Composer.
 
-## Feedback
-If you have any feedback, questions, or concerns, please reach out to me on twitter [@selvinortiz][developer]
+### Craft Plugin Store
+To install **Doxter**, navigate to the _Plugin Store_ section of your Craft control panel, search for `Doxter`, and click the _Try_ button.
+
+### Composer
+You can also add the package to your project using Composer.
+
+1. Open your terminal and go to your Craft project:
+
+        cd /path/to/project
+
+2. Then tell Composer to load the plugin:
+    
+        composer require verbb/doxter
+
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Doxter.
 
 ## Credits
-Doxter was lovingly crafted by [Selvin Ortiz][developer] with the help of these third party libraries.
+Originally created by [Selvin Ortiz](https://github.com/selvindev).
 
-1. [Markdown](https://github.com/cebe/markdown) _for super fast, highly extensible markdown parsing_
+## Show your Support
+Doxter is licensed under the MIT license, meaning it will always be free and open source – we love free stuff! If you'd like to show your support to the plugin regardless, [Sponsor](https://github.com/sponsors/verbb) development.
 
-_Special thanks to their developer and maintainers!_
+<h2></h2>
 
-## License
-Doxter is a commercial plugin licensed under the [Craft license][license]
-
-[craft]:http://buildwithcraft.com "Craft CMS"
-[developer]:http://twitter.com/selvinortiz "@selvinortiz"
-[release]:https://github.com/selvinortiz/craft-plugin-doxter/releases "Official Release"
-[refTags]:http://buildwithcraft.com/docs/reference-tags "Reference Tags"
-[parseRefs]:http://buildwithcraft.com/docs/templating/filters#parseRefs "Reference Tag Filter"
-[preview]:http://buildwithcraft.com/features/live-preview "Live Preview"
-[matrix]:http://buildwithcraft.com/features/matrix "Matrix"
-[entrytypes]:http://buildwithcraft.com/features/entry-types "Entry Types"
-[gfm]: https://help.github.com/articles/github-flavored-markdown "Github Flavored Markdown"
-[changelog]:https://github.com/selvinortiz/craft-plugin-doxter/blob/master/CHANGELOG.md "The Changelog"
-[license]:https://raw.github.com/selvinortiz/craft-plugin-doxter/master/LICENSE "Craft License"
-[osilogo]:https://github.com/selvinortiz/craft-plugin-doxter/raw/master/doxter/resources/img/osilogo.png "Open Source Initiative"
+<a href="https://verbb.io" target="_blank">
+    <img width="100" src="https://verbb.io/assets/img/verbb-pill.svg">
+</a>

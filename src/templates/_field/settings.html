@@ -1,0 +1,47 @@
+{% import '_includes/forms' as forms %}
+
+{{ forms.textField({
+    label: 'Tab Size' | t('doxter'),
+    name: 'tabSize',
+    size: 2,
+    value: field.tabSize ? field.tabSize : 2,
+    errors: field.getErrors('tabSize'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Indent with Tabs' | t('doxter'),
+    name: 'indentWithTabs',
+    on: field.indentWithTabs,
+    errors: field.getErrors('indentWithTabs'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Enable Line Wrapping' | t('doxter'),
+    name: 'enableLineWrapping',
+    on: field.enableLineWrapping,
+    errors: field.getErrors('enableLineWrapping'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Enable Spell Checker' | t('doxter'),
+    name: 'enableSpellChecker',
+    on: field.enableSpellChecker,
+    errors: field.getErrors('enableSpellChecker'),
+}) }}
+
+<hr>
+
+{{ forms.lightswitchField({
+    label: 'Show Toolbar' | t('doxter'),
+    name: 'showToolbar',
+    on: field.showToolbar,
+    errors: field.getErrors('showToolbar'),
+}) }}
+
+{{ forms.checkboxSelectField({
+    label: 'Enabled Toolbar Icons' | t('doxter'),
+    name: 'enabledToolbarIconNames',
+    options: toolbarIconOptions,
+    values: field.enabledToolbarIconNames,
+    errors: field.getErrors('enabledToolbarIconNames'),
+}) }}

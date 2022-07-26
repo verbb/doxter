@@ -1,18 +1,14 @@
 <?php
+namespace verbb\doxter\common\parsers;
 
-namespace selvinortiz\doxter\common\parsers;
-
+use cebe\markdown\GithubMarkdown;
 use cebe\markdown\Parser;
 
-/**
- * The markdown parser
- *
- * Class DoxterCodeBlockParser
- *
- * @package Craft
- */
 class Markdown extends BaseParser
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var Markdown
      */
@@ -23,18 +19,22 @@ class Markdown extends BaseParser
      */
     protected static $_parser;
 
+
+    // Public Methods
+    // =========================================================================
+
     public function __construct($parser = null)
     {
-        self::$_parser = $parser ? $parser : new \cebe\markdown\GithubMarkdown();
+        self::$_parser = $parser ?: new GithubMarkdown();
     }
 
     /**
      * @param string $source
-     * @param array  $options
+     * @param array $options
      *
      * @return string
      */
-    public function parse($source, array $options = [])
+    public function parse(string $source, array $options = []): string
     {
         return static::$_parser->parse($source);
     }
@@ -44,7 +44,7 @@ class Markdown extends BaseParser
      *
      * @return string
      */
-    public function parseInline($source)
+    public function parseInline(string $source): string
     {
         return static::$_parser->parseParagraph($source);
     }

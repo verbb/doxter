@@ -1,29 +1,31 @@
 <?php
-namespace selvinortiz\doxter\common\parsers;
+namespace verbb\doxter\common\parsers;
 
 use Craft;
 
-/**
- * Class ReferenceTag
- *
- * @package selvinortiz\doxter\common\parsers
- */
 class ReferenceTag extends BaseParser
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var ReferenceTag
      */
     protected static $_instance;
 
+
+    // Public Methods
+    // =========================================================================
+
     /**
      * Parses reference tags recursively
      *
      * @param string $source
-     * @param array  $options
+     * @param array $options
      *
-     * @return    string
+     * @return string
      */
-    public function parse($source, array $options = [])
+    public function parse(string $source, array $options = []): string
     {
         return Craft::$app->getElements()->parseRefs($source);
     }

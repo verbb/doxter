@@ -1,33 +1,35 @@
 <?php
-namespace selvinortiz\doxter\fields\data;
+namespace verbb\doxter\fields\data;
+
+use verbb\doxter\Doxter;
 
 use Craft;
 
-use function selvinortiz\doxter\doxter;
+use Twig\Markup;
 
-/**
- * Represents raw (source) and html (output) for the field type value
- *
- * Class DoxterData
- *
- * @package selvinortiz\doxter\fields\data
- */
-class DoxterData extends \Twig\Markup
+class DoxterData extends Markup
 {
+    // Public Methods
+    // =========================================================================
+
     protected $raw;
     protected $html;
+
+
+    // Public Methods
+    // =========================================================================
 
     public function __construct($raw)
     {
         $this->raw = $raw;
-        $this->html = doxter()->api->parse($raw);
+        $this->html = Doxter::$plugin->getService()->parse($raw);
 
         parent::__construct($this->html, Craft::$app->charset);
     }
 
     public function __toString()
     {
-        return (string)$this->getRaw();
+        return $this->getRaw();
     }
 
     /**
@@ -35,46 +37,49 @@ class DoxterData extends \Twig\Markup
      *
      * @return string
      */
-    public function getRaw()
+    public function getRaw(): string
     {
         if (empty($this->raw)) {
             return '';
         }
 
-        return doxter()->api->decodeUnicodeEntities($this->raw);
+        return Doxter::$plugin->getService()->decodeUnicodeEntities($this->raw);
     }
 
     /**
      * Alias of parse()
      *
-     * @see parse()
-     *
      * @param array $options
      *
-     * @return \Twig\Markup
+     * @return Markup
+     * @see parse()
+     *
      */
-    public function getHtml(array $options = [])
+    public function getHtml(array $options = []): Markup
     {
         return $this->parse($options);
     }
 
     public function getToc(array $options = [])
     {
-        return doxter()->api->parseToc($this->raw, $options);
+        return Doxter::$plugin->getService()->parseToc($this->raw, $options);
     }
+
+
+    // Protected Methods
+    // =========================================================================
 
     /**
      * Returns the field type html (parsed output)
      *
      * @param array $options Parsing options if any
      *
-     * @return \Twig\Markup
+     * @return Markup
      */
-    protected function parse(array $options = [])
+    protected function parse(array $options = []): Markup
     {
-        if (!empty($options))
-        {
-            $this->html = doxter()->api->parse($this->raw, $options);
+        if (!empty($options)) {
+            $this->html = Doxter::$plugin->getService()->parse($this->raw, $options);
         }
 
         return $this->html;

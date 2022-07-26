@@ -1,17 +1,15 @@
 <?php
-namespace selvinortiz\doxter\variables;
+namespace verbb\doxter\variables;
 
-use selvinortiz\doxter\Doxter;
+use verbb\doxter\Doxter;
 
-/**
- * Class DoxterVariable
- *
- * @package selvinortiz\doxter\variables
- */
 class DoxterVariable
 {
-    public function getVersion()
+    // Public Methods
+    // =========================================================================
+
+    public function getPluginName()
     {
-        Doxter::getInstance()->version;
+        return Doxter::$plugin->getPluginName();
     }
 }

@@ -1,50 +1,49 @@
 {
-    "name": "selvinortiz/doxter",
+    "name": "verbb/doxter",
     "description": "Slick Markdown Editor and Smart Text Parser for Craft CMS",
-    "version": "4.0.0-beta.1",
     "type": "craft-plugin",
+    "version": "4.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "doxter"
+    ],
+    "support": {
+        "email": "support@verbb.io",
+        "issues": "https://github.com/verbb/doxter/issues?state=open",
+        "source": "https://github.com/verbb/doxter",
+        "docs": "https://github.com/verbb/doxter",
+        "rss": "https://github.com/verbb/doxter/commits/v2.atom"
+    },
     "license": "MIT",
     "authors": [
+        {
+            "name": "Verbb",
+            "homepage": "https://verbb.io"
+        },
         {
             "name": "Selvin Ortiz",
             "email": "selvin@selvin.co"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "selvinortiz\\doxter\\": "src/"
-        }
-    },
-    "keywords": [
-        "craft",
-        "craftcms",
-        "plugin",
-        "doxter"
-    ],
-    "extra": {
-        "name": "Doxter",
-        "class": "selvinortiz\\doxter\\Doxter",
-        "handle": "doxter",
-        "schemaVersion": "3.0.0",
-        "developer": "Selvin Ortiz",
-        "developerUrl": "https://selvinortiz.com",
-        "documentationUrl": "https://selvinortiz.com/plugins/doxter",
-        "changelogUrl": "https://raw.githubusercontent.com/selvinortiz/craft-plugin-doxter/master/CHANGELOG.md",
-        "components": {
-            "api": "selvinortiz\\doxter\\services\\DoxterService"
-        }
-    },
     "require": {
-        "php": "^8.0.2",
-        "craftcms/cms": "^4.0.0-beta.1",
+        "craftcms/cms": "^3.7.0",
+        "verbb/base": "^1.0.2",
         "michelf/php-smartypants": "^1.8",
         "mundschenk-at/php-typography": "^6.3",
         "spatie/yaml-front-matter": "^2.0"
     },
-    "config": {
-        "allow-plugins": {
-            "yiisoft/yii2-composer": true,
-            "craftcms/plugin-installer": true
+    "autoload": {
+        "psr-4": {
+            "verbb\\doxter\\": "src/"
         }
+    },
+    "extra": {
+        "name": "Doxter",
+        "handle": "doxter",
+        "changelogUrl": "https://raw.githubusercontent.com/verbb/doxter/craft-3/CHANGELOG.md",
+        "class": "verbb\\doxter\\Doxter"
     }
 }

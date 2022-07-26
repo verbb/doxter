@@ -1,0 +1,87 @@
+// ==========================================================================
+
+// Doxter for Craft CMS
+// Author: Verbb - https://verbb.io/
+
+// ==========================================================================
+
+#main-container.fullscreen {
+    z-index: 999;
+}
+
+.doxter {
+    .CodeMirror {
+        font-size: 1.1em !important;
+    }
+
+    .editor-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        opacity: initial;
+        background-color: white;
+        border-bottom: 1px solid #bbb;
+    }
+
+    .editor-toolbar:hover {
+        opacity: initial;
+    }
+}
+
+
+//
+// Dark Mode
+//
+
+body.darkmode .doxter {
+    .CodeMirror {
+        color: #ccc !important;
+        border-color: transparent !important;
+        background-color: #111 !important;
+
+        &.CodeMirror-focused {
+            border: 1px solid #565656 !important;
+        }
+
+        &:before {
+            content: none !important;
+        }
+
+        .CodeMirror-cursor {
+            border-color: rgba(255, 255, 255, 1) !important;
+        }
+
+        .cm-spell-error {
+            background-color: #7b3e84 !important;
+        }
+    }
+
+    .editor-toolbar {
+        border: none !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        background-color: #333 !important;
+    }
+
+    .editor-toolbar:before,
+    .editor-toolbar:after {
+        content: none !important;
+    }
+
+    .editor-toolbar a,
+    .editor-toolbar a:link,
+    .editor-toolbar a:visited {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .editor-toolbar a:hover,
+    .editor-toolbar a:active,
+    .editor-toolbar a:focus,
+    .editor-toolbar a.active {
+        color: rgba(255, 255, 255, 1) !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+}
+
+/* @todo Fix styles for code displayed in the editor */

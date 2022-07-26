@@ -1,18 +1,15 @@
 <?php
+namespace verbb\doxter\common\parsers;
 
-namespace selvinortiz\doxter\common\parsers;
+use verbb\doxter\Doxter;
 
 use craft\helpers\ElementHelper;
 
-use function selvinortiz\doxter\doxter;
-
-/**
- * Class Header
- *
- * @package Craft
- */
 class Header extends BaseParser
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var Header
      */
@@ -32,15 +29,19 @@ class Header extends BaseParser
      */
     protected $startingHeaderLevel;
 
+
+    // Public Methods
+    // =========================================================================
+
     /**
      * Parses headers and adds anchors to them if necessary
      *
-     * @param string $source  HTML source to search for headers within
-     * @param array  $options Passed in parsing options
+     * @param string $source HTML source to search for headers within
+     * @param array $options Passed in parsing options
      *
      * @return string
      */
-    public function parse($source, array $options = [])
+    public function parse(string $source, array $options = []): string
     {
         $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
         $startingHeaderLevel = 1;
@@ -48,7 +49,7 @@ class Header extends BaseParser
         extract($options);
 
         if (!is_array($addHeaderAnchorsTo)) {
-            $addHeaderAnchorsTo = doxter()->api->getHeadersToParse($addHeaderAnchorsTo);
+            $addHeaderAnchorsTo = Doxter::$plugin->getService()->getHeadersToParse($addHeaderAnchorsTo);
         }
 
         $this->addHeaderAnchorsTo = $addHeaderAnchorsTo;
@@ -57,9 +58,7 @@ class Header extends BaseParser
         // Match against all header tags
         $headers = implode('|', array_map('trim', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']));
         $pattern = sprintf('/<(?<tag>%s)>(?<text>.*?)<\/(%s)>/i', $headers, $headers);
-        $source = preg_replace_callback($pattern, [$this, 'handleMatch'], $source);
-
-        return $source;
+        return preg_replace_callback($pattern, [$this, 'handleMatch'], $source);
     }
 
     /**
@@ -69,14 +68,14 @@ class Header extends BaseParser
      *
      * @return string
      */
-    public function handleMatch(array $matches = [])
+    public function handleMatch(array $matches = []): string
     {
         $tag = $matches['tag'];
         $text = $matches['text'];
         $slug = ElementHelper::generateSlug(htmlspecialchars_decode($text));
         $clean = strip_tags($text);
 
-        $currentHeaderLevel = (int) substr($tag, 1, 1);
+        $currentHeaderLevel = (int)substr($tag, 1, 1);
         $updatedHeaderLevel = min(6, $currentHeaderLevel + ($this->startingHeaderLevel - 1));
 
         if ($this->startingHeaderLevel) {

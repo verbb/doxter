@@ -1,33 +1,37 @@
 <?php
-
-namespace selvinortiz\doxter\common\parsers;
-
-use Michelf\SmartyPantsTypographer;
+namespace verbb\doxter\common\parsers;
 
 use Craft;
 
-/**
- * Class Typography
- *
- * @package Craft
- */
+use Michelf\SmartyPantsTypographer;
+
+use PHP_Typography\PHP_Typography;
+use PHP_Typography\Settings;
+
 class Typography extends BaseParser
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var Typography
      */
     protected static $_instance;
 
-    public function parse($source, array $options = [])
+
+    // Public Methods
+    // =========================================================================
+
+    public function parse(string $source, array $options = [])
     {
         $source = SmartyPantsTypographer::defaultTransform($source);
 
-        $settings = new \PHP_Typography\Settings();
+        $settings = new Settings();
 
         $settings->set_hyphenation($options['addTypographyHyphenation'] ?? true);
         $settings->set_hyphenation_language(Craft::$app->language);
 
-        $typographer = new \PHP_Typography\PHP_Typography();
+        $typographer = new PHP_Typography();
 
         return $typographer->process($source, $settings);
     }

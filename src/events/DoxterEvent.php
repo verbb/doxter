@@ -1,10 +1,13 @@
 <?php
-namespace selvinortiz\doxter\events;
+namespace verbb\doxter\events;
 
 use yii\base\Event;
 
 class DoxterEvent extends Event
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var string
      */

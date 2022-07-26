@@ -1,26 +1,17 @@
 <?php
-namespace selvinortiz\doxter\common\parsers;
+namespace verbb\doxter\common\parsers;
 
-use function selvinortiz\doxter\doxter;
+use verbb\doxter\Doxter;
 
-/**
- * The base parser that all other parsers must extend
- *
- * Class DoxterBaseParser
- *
- * @package Craft
- */
 abstract class BaseParser
 {
-    /**
-     * @var object The parser instance which should be defined in each extending class
-     */
-    protected static $_instance;
+    // Static Methods
+    // =========================================================================
 
     /**
      * Returns an instance of the class in called static context
      *
-     * @return BaseParser|Toc|Markdown|ReferenceTag|Shortcode|CodeBlock|Header|Object
+     * @return Object
      */
     public static function instance()
     {
@@ -31,6 +22,19 @@ abstract class BaseParser
         return static::$_instance;
     }
 
+
+    // Properties
+    // =========================================================================
+
+    /**
+     * @var object The parser instance which should be defined in each extending class
+     */
+    protected static $_instance;
+
+
+    // Public Methods
+    // =========================================================================
+
     /**
      * Reports whether the source string can be safely parsed
      *
@@ -38,18 +42,18 @@ abstract class BaseParser
      *
      * @return bool
      */
-    public function canBeSafelyParsed($source = null)
+    public function canBeSafelyParsed($source = null): bool
     {
-        return doxter()->api->canBeSafelyParsed($source);
+        return Doxter::$plugin->getService()->canBeSafelyParsed($source);
     }
 
     /**
      * Must be implemented by all extending parsers
      *
      * @param string $source
-     * @param array  $options
+     * @param array $options
      *
      * @return mixed
      */
-    abstract public function parse($source, array $options = []);
+    abstract public function parse(string $source, array $options = []);
 }

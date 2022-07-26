@@ -1,0 +1,131 @@
+{% extends 'doxter/_layouts' %}
+{% import '_includes/forms' as forms %}
+
+{% set crumbs = [
+    { label: 'Doxter' | t('doxter'), url: url('doxter/settings') },
+    { label: 'Settings' | t('app'), url: url('doxter/settings') }
+] %}
+
+{% set selectedTab = 'settings' %}
+{% set fullPageForm = true %}
+
+{% block blockContent %}
+
+<input type="hidden" name="action" value="plugins/save-plugin-settings">
+<input type="hidden" name="pluginHandle" value="doxter">
+
+{% namespace 'settings' %}
+
+<h2>{{ 'Default Parsing Settings' | t('doxter') }}</h2>
+
+{{ forms.lightswitchField({
+    label: 'Enable Typography Styles?' | t('doxter'),
+    name: 'addTypographyStyles',
+    on: settings.addTypographyStyles,
+    errors: settings.getErrors('addTypographyStyles'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Enable Shortcode Parsing?' | t('doxter'),
+    name: 'parseShortcodes',
+    on: settings.parseShortcodes,
+    errors: settings.getErrors('parseShortcodes'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Enable Reference Tag Parsing?' | t('doxter'),
+    name: 'parseReferenceTags',
+    on: settings.parseReferenceTags,
+    errors: settings.getErrors('parseReferenceTags'),
+}) }}
+
+<hr>
+
+<h2>{{ 'Header Parsing Settings' | t('doxter') }}</h2>
+
+{{ forms.lightswitchField({
+    label: 'Enable Header Parsing?' | t('doxter'),
+    name: 'addHeaderAnchors',
+    on: settings.addHeaderAnchors,
+    errors: settings.getErrors('addHeaderAnchors'),
+}) }}
+
+{{ forms.selectField({
+    label: 'Header Level' | t('doxter'),
+    instructions: 'What do you want the starting header level to be?' | t('doxter'),
+    name: 'startingHeaderLevel',
+    options: {
+        1: 'Level 1' | t('doxter'),
+        2: 'Level 2' | t('doxter'),
+        3: 'Level 3' | t('doxter'),
+        4: 'Level 4' | t('doxter'),
+        5: 'Level 5' | t('doxter'),
+        6: 'Level 6' | t('doxter'),
+    },
+    value: settings.startingHeaderLevel,
+    errors: settings.getErrors('startingHeaderLevel'),
+}) }}
+
+{{ forms.checkboxGroupField({
+    label: 'Linkable Headers' | t('doxter'),
+    instructions: 'Which headers do you want to make linkable by default?' | t('doxter'),
+    name: 'addHeaderAnchorsTo',
+    options: {
+        'h1': 'H1' | t('doxter'),
+        'h2': 'H2' | t('doxter'),
+        'h3': 'H3' | t('doxter'),
+        'h4': 'H4' | t('doxter'),
+        'h5': 'H5' | t('doxter'),
+        'h6': 'H6' | t('doxter'),
+    },
+    values: settings.addHeaderAnchorsTo,
+    errors: settings.getErrors('addHeaderAnchorsTo'),
+}) }}
+
+<hr>
+
+<h2>{{ "Code Block Settings" | t('doxter') }}</h2>
+
+{{ forms.textareaField({
+    label: 'Container Snippet' | t('doxter'),
+    instructions: 'A snippet to wrap fenced code blocks for your syntax highlighter to use. <kbd>{languageClass}<kbd> <kbd>{sourceCode}</kbd>' | md | t('doxter'),
+    id: 'codeBlockSnippet',
+    name: 'codeBlockSnippet',
+    class: 'code codeBlockSnippet',
+    rows: 3,
+    required: true,
+    value: settings.codeBlockSnippet,
+    errors: settings.getErrors('codeBlockSnippet'),
+}) }}
+
+<button class="addPrismSnippetBtn btn" data-highlighter="PrismJs">Prism JS</button>
+<button class="addRainbowSnippetBtn btn" data-highlighter="RainbowJs">Rainbow JS</button>
+<button class="addHighlightSnippetBtn btn" data-highlighter="HighlightJs">Highlight JS</button>
+    
+{% endnamespace %}
+
+{% endblock %}
+
+{% js %}
+
+var $settingsCodeBlockSnippetTextArea = $('#settings-codeBlockSnippet');
+
+$('.addPrismSnippetBtn').on('click', function(e) {
+    e.preventDefault();
+
+    $settingsCodeBlockSnippetTextArea.val('<pre><code class="language-{languageClass}">{sourceCode}</code></pre>');
+});
+
+$('.addRainbowSnippetBtn').on('click', function(e) {
+    e.preventDefault();
+
+    $settingsCodeBlockSnippetTextArea.val('<pre><code data-language="language-{languageClass}">{sourceCode}</code></pre>');
+});
+
+$('.addHighlightSnippetBtn').on('click', function(e) {
+    e.preventDefault();
+
+    $settingsCodeBlockSnippetTextArea.val('<pre><code class="{languageClass}">{sourceCode}</code></php>');
+});
+
+{% endjs %}

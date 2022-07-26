@@ -1,0 +1,11 @@
+{% import '_includes/forms' as forms %}
+
+<div class="doxter" id="{{ id }}-canvas">
+    {{ forms.textareaField({
+        id: id,
+        name: name,
+        value: value.raw ?? '',
+        class: class,
+        rows: rows,
+    }) }}
+</div>
