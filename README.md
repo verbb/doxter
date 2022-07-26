@@ -217,9 +217,11 @@ Doxter gives you the flexibility to define code blocks in the _standard_ way or 
 ### Standard Code Blocks
 Standard code blocks are defined by one or more levels levels of indentation to denote where the code block begins/​ends
 
+````
     $greeting = 'Hello';
 
     echo $greeting;
+````
 
 ### Fenced Code Blocks
 Fenced code blocks use three or five backticks to denote where the code block begins/​ends. You can also append a language identifier to the first set of backticks.
