@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.1 - 2022-07-27
+
+### Added
+- Add English translations.
+
+### Fixed
+- Fix a type error with `parseAttributes()`. (thanks @bencroker).
+
 ## 5.0.0 - 2022-07-26
 
 ### Changed
