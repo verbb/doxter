@@ -1,7 +1,7 @@
 <?php
 namespace verbb\doxter\models;
 
-use verbb\doxter\common\parsers\Shortcode;
+use verbb\doxter\common\parsers\Shortcode as ShortcodeParser;
 
 use craft\base\Model;
 
@@ -74,7 +74,7 @@ class Shortcode extends Model
         }
 
         if (mb_stripos($this->content, '[') !== false || mb_stripos($this->content, '{') !== false) {
-            return Shortcode::instance()->parse($this->content);
+            return ShortcodeParser::instance()->parse($this->content);
         }
 
         return $this->content;
