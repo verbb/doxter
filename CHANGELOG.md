@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.1 - 2022-07-27
+
+### Fixed
+- Fix an error for the `Shortcode` parser class.
+
 ## 4.0.0 - 2022-07-26
 
 > {note} The plugin’s package name has changed to `verbb/doxter`. Doxter will need be updated to 4.0 from a terminal, by running `composer require verbb/doxter && composer remove selvinortiz/doxter`.
