@@ -289,8 +289,6 @@ class Shortcode extends BaseParser
                     $attributes[] = stripcslashes($m[8]);
                 }
             }
-        } else {
-            $attributes = ltrim($text);
         }
 
         return $attributes;

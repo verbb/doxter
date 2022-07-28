@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.2 - 2022-07-28
+
+### Fixed
+- Fix a type error with `parseAttributes()`. (thanks @bencroker).
+
 ## 4.0.1 - 2022-07-27
 
 ### Fixed
