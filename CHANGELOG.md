@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.2 - 2022-10-23
+
+### Fixed
+- Fix bug in parse options. (thanks @bencroker).
+
 ## 5.0.1 - 2022-07-27
 
 ### Added
