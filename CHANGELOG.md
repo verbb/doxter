@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.3 - 2023-01-06
+
+### Changed
+- Only admins are now allowed to access plugin settings.
+
+### Fixed
+- Fix field settings not working correctly when setting toolbar icons
+
 ## 5.0.2 - 2022-10-23
 
 ### Fixed
