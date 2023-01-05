@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.4 - 2023-01-06
+
+### Fixed
+- Add field normaliser for `enabledToolbarIconNames`, to assist with migrating older Doxter field settings for fields that haven’t been updated recently.
+- Fix an error where field settings wouldn’t save when selecting no toolbar icons.
+
 ## 5.0.3 - 2023-01-06
 
 ### Changed
