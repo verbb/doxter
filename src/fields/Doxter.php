@@ -48,6 +48,14 @@ class Doxter extends Field
             unset($config['toolbarSettings']);
         }
 
+        // Normalise older field settings - stored as `[bold => 1]` not `[bold]`.
+        // Re-saving the field will kick it into gear, but provide a nice transition
+        if (array_key_exists('enabledToolbarIconNames', $config)) {
+            if (!isset($config['enabledToolbarIconNames'][0])) {
+                $config['enabledToolbarIconNames'] = array_keys($config['enabledToolbarIconNames']);
+            }
+        }
+
         parent::__construct($config);
     }
 
