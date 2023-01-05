@@ -1,6 +1,8 @@
 {% extends 'doxter/_layouts' %}
 {% import '_includes/forms' as forms %}
 
+{% requireAdmin %}
+
 {% set crumbs = [
     { label: 'Doxter' | t('doxter'), url: url('doxter/settings') },
     { label: 'Settings' | t('app'), url: url('doxter/settings') }
