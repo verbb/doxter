@@ -17,9 +17,6 @@ class Doxter extends Field
     // Static Methods
     // =========================================================================
 
-    /**
-     * @return string
-     */
     public static function displayName(): string
     {
         return 'Doxter';
@@ -69,14 +66,21 @@ class Doxter extends Field
         parent::__construct($config);
     }
 
+    public function getContentColumnType(): string
+    {
+        return Schema::TYPE_TEXT;
+    }
+
     public function getInputHtml($value, ElementInterface $element = null): string
     {
         $view = Craft::$app->getView();
         $inputId = Html::id($this->handle);
         $namespacedId = $view->namespaceInputId($inputId);
 
+        $settings = Json::encode($this->settings);
+
         $view->registerAssetBundle(DoxterFieldAsset::class);
-        $view->registerJs("new Doxter().init('{$namespacedId}', {$this->getJsonEncodedEditorSettings()}).render();");
+        $view->registerJs("new Doxter().init('{$namespacedId}', {$settings}).render();");
 
         return $view->renderTemplate('doxter/_field/input', [
             'id' => $inputId,
@@ -95,69 +99,29 @@ class Doxter extends Field
         ]);
     }
 
-    /**
-     * @param string $value
-     * @param ElementInterface|null $element
-     *
-     * @return DoxterData
-     */
     public function normalizeValue($value, ElementInterface $element = null): DoxterData
     {
         return new DoxterData($value);
     }
 
-    /**
-     * @param DoxterData $value
-     * @param ElementInterface|null $element
-     *
-     * @return string
-     */
-
     public function serializeValue($value, ElementInterface $element = null): string
     {
         $value = is_string($value) ? $value : $value->getRaw();
+        
         return StringHelper::encodeMb4($value);
     }
 
     public function getSearchKeywords($value, ElementInterface $element): string
     {
         $keywords = parent::getSearchKeywords($value, $element);
+
         return StringHelper::encodeMb4($keywords);
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentColumnType(): string
-    {
-        return Schema::TYPE_TEXT;
-    }
-
-    /**
-     * Returns a Javascript Friendly array of settings
-     * Making sure that enabledToolbarIconNames is returned as a flat array of names
-     */
-    public function getJsonEncodedEditorSettings(): string
-    {
-        $editorSettings = get_object_vars($this);
-
-        // Flatten enabledToolbarIconNames from ['bold' => '1', 'italic' => ''] into ['bold']
-        $enabledToolbarIconNames = $editorSettings['enabledToolbarIconNames'];
-        $enabledToolbarIconNames = array_keys(array_filter($enabledToolbarIconNames));
-        $editorSettings['enabledToolbarIconNames'] = $enabledToolbarIconNames;
-
-        return Json::encode($editorSettings);
     }
 
 
     // Private Methods
     // =========================================================================
 
-    /**
-     * Returns all icon options.
-     *
-     * @return array
-     */
     private function getToolbarIconOptions(): array
     {
         return [
