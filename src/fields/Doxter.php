@@ -31,22 +31,7 @@ class Doxter extends Field
     public bool $enableLineWrapping = true;
     public bool $enableSpellChecker = false;
     public bool $showToolbar = true;
-
-    public array $enabledToolbarIconNames = [
-        'bold' => true,
-        'italic' => true,
-        'quote' => true,
-        'ordered-list' => true,
-        'unordered-list' => true,
-        'link' => true,
-        'image' => true,
-        'doxter-users' => true,
-        'doxter-entries' => true,
-        'doxter-assets' => true,
-        'doxter-tags' => true,
-        'preview' => false,
-        'fullscreen' => false,
-    ];
+    public array $enabledToolbarIconNames = [];
 
 
     // Public Methods
@@ -93,6 +78,24 @@ class Doxter extends Field
 
     public function getSettingsHtml(): ?string
     {
+        if (!$this->id) {
+            $this->enabledToolbarIconNames = [
+                'bold' => true,
+                'italic' => true,
+                'quote' => true,
+                'ordered-list' => true,
+                'unordered-list' => true,
+                'link' => true,
+                'image' => true,
+                'doxter-users' => true,
+                'doxter-entries' => true,
+                'doxter-assets' => true,
+                'doxter-tags' => true,
+                'preview' => false,
+                'fullscreen' => false,
+            ];
+        }
+
         return Craft::$app->getView()->renderTemplate('doxter/_field/settings', [
             'field' => $this,
             'toolbarIconOptions' => $this->getToolbarIconOptions(),
