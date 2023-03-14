@@ -127,7 +127,7 @@ $('.addRainbowSnippetBtn').on('click', function(e) {
 $('.addHighlightSnippetBtn').on('click', function(e) {
     e.preventDefault();
 
-    $settingsCodeBlockSnippetTextArea.val('<pre><code class="{languageClass}">{sourceCode}</code></php>');
+    $settingsCodeBlockSnippetTextArea.val('<pre><code class="{languageClass}">{sourceCode}</code></pre>');
 });
 
 {% endjs %}
