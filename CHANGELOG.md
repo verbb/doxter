@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.5 - 2023-03-15
+
+### Fixed
+- Fix incorrect markup for code blocks. (thanks @bencroker).
+- Fix selecting no linkable headers. (thanks @bencroker).
+
 ## 5.0.4 - 2023-01-06
 
 ### Fixed
