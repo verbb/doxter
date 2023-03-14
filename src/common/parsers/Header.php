@@ -26,7 +26,7 @@ class Header extends BaseParser
      */
     public function parse(string $source, array $options = []): mixed
     {
-        $addHeaderAnchorsTo = $options['addHeaderAnchorsTo'] ?? ['h1', 'h2', 'h3'];
+        $addHeaderAnchorsTo = $options['addHeaderAnchorsTo'] ?? [];
         $startingHeaderLevel = $options['startingHeaderLevel'] ?? 1;
 
         $this->addHeaderAnchorsTo = $addHeaderAnchorsTo;

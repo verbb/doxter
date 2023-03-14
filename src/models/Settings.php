@@ -11,7 +11,7 @@ class Settings extends Model
     public array $shortcodes = [];
     public string $codeBlockSnippet = '';
     public bool $addHeaderAnchors = true;
-    public array $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
+    public array|null $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
     public int $startingHeaderLevel = 1;
     public bool $addTypographyStyles = true;
     public bool $addTypographyHyphenation = true;

@@ -241,10 +241,10 @@ Here are a few _code block template string_ examples for the syntax highlighter
 
 ```html
 <!-- HighlightJS -->
-<pre><code class="{languageClass}">{sourceCode}</code></php>
+<pre><code class="{languageClass}">{sourceCode}</code></pre>
 
 <!-- RainbowJS -->
-<pre><code data-language="{languageClass}">{sourceCode}</code></php>
+<pre><code data-language="{languageClass}">{sourceCode}</code></pre>
 
 <!-- PrismJS -->
 <pre><code class="language-{languageClass}">{sourceCode}</code></pre>
