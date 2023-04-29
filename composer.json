@@ -1,6 +1,6 @@
 {
     "name": "verbb/doxter",
-    "description": "Slick Markdown Editor and Smart Text Parser for Craft CMS",
+    "description": "Slick markdown editor and smart text parser.",
     "type": "craft-plugin",
     "version": "5.0.5",
     "keywords": [
