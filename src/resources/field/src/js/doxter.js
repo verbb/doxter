@@ -343,12 +343,4 @@ Doxter.prototype.render = function() {
     Garnish.on(Craft.LivePreview, 'enter', function() {
         self.openLivePreviewCallback();
     });
-
-    Garnish.on(Craft.Preview, 'close', function() {
-        self.closeLivePreviewCallback();
-    });
-
-    Garnish.on(Craft.LivePreview, 'exit', function() {
-        self.closeLivePreviewCallback();
-    });
 };
