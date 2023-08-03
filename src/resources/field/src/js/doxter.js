@@ -274,6 +274,46 @@ Doxter.prototype.configure = function(settings) {
     };
 };
 
+Doxter.prototype.updateFixedToolbar = function() {
+    // console.log('updateFixedToolbar')
+    let $header = document.querySelector('body.fixed-header #header');
+
+    if ($header) {
+        let headerBuffer = $header.offsetHeight;
+
+        const $doxter = document.querySelector('.doxter');
+        $doxter.querySelector('.editor-toolbar').style.top = `${$doxter.scrollTop + headerBuffer}px`;
+    }
+};
+
+Doxter.prototype.updateFixedToolbarLivePreview = function() {
+    console.log('updateFixedToolbarLivePreview')
+    let $header = document.querySelector('.lp-editor-container .flex');
+
+    if ($header) {
+        let headerBuffer = $header.offsetHeight - parseFloat(window.getComputedStyle(document.querySelector('.lp-editor-container .lp-editor'), null).getPropertyValue('padding-top'));
+
+        const $doxter = document.querySelector('.lp-editor .doxter');
+        $doxter.querySelector('.editor-toolbar').style.top = `${$doxter.scrollTop + headerBuffer}px`;
+    }
+};
+
+Doxter.prototype.openLivePreviewCallback = function() {
+    // Handle the Live Preview scroll
+    const $livePreview = document.querySelector('.lp-editor-container .lp-editor');
+    var self = this;
+
+    if ($livePreview) {
+        $livePreview.addEventListener('scroll', function() {
+            self.updateFixedToolbarLivePreview();
+        });
+
+        $livePreview.addEventListener('resize', function() {
+            self.updateFixedToolbarLivePreview();
+        });
+    }
+};
+
 /**
  * Render Doxter in all its beauty
  */
@@ -287,5 +327,28 @@ Doxter.prototype.render = function() {
     
     Garnish.$win.on("resize", function () {
         self.editor.codemirror.refresh();
+    });
+
+    window.addEventListener('scroll', function() {
+        self.updateFixedToolbar();
+    });
+    window.addEventListener('resize', function() {
+        self.updateFixedToolbar();
+    });
+
+    Garnish.on(Craft.Preview, 'open', function() {
+        self.openLivePreviewCallback();
+    });
+
+    Garnish.on(Craft.LivePreview, 'enter', function() {
+        self.openLivePreviewCallback();
+    });
+
+    Garnish.on(Craft.Preview, 'close', function() {
+        self.closeLivePreviewCallback();
+    });
+
+    Garnish.on(Craft.LivePreview, 'exit', function() {
+        self.closeLivePreviewCallback();
     });
 };
