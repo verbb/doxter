@@ -17,6 +17,7 @@ class Settings extends Model
     public bool $addTypographyHyphenation = true;
     public bool $parseReferenceTags = true;
     public bool $parseShortcodes = true;
+    
     protected bool $_didRegisterShortcodeTags = false;
 
 

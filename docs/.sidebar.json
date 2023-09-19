@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Get Started",
+        "collapsable": false,
+        "children": [
+            "get-started/installation-setup",
+            "get-started/requirements",
+            "get-started/configuration"
+        ]
+    },
+    {
+        "title": "Feature Tour",
+        "collapsable": false,
+        "children": [
+            "feature-tour/editor",
+            "feature-tour/typography",
+            "feature-tour/shortcodes",
+            "feature-tour/code-blocks",
+            "feature-tour/table-of-contents",
+            "feature-tour/reference-tags",
+            "feature-tour/linkable-headers",
+            "feature-tour/parsing-options",
+            "feature-tour/filters"
+        ]
+    }
+]
