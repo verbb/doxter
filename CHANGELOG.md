@@ -56,7 +56,7 @@
 ### Updated
 - Updated Doxter to use the same markdown parser used by Craft under the hood
 
-## 3.5.0-beta-2 - 2019-20-07
+## 3.5.0-beta-2 - 2019-07-20
 
 ### Added
 - Added `cebe/markdown` as a dependency
@@ -72,7 +72,7 @@
 ### Removed
 - Removed Parsedown as a dependency
 
-## 3.5.0-beta - 2019-20-07
+## 3.5.0-beta - 2019-07-20
 
 ### Added
 - Added an experimental feature to allow Doxter to parse files
