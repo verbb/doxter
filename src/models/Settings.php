@@ -38,15 +38,6 @@ class Settings extends Model
         parent::__construct($config);
     }
 
-    public function defineRules(): array
-    {
-        $rules = parent::defineRules();
-
-        $rules[] = [['codeBlockSnippet'], 'required'];
-
-        return $rules;
-    }
-
     /**
      * Returns a list of registered shortcode tags
      *
@@ -75,5 +66,18 @@ class Settings extends Model
         }
 
         return $this->shortcodes['tags'];
+    }
+
+
+    // Protected Methods
+    // =========================================================================
+
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+
+        $rules[] = [['codeBlockSnippet'], 'required'];
+
+        return $rules;
     }
 }

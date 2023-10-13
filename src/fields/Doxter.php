@@ -22,6 +22,11 @@ class Doxter extends Field
         return 'Doxter';
     }
 
+    public static function dbType(): string
+    {
+        return Schema::TYPE_TEXT;
+    }
+
 
     // Properties
     // =========================================================================
@@ -59,12 +64,7 @@ class Doxter extends Field
         parent::__construct($config);
     }
 
-    public function getContentColumnType(): string
-    {
-        return Schema::TYPE_TEXT;
-    }
-
-    public function getInputHtml($value, ElementInterface $element = null): string
+    protected function inputHtml(mixed $value, ?ElementInterface $element, bool $inline): string
     {
         $view = Craft::$app->getView();
         $inputId = Html::id($this->handle);
@@ -110,12 +110,12 @@ class Doxter extends Field
         ]);
     }
 
-    public function normalizeValue($value, ElementInterface $element = null): DoxterData
+    public function normalizeValue(mixed $value, ElementInterface $element = null): mixed
     {
         return new DoxterData($value);
     }
 
-    public function serializeValue($value, ElementInterface $element = null): string
+    public function serializeValue(mixed $value, ElementInterface $element = null): mixed
     {
         $value = is_string($value) ? $value : $value->getRaw();
         

@@ -148,7 +148,7 @@ class Shortcode extends BaseParser
         }
 
         if (!Craft::$app->getView()->doesTemplateExist($template)) {
-            Doxter::log('Missing template for Shortcode "' . $shortcode->name . '"');
+            Doxter::info('Missing template for Shortcode "' . $shortcode->name . '"');
 
             return $matchedContent;
         }

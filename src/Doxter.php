@@ -23,8 +23,8 @@ class Doxter extends Plugin
     // Properties
     // =========================================================================
 
-    public string $schemaVersion = '4.0.0';
     public bool $hasCpSettings = true;
+    public string $schemaVersion = '4.0.0';
 
 
     // Traits
@@ -42,12 +42,13 @@ class Doxter extends Plugin
 
         self::$plugin = $this;
 
-        $this->_setPluginComponents();
-        $this->_setLogging();
         $this->_registerTwigExtensions();
-        $this->_registerCpRoutes();
         $this->_registerVariables();
         $this->_registerFieldTypes();
+
+        if (Craft::$app->getRequest()->getIsCpRequest()) {
+            $this->_registerCpRoutes();
+        }
     }
 
     public function getPluginName(): string
