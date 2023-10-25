@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.6 - 2023-10-25
+
+### Fixed
+- Fix sticky toolbar.
+
 ## 5.0.5 - 2023-03-15
 
 ### Fixed
