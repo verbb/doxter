@@ -1,5 +1,5 @@
 # Doxter plugin for Craft CMS
-<img width="500" src="https://verbb.imgix.net/plugins/doxter/doxter-social-card.png?v=1">
+<img width="500" src="https://verbb.imgix.net/plugins/doxter/doxter-social-card.png?v=2">
 
 Doxter is a Craft CMS plugin for a slick markdown editor for editing content.
 

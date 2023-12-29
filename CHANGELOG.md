@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.6 - 2023-10-25
+
+### Fixed
+- Fix sticky toolbar.
+
 ## 5.0.5 - 2023-03-15
 
 ### Fixed
@@ -56,7 +61,7 @@
 ### Updated
 - Updated Doxter to use the same markdown parser used by Craft under the hood
 
-## 3.5.0-beta-2 - 2019-20-07
+## 3.5.0-beta-2 - 2019-07-20
 
 ### Added
 - Added `cebe/markdown` as a dependency
@@ -72,7 +77,7 @@
 ### Removed
 - Removed Parsedown as a dependency
 
-## 3.5.0-beta - 2019-20-07
+## 3.5.0-beta - 2019-07-20
 
 ### Added
 - Added an experimental feature to allow Doxter to parse files
