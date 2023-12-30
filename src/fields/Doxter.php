@@ -64,26 +64,6 @@ class Doxter extends Field
         parent::__construct($config);
     }
 
-    protected function inputHtml(mixed $value, ?ElementInterface $element, bool $inline): string
-    {
-        $view = Craft::$app->getView();
-        $inputId = Html::id($this->handle);
-        $namespacedId = $view->namespaceInputId($inputId);
-
-        $settings = Json::encode($this->settings);
-
-        $view->registerAssetBundle(DoxterFieldAsset::class);
-        $view->registerJs("new Doxter().init('{$namespacedId}', {$settings}).render();");
-
-        return $view->renderTemplate('doxter/_field/input', [
-            'id' => $inputId,
-            'name' => $this->handle,
-            'value' => $value,
-            'class' => 'doxter-editor',
-            'rows' => 5,
-        ]);
-    }
-
     public function getSettingsHtml(): ?string
     {
         if (!$this->id) {
@@ -122,9 +102,33 @@ class Doxter extends Field
         return StringHelper::encodeMb4($value);
     }
 
-    public function getSearchKeywords($value, ElementInterface $element): string
+
+    // Protected Methods
+    // =========================================================================
+
+    protected function inputHtml(mixed $value, ?ElementInterface $element, bool $inline): string
     {
-        $keywords = parent::getSearchKeywords($value, $element);
+        $view = Craft::$app->getView();
+        $inputId = Html::id($this->handle);
+        $namespacedId = $view->namespaceInputId($inputId);
+
+        $settings = Json::encode($this->settings);
+
+        $view->registerAssetBundle(DoxterFieldAsset::class);
+        $view->registerJs("new Doxter().init('{$namespacedId}', {$settings}).render();");
+
+        return $view->renderTemplate('doxter/_field/input', [
+            'id' => $inputId,
+            'name' => $this->handle,
+            'value' => $value,
+            'class' => 'doxter-editor',
+            'rows' => 5,
+        ]);
+    }
+
+    protected function searchKeywords(mixed $value, ElementInterface $element): string
+    {
+        $keywords = parent::searchKeywords($value, $element);
 
         return StringHelper::encodeMb4($keywords);
     }
