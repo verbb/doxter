@@ -22,6 +22,11 @@ class Doxter extends Field
         return 'Doxter';
     }
 
+    public static function icon(): string
+    {
+        return '@verbb/doxter/icon-mask.svg';
+    }
+
     public static function dbType(): string
     {
         return Schema::TYPE_TEXT;
