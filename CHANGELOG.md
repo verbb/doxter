@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0-beta.1 - 2024-03-04
+
+### Changed
+- Now requires PHP `8.2.0+`.
+- Now requires Craft `5.0.0-beta.1+`.
+
 ## 5.0.6 - 2023-10-25
 
 ### Fixed
