@@ -6,6 +6,11 @@
 - Now requires PHP `8.2.0+`.
 - Now requires Craft `5.0.0+`.
 
+## 5.0.7 - 2025-07-18
+
+### Changed
+- Update English translations.
+
 ## 5.0.6 - 2023-10-25
 
 ### Fixed
@@ -238,12 +243,12 @@
 ### Fixed
 - Fixed issue where `value.raw` in the field, could break the dashboard
 
-## 3.1.2 - 2017-05-12 [CRITICAL]
+## 3.1.2 - 2017-05-12
 
 ### Removed
 - Removes dependency on `FitVids` for responsive video embed shortcode
 
-## 3.1.1 - 2017-04-17 [CRITICAL]
+## 3.1.1 - 2017-04-17
 
 ### Fixed
 - Fixed issue [#6](https://github.com/selvinortiz/craft-plugin-doxter/issues/6) where parsing prevented the creation of new entries
@@ -320,4 +325,5 @@
 - Fixed an issue where parsers were not instantiated correctly
 
 ## 3.0.0 - 2017-01-02
+
 - Initial (beta) release for Craft 3
