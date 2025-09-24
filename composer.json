@@ -2,7 +2,7 @@
     "name": "verbb/doxter",
     "description": "Slick markdown editor and smart text parser.",
     "type": "craft-plugin",
-    "version": "6.0.1",
+    "version": "7.0.0-alpha.1",
     "keywords": [
         "craft",
         "cms",
@@ -29,12 +29,12 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "craftcms/cms": "^5.0.0",
+        "php": "^8.4",
+        "craftcms/cms": "6.x-dev",
         "michelf/php-smartypants": "^1.8",
         "mundschenk-at/php-typography": "^6.3",
         "spatie/yaml-front-matter": "^2.0",
-        "verbb/base": "^3.0.0"
+        "verbb/base": "dev-craft-6"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +44,9 @@
     "extra": {
         "name": "Doxter",
         "handle": "doxter",
-        "changelogUrl": "https://raw.githubusercontent.com/verbb/doxter/craft-5/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/verbb/doxter/craft-6/CHANGELOG.md",
         "class": "verbb\\doxter\\Doxter"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
