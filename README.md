@@ -1,4 +1,4 @@
-<p align="center"><img src="https://verbb.imgix.net/plugins/doxter/doxter-icon.svg" width="100" height="100" alt="Doxter icon"></p>
+<p align="center"><img src="https://assets.verbb.io/plugins/doxter/doxter-icon.svg" width="100" height="100" alt="Doxter icon"></p>
 <h1 align="center">Doxter for Craft CMS</h1>
 
 Doxter is a Craft CMS plugin for a slick markdown editor for editing content.
