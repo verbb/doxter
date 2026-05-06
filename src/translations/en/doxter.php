@@ -3,6 +3,7 @@
 return [
   'Code Block Settings' => 'Code Block Settings',
   'Container Snippet' => 'Container Snippet',
+  'Controls both the editor spell checker and native browser spellcheck for this field.' => 'Controls both the editor spell checker and native browser spellcheck for this field.',
   'Default Parsing Settings' => 'Default Parsing Settings',
   'Doxter' => 'Doxter',
   'Enabled Toolbar Icons' => 'Enabled Toolbar Icons',

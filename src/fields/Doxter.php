@@ -128,6 +128,7 @@ class Doxter extends Field
             'value' => $value,
             'class' => 'doxter-editor',
             'rows' => 5,
+            'spellcheck' => $this->enableSpellChecker ? 'true' : 'false',
         ]);
     }
 

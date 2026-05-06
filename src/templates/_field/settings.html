@@ -24,6 +24,7 @@
 
 {{ forms.lightswitchField({
     label: 'Enable Spell Checker' | t('doxter'),
+    instructions: 'Controls both the editor spell checker and native browser spellcheck for this field.' | t('doxter'),
     name: 'enableSpellChecker',
     on: field.enableSpellChecker,
     errors: field.getErrors('enableSpellChecker'),

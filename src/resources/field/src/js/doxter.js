@@ -5,7 +5,7 @@
 
 // ==========================================================================
 
-var Doxter = function () {};
+var Doxter = function () { };
 
 /**
  * Initialize and configure
@@ -34,7 +34,7 @@ Doxter.prototype.init = function (id, settings) {
 Doxter.prototype.createReferenceTags = function (type, elements) {
     var tags = "", tag;
 
-    for (var i = 0; i < elements.length; i ++) {
+    for (var i = 0; i < elements.length; i++) {
         tag = type.toLowerCase() + ":" + elements[i].id;
         tags = tags + "{" + tag + "}";
     }
@@ -75,34 +75,34 @@ Doxter.prototype.createSelectionModal = function (type, criteria, multiSelect) {
     });
 };
 
-Doxter.prototype.selectEntry = function() {
+Doxter.prototype.selectEntry = function () {
     var self = this;
 
-    return function() {
+    return function () {
         self.createSelectionModal('Entry');
     }
 };
 
-Doxter.prototype.selectAsset = function() {
+Doxter.prototype.selectAsset = function () {
     var self = this;
 
-    return function() {
+    return function () {
         self.createSelectionModal('Asset');
     }
 };
 
-Doxter.prototype.selectUser = function() {
+Doxter.prototype.selectUser = function () {
     var self = this;
 
-    return function() {
+    return function () {
         self.createSelectionModal('User');
     }
 };
 
-Doxter.prototype.selectTag = function() {
+Doxter.prototype.selectTag = function () {
     var self = this;
 
-    return function() {
+    return function () {
         self.createSelectionModal('Tag');
     }
 };
@@ -123,7 +123,7 @@ Doxter.prototype.fullScreen = function (SimpleMDE) {
      */
     $(window).on({
         keydown: function (evt) {
-            if (evt.keyCode === 27 ) {
+            if (evt.keyCode === 27) {
                 $container.removeClass('fullscreen');
             }
         }
@@ -256,7 +256,7 @@ Doxter.prototype.getEnabledToolbarIcons = function (defaultToolbarIcons, enabled
     return enabledToolbarIcons;
 };
 
-Doxter.prototype.configure = function(settings) {
+Doxter.prototype.configure = function (settings) {
     var self = this;
 
     return {
@@ -274,7 +274,22 @@ Doxter.prototype.configure = function(settings) {
     };
 };
 
-Doxter.prototype.updateFixedToolbar = function() {
+Doxter.prototype.setNativeSpellcheck = function () {
+    var spellcheck = this.config.spellChecker ? 'true' : 'false';
+    var codemirror = this.editor.codemirror;
+    var input = codemirror.getInputField ? codemirror.getInputField() : null;
+    var wrapper = codemirror.getWrapperElement ? codemirror.getWrapperElement() : null;
+
+    if (input) {
+        input.setAttribute('spellcheck', spellcheck);
+    }
+
+    if (wrapper) {
+        wrapper.setAttribute('spellcheck', spellcheck);
+    }
+};
+
+Doxter.prototype.updateFixedToolbar = function () {
     // console.log('updateFixedToolbar')
     let $header = document.querySelector('body.fixed-header #header');
 
@@ -286,7 +301,7 @@ Doxter.prototype.updateFixedToolbar = function() {
     }
 };
 
-Doxter.prototype.updateFixedToolbarLivePreview = function() {
+Doxter.prototype.updateFixedToolbarLivePreview = function () {
     console.log('updateFixedToolbarLivePreview')
     let $header = document.querySelector('.lp-editor-container .flex');
 
@@ -298,17 +313,17 @@ Doxter.prototype.updateFixedToolbarLivePreview = function() {
     }
 };
 
-Doxter.prototype.openLivePreviewCallback = function() {
+Doxter.prototype.openLivePreviewCallback = function () {
     // Handle the Live Preview scroll
     const $livePreview = document.querySelector('.lp-editor-container .lp-editor');
     var self = this;
 
     if ($livePreview) {
-        $livePreview.addEventListener('scroll', function() {
+        $livePreview.addEventListener('scroll', function () {
             self.updateFixedToolbarLivePreview();
         });
 
-        $livePreview.addEventListener('resize', function() {
+        $livePreview.addEventListener('resize', function () {
             self.updateFixedToolbarLivePreview();
         });
     }
@@ -317,30 +332,31 @@ Doxter.prototype.openLivePreviewCallback = function() {
 /**
  * Render Doxter in all its beauty
  */
-Doxter.prototype.render = function() {
+Doxter.prototype.render = function () {
     this.editor = new SimpleMDE(this.config);
+    this.setNativeSpellcheck();
     /*
         Refresh the editor when switching between tabs on the content-editor.
          More info: https://github.com/selvinortiz/craft-plugin-doxter/issues/14
     */
     var self = this;
-    
+
     Garnish.$win.on("resize", function () {
         self.editor.codemirror.refresh();
     });
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         self.updateFixedToolbar();
     });
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         self.updateFixedToolbar();
     });
 
-    Garnish.on(Craft.Preview, 'open', function() {
+    Garnish.on(Craft.Preview, 'open', function () {
         self.openLivePreviewCallback();
     });
 
-    Garnish.on(Craft.LivePreview, 'enter', function() {
+    Garnish.on(Craft.LivePreview, 'enter', function () {
         self.openLivePreviewCallback();
     });
 };
