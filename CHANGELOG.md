@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.2 - 2026-05-10
+
+### Fixed
+- Fix disabling spellcheck so it also disables native browser spellcheck in the editor.
+
 ## 6.0.1 - 2025-07-18
 
 ### Changed
