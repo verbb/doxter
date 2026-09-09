@@ -1,23 +1,15 @@
-{% extends 'doxter/_layouts' %}
+{% extends 'doxter/_layouts/settings' %}
+
 {% import '_includes/forms' as forms %}
+{% import 'verbb-base/_macros' as macros %}
 
-{% requireAdmin %}
-
-{% set crumbs = [
-    { label: 'Doxter' | t('doxter'), url: url('doxter/settings') },
-    { label: 'Settings' | t('app'), url: url('doxter/settings') }
-] %}
-
-{% set selectedTab = 'settings' %}
 {% set fullPageForm = true %}
+{% set selectedTab = 'general' %}
+{% set pageTitle = 'General Settings' | t('doxter') %}
+{% set pageAction = 'plugins/save-plugin-settings' %}
+{% set pageUrl = 'doxter/settings' %}
 
-{% block blockContent %}
-
-<input type="hidden" name="action" value="plugins/save-plugin-settings">
-<input type="hidden" name="pluginHandle" value="doxter">
-
-{% namespace 'settings' %}
-
+{% block settingsContent %}
 <h2>{{ 'Default Parsing Settings' | t('doxter') }}</h2>
 
 {{ forms.lightswitchField({
@@ -103,9 +95,6 @@
 <button class="addPrismSnippetBtn btn" data-highlighter="PrismJs">Prism JS</button>
 <button class="addRainbowSnippetBtn btn" data-highlighter="RainbowJs">Rainbow JS</button>
 <button class="addHighlightSnippetBtn btn" data-highlighter="HighlightJs">Highlight JS</button>
-    
-{% endnamespace %}
-
 {% endblock %}
 
 {% js %}
