@@ -1,5 +1,5 @@
 # Filters
-Not using the Doxter field? No problem.
+Use Doxter’s filters when your Markdown comes from a string or a plain text field.
 
 When you install Doxter, you get two filters that you get to use without need to create a field to store your content first.
 
@@ -16,7 +16,7 @@ Craft already provides a markdown filter that you can use it like this:
 
 You can also use the shorter version: ` | md`.
 
-However, Doxter goes beyond simple markdown parsing. It also provides support for _Reference Tags_, _Linkable Headers_, _Shortcodes_, and a few other hidden gems😉
+Doxter also supports reference tags, linkable headers and shortcodes.
 
 You can use the Doxter filter like this:
 
@@ -35,8 +35,8 @@ Because Doxter does more than just parse markdown, you have the ability to pass 
 {{ '# Doxter Rules' | doxter(options) }}
 ```
 
-## Typography Filter `doxterTypography`
-If you want to get the benefit of advanced markdown parsing and also have a nice markdown field in the control panel, then the Doxter field is what you want.
+## Rendering a Doxter Field
+A Doxter field stores the Markdown alongside access to its parsed output.
 
 Once you create a Doxter field and add it to your section, you’ll be able to get the rendered html like this:
 
@@ -51,3 +51,13 @@ If you want to get back exactly what you typed into the editor without modificat
 ```twig
 {{ entry.doxterFieldHandle.raw }}
 ```
+
+## Typography Filter `doxterTypography`
+
+To process punctuation in an existing string, use the typography filter:
+
+```twig
+{{ 'The studio is open -- bring a notebook...' | doxterTypography }}
+```
+
+Use the `doxter` filter when you also need Markdown structure such as headings and lists.

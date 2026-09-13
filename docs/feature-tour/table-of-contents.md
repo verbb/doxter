@@ -1,7 +1,7 @@
 # Table of Contents
 A _ “bring your own html”_ flat structure to create links to important sections in your document
 
-## How to use
+## How to Use
 Table of contents are currently part of the Doxter field API. That means that you won’t be able to take adventage of table of contents unless you’re using the Doxter Field.
 
 To generate a table of contents for your document, use the `toc` method available in your Doxter field.

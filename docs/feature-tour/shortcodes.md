@@ -3,7 +3,7 @@ Shortcodes are a _first-class_ citizen in Doxter. You can simply tell Doxter wha
 
 This means that in addition to advanced markdown parsing, shortcodes are supported in cases where highly specialized markup is required, you want to have full control of the output, and you need to give your content editors an easy way to embed content.
 
-## What are shortcodes?
+## What Are Shortcodes?
 A shortcode is a specific parsing rule that lets you do nifty things with very little effort. Shortcodes can embed videos and images or create output that would normally require lots of complicated, ugly code in just one line.
 
 ## Inline vs Block
@@ -107,7 +107,7 @@ Things get even more interesting when you couple the power of shortcodes, markdo
 </div>
 ```
 
-## Add your own Shortcodes
+## Add Your Own Shortcodes
 To add new shortcodes, you simple create a file called `doxter.php` inside of your `config` directory and define a mapping of shortcode tag(s) to template. Templates should be given as paths relative to your `templates` directory.
 
 ```php
