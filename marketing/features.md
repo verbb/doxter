@@ -7,7 +7,7 @@ Doxter combines a focused Markdown field with a capable parser for Craft templat
 
 Give authors a dedicated field for GitHub-flavoured Markdown, with a familiar formatting toolbar and Live Preview support. Developers retain predictable source content and dependable control over its rendered output.
 
-![A table-of-contents article written in Doxter’s Markdown editor with its formatting and reference toolbar.](../screenshots/output/feature-tour/doxter-craft5-toc.png)
+![A table-of-contents article written in Doxter’s Markdown editor with its formatting and reference toolbar.](../screenshots/doxter-craft5-toc.png)
 <!-- feature-section-end -->
 
 <!-- feature-grid -->
