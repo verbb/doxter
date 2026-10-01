@@ -270,6 +270,11 @@ Doxter.prototype.configure = function (settings) {
         tabSize: Number(settings.tabSize),
         forceSync: true,
         spellChecker: !!settings.enableSpellChecker,
+        // Preview controls are intentionally unavailable, so remove SimpleMDE's hidden keyboard entry points too.
+        shortcuts: {
+            togglePreview: null,
+            toggleSideBySide: null,
+        },
         toolbar: self.getToolbar(settings)
     };
 };

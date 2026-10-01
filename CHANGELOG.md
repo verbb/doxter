@@ -7,6 +7,7 @@
 
 ### Fixed
 - Fixed a moderate-severity stored XSS vulnerability.
+- Fixed a low-severity stored XSS vulnerability.
 
 ## 6.0.5 - 2026-09-30
 
