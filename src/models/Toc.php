@@ -11,7 +11,7 @@ class Toc extends Model
     public ?string $id = null;
     public ?string $text = null;
     public ?int $level = null;
-    
+
     private ?string $_hash = null;
     private ?string $_uid = null;
 

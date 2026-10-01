@@ -16,7 +16,7 @@ abstract class BaseParser implements BaseParserInterface
     public static function instance(): object
     {
         if (null === static::$_instance) {
-            static::$_instance = new static;
+            static::$_instance = new static();
         }
 
         return static::$_instance;

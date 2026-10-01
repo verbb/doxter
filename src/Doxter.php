@@ -85,7 +85,7 @@ class Doxter extends Plugin
 
     private function _registerTwigExtensions(): void
     {
-        Craft::$app->getView()->registerTwigExtension(new Extension);
+        Craft::$app->getView()->registerTwigExtension(new Extension());
     }
 
     private function _registerFieldTypes(): void

@@ -103,7 +103,7 @@ class Doxter extends Field
     public function serializeValue(mixed $value, ElementInterface $element = null): mixed
     {
         $value = is_string($value) ? $value : $value->getRaw();
-        
+
         return StringHelper::encodeMb4($value);
     }
 
