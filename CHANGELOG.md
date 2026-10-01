@@ -9,6 +9,8 @@
 - Fixed a moderate-severity stored XSS vulnerability.
 - Fixed a low-severity stored XSS vulnerability.
 - Fixed a low-severity denial-of-service vulnerability.
+- Fixed a low-severity path traversal vulnerability.
+- Fixed an error when parsing Markdown files with front matter.
 
 ## 6.0.5 - 2026-09-30
 

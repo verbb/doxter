@@ -10,7 +10,6 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
-use yii\base\Exception;
 
 class Extension extends AbstractExtension
 {
@@ -66,16 +65,9 @@ class Extension extends AbstractExtension
     }
 
     /**
-     * Convert markdown and front matter from a file to structured entry
-     *
-     * @param string $slug The slug string that implements __toString
-     * @param array $options Filter arguments passed in from twig
-     *
-     * @return string|null The parsed string or null if not a valid slug
-     * @throws Exception
-     * @throws Exception
+     * Converts Markdown and front matter from a file to structured data.
      */
-    public function doxterFile(string $slug = '', array $options = []): ?string
+    public function doxterFile(string $slug = '', array $options = []): ?array
     {
         return Doxter::$plugin->getService()->parseFile($slug, $options);
     }

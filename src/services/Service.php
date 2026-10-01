@@ -15,6 +15,7 @@ use verbb\doxter\models\Settings;
 use Craft;
 use craft\base\Component;
 use craft\helpers\ArrayHelper;
+use craft\helpers\FileHelper;
 use craft\helpers\HtmlPurifier;
 use craft\helpers\Template;
 use craft\web\View;
@@ -135,29 +136,31 @@ class Service extends Component
     }
 
     /**
-     * Parses markdown and front matter from a file into valid html using various rules and parsers
-     *
-     * @param $slug
-     * @param array $options Passed in parameters via a template filter call
-     *
-     * @return Markup|null
-     * @throws Exception
+     * Parses Markdown and front matter from a file within the Doxter template directory.
      */
-    public function parseFile($slug, array $options = []): ?Markup
+    public function parseFile(string $slug, array $options = []): ?array
     {
-        $file = sprintf('%s/_doxter/%s.md', Craft::$app->path->getSiteTemplatesPath(), $slug);
-
-        if (!is_readable($file)) {
+        if (!$this->_isValidFileSlug($slug)) {
             return null;
         }
 
-        $md = YamlFrontMatter::parseFile($file);
+        $root = realpath(Craft::$app->path->getSiteTemplatesPath() . '/_doxter');
 
-        $string = array_merge($md->matter(), [
+        if ($root === false) {
+            return null;
+        }
+
+        $source = $this->_readContainedFile($root, $slug . '.md');
+
+        if ($source === null) {
+            return null;
+        }
+
+        $md = YamlFrontMatter::parse($source);
+
+        return array_merge($md->matter(), [
             'body' => $this->parse($md->body(), $options),
         ]);
-
-        return Template::raw($string);
     }
 
     public function parseToc(string $source = null, array $options = [])
@@ -344,5 +347,66 @@ class Service extends Component
         }
 
         return (is_string($source) || is_callable([$source, '__toString']));
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _isValidFileSlug(string $slug): bool
+    {
+        if (
+            $slug === '' ||
+            str_contains($slug, "\0") ||
+            str_contains($slug, '\\') ||
+            str_starts_with($slug, '/') ||
+            preg_match('/^[A-Za-z]:/', $slug) === 1
+        ) {
+            return false;
+        }
+
+        return !in_array('..', explode('/', $slug), true);
+    }
+
+    /**
+     * Reads from the same file handle whose canonical location and identity are verified.
+     */
+    private function _readContainedFile(string $root, string $relativePath): ?string
+    {
+        $candidate = $root . DIRECTORY_SEPARATOR . $relativePath;
+        $handle = @fopen($candidate, 'rb');
+
+        if ($handle === false) {
+            return null;
+        }
+
+        try {
+            clearstatcache(true, $candidate);
+            $file = realpath($candidate);
+
+            if ($file === false || !FileHelper::isWithin($file, $root)) {
+                return null;
+            }
+
+            clearstatcache(true, $file);
+            $openStat = fstat($handle);
+            $fileStat = @stat($file);
+
+            if (
+                $openStat === false ||
+                $fileStat === false ||
+                $openStat['dev'] !== $fileStat['dev'] ||
+                $openStat['ino'] !== $fileStat['ino'] ||
+                ($openStat['mode'] & 0170000) !== 0100000
+            ) {
+                return null;
+            }
+
+            $contents = stream_get_contents($handle);
+
+            return $contents === false ? null : $contents;
+        } finally {
+            fclose($handle);
+        }
     }
 }
