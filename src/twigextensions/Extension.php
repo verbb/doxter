@@ -2,7 +2,6 @@
 namespace verbb\doxter\twigextensions;
 
 use verbb\doxter\Doxter;
-use verbb\doxter\common\parsers\Typography;
 
 use craft\helpers\Template;
 use craft\redactor\FieldData;
@@ -83,11 +82,15 @@ class Extension extends AbstractExtension
 
     /**
      * @param string $source
+     * @param array $options Filter arguments passed in from twig
      *
      * @return Markup
      */
-    public function doxterTypography(string $source = ''): Markup
+    public function doxterTypography(string $source = '', array $options = []): Markup
     {
-        return Template::raw(Typography::instance()->parse($source));
+        $source = Doxter::$plugin->getService()->parseTypography($source);
+        $source = Doxter::$plugin->getService()->purifyHtml($source, $options);
+
+        return Template::raw($source);
     }
 }

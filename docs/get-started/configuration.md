@@ -33,6 +33,35 @@ Text to wrap code blocks for syntax highlighting.
 :::
 
 ::: reference
+### `allowUnsafeHtml`
+
+**Type:** `bool` · **Default:** `false`
+
+Whether Doxter should return parsed HTML without purification. Leave this disabled for content written by editors or received from front-end forms. Enable it only when every source string and shortcode parameter is controlled by a developer who is trusted to add executable markup to the site.
+:::
+
+::: reference
+### `purifierConfig`
+
+**Type:** `array` · **Default:** `['Attr.EnableID' => true]`
+
+Configuration passed to Craft’s HTML purifier. Doxter enables HTML IDs so linkable headings continue to work. Add narrowly scoped allowances here when trusted shortcode templates need markup that the default purifier removes.
+
+For example, this configuration permits Vimeo player iframes while continuing to purify the rest of the generated HTML:
+
+```php
+<?php
+
+return [
+    'purifierConfig' => [
+        'HTML.SafeIframe' => true,
+        'URI.SafeIframeRegexp' => '%^https://player.vimeo.com/video/%',
+    ],
+];
+```
+:::
+
+::: reference
 ### `addHeaderAnchors`
 
 **Type:** `bool` · **Default:** `true`
@@ -90,4 +119,4 @@ Whether to parse shortcodes.
 
 
 ## Control Panel
-You can also manage configuration settings through the Control Panel by visiting Settings → Doxter.
+You can also manage the standard parsing settings through the Control Panel by visiting Settings → Doxter. The `allowUnsafeHtml` and `purifierConfig` security options are available only in `config/doxter.php` or as per-call parsing options, so changing the output trust policy remains a developer decision.

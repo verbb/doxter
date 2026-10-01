@@ -5,11 +5,21 @@ use craft\base\Model;
 
 class Settings extends Model
 {
+    // Constants
+    // =========================================================================
+
+    public const DEFAULT_PURIFIER_CONFIG = [
+        'Attr.EnableID' => true,
+    ];
+
+
     // Properties
     // =========================================================================
 
     public array $shortcodes = [];
     public string $codeBlockSnippet = '';
+    public bool $allowUnsafeHtml = false;
+    public array $purifierConfig = self::DEFAULT_PURIFIER_CONFIG;
     public bool $addHeaderAnchors = true;
     public array|null $addHeaderAnchorsTo = ['h1', 'h2', 'h3'];
     public int $startingHeaderLevel = 1;

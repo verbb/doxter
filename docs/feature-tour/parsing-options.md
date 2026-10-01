@@ -29,6 +29,8 @@ For example, a full article might need linkable headings, while a short preview 
 | Option | Type | Default | Description
 | - | - | - | -
 | `codeBlockSnippet` | `string` | `''` | See [Fenced Code Blocks](docs:feature-tour/code-blocks).
+| `allowUnsafeHtml` | `boolean` | `false` | Whether to skip HTML purification. Enable this only for developer-controlled content.
+| `purifierConfig` | `array` | `['Attr.EnableID' => true]` | Configuration passed to Craft’s HTML purifier.
 | `addHeaderAnchors` | `boolean` | `true` | Whether to parse headers and add anchors for direct linking.
 | `addHeaderAnchorsTo` | `array` | `[h1, h2, h3]` | Which headers to add anchors to if header parsing is enabled.
 | `addTypographyStyles` | `bool` | `false` | Whether [Typography Styles](docs:feature-tour/typography) should be applied.

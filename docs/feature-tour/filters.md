@@ -8,6 +8,14 @@ You can use these two filters (`doxter` and `doxterTypography`) on any variable 
 ## Parsing Filter `doxter`
 Doxter provides a filter that you can use to parse markdown in plain text fields or any other string that contains valid markdown, regardless of where it comes from.
 
+Doxter purifies the generated HTML by default, removing executable markup and unsafe link schemes while preserving ordinary Markdown output. If a developer-controlled string deliberately contains trusted HTML, you can opt out for that call:
+
+```twig
+{{ trustedMarkdown | doxter({ allowUnsafeHtml: true }) }}
+```
+
+Do not disable purification for content written by editors, site visitors, or other untrusted sources. Use the [`purifierConfig`](docs:get-started/configuration#purifierconfig) setting when a trusted component needs a narrowly scoped HTML allowance instead.
+
 Craft already provides a markdown filter that you can use it like this:
 
 ```twig
@@ -58,6 +66,12 @@ To process punctuation in an existing string, use the typography filter:
 
 ```twig
 {{ 'The studio is open -- bring a notebook...' | doxterTypography }}
+```
+
+The typography filter follows the same HTML purification policy as the main `doxter` filter. For a developer-controlled string that deliberately contains trusted HTML, you can opt out for that call:
+
+```twig
+{{ trustedString | doxterTypography({ allowUnsafeHtml: true }) }}
 ```
 
 Use the `doxter` filter when you also need Markdown structure such as headings and lists.

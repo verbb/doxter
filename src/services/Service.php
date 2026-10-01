@@ -10,10 +10,12 @@ use verbb\doxter\common\parsers\Shortcode;
 use verbb\doxter\common\parsers\Typography;
 use verbb\doxter\common\parsers\ReferenceTag;
 use verbb\doxter\events\DoxterEvent;
+use verbb\doxter\models\Settings;
 
 use Craft;
 use craft\base\Component;
 use craft\helpers\ArrayHelper;
+use craft\helpers\HtmlPurifier;
 use craft\helpers\Template;
 use craft\web\View;
 
@@ -103,9 +105,33 @@ class Service extends Component
 
         $this->trigger(self::EVENT_AFTER_PARSE, $event);
 
-        $source = $event->source;
+        // Keep the final extension point inside the trust boundary so listeners cannot reintroduce unsafe markup.
+        $source = $this->purifyHtml($event->source, $options);
 
         return Template::raw($source);
+    }
+
+    /**
+     * Applies Doxter's output trust policy to generated HTML.
+     *
+     * @param string $source
+     * @param array $options
+     *
+     * @return string
+     */
+    public function purifyHtml(string $source, array $options = []): string
+    {
+        $options = array_merge(Doxter::$plugin->getSettings()->getAttributes(), $options);
+        $purifierConfig = array_replace(
+            Settings::DEFAULT_PURIFIER_CONFIG,
+            $options['purifierConfig'] ?? [],
+        );
+
+        if ($options['allowUnsafeHtml'] ?? false) {
+            return $source;
+        }
+
+        return HtmlPurifier::process($source, $purifierConfig);
     }
 
     /**

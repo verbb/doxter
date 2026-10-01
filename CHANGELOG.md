@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Doxter now purifies Markdown and typography HTML by default. Sites that intentionally render developer-controlled raw HTML must enable `allowUnsafeHtml` or add narrow `purifierConfig` allowances.
+
+### Fixed
+- Fixed a moderate-severity stored XSS vulnerability.
+
 ## 6.0.5 - 2026-09-30
 
 ### Changed

@@ -134,6 +134,7 @@ class Doxter extends Field
 
     protected function searchKeywords(mixed $value, ElementInterface $element): string
     {
+        $value = is_string($value) ? $value : $value->getRaw();
         $keywords = parent::searchKeywords($value, $element);
 
         return StringHelper::encodeMb4($keywords);

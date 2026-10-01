@@ -27,9 +27,9 @@ class DoxterData extends Markup
         parent::__construct($this->html, Craft::$app->charset);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getRaw();
+        return (string)$this->getHtml();
     }
 
     /**
@@ -79,7 +79,7 @@ class DoxterData extends Markup
     protected function parse(array $options = []): Markup
     {
         if (!empty($options)) {
-            $this->html = Doxter::$plugin->getService()->parse($this->raw, $options);
+            return Doxter::$plugin->getService()->parse($this->raw, $options);
         }
 
         return $this->html;
