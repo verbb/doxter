@@ -2,6 +2,14 @@
 
 Shortcodes let content editors insert project-specific components without writing their HTML. You map each shortcode name to a site template, and Doxter passes that template the shortcode’s parameters, content and `ShortcodeModel` when the field is rendered.
 
+Inside a shortcode template, read editor-supplied parameters from `shortcode.params` and enclosed content from `shortcode.content`. Parameter values are still available as top-level variables for backwards compatibility, but that access style is deprecated. Treat every parameter as editor-authored data: escape it for its output context and use an allow-list whenever it selects an HTML element, attribute name or other structural value.
+
+```twig
+{% set src = shortcode.params.src ?? '' %}
+{% set requestedWrapper = shortcode.params.wrapper ?? null %}
+{% set wrapper = requestedWrapper in ['figure', 'div', 'p'] ? requestedWrapper : null %}
+```
+
 ## What Are Shortcodes?
 
 A shortcode is a compact tag that a developer connects to a Twig template. It can represent an image, video, quotation or another component whose markup should remain in the project’s templates rather than the editor’s content.
@@ -69,7 +77,7 @@ The bundled video starter template supports Vimeo and YouTube tags. This example
 </iframe>
 ```
 
-Doxter purifies rendered HTML by default. If a trusted shortcode template needs an iframe, add narrow allowances through [`purifierConfig`](docs:get-started/configuration#purifierconfig) rather than disabling purification.
+Doxter purifies rendered HTML by default, but shortcode templates should still validate structural choices at their source. If a trusted shortcode template needs an iframe, add narrow allowances through [`purifierConfig`](docs:get-started/configuration#purifierconfig) rather than disabling purification.
 
 ## Bio Shortcode
 

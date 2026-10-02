@@ -1,10 +1,15 @@
+{%- set src = shortcode.params.src ?? '' -%}
+{%- set alt = shortcode.params.alt ?? '' -%}
+{%- set class = shortcode.params.class ?? '' -%}
+{%- set requestedWrapper = shortcode.params.wrapper ?? null -%}
+{%- set wrapper = requestedWrapper in ['figure', 'div', 'p'] ? requestedWrapper : null -%}
 {%- set image %}<img src="{{ src }}" alt="{{ alt }}" class="{{ class }}" />{% endset -%}
 
-{%- if wrapper is defined -%}
+{%- if wrapper -%}
     {% apply spaceless %}
         <{{ wrapper }}>
             {{ image }}
-            {{ content is defined ? content : null }}
+            {{ shortcode.content }}
         </{{ wrapper }}>
     {% endapply %}
 {% else %}

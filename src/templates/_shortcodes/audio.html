@@ -1,7 +1,7 @@
-{% set src = src is defined ? src : '' %}
-{% set type = type is defined ? type : 'soundcloud' %}
-{% set size = size is defined ? size : 'large' %}
-{% set color = color is defined ? color : '00aabb' %}
+{% set src = shortcode.params.src ?? '' %}
+{% set type = shortcode.params.type ?? 'soundcloud' %}
+{% set size = shortcode.params.size ?? 'large' %}
+{% set color = shortcode.params.color ?? '00aabb' %}
 
 {% apply spaceless %}
     {% if type == 'soundcloud' and size == 'small' %}

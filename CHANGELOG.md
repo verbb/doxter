@@ -22,6 +22,7 @@
 - Fixed table-of-contents links not matching rendered heading anchors.
 - Fixed bundled shortcode paths and documentation to match site template resolution.
 - Fixed PHP 8.4 deprecations and errors when normalising non-string field values.
+- Fixed bundled shortcode templates using unscoped parameters and arbitrary image wrapper tags.
 
 ## 6.0.5 - 2026-09-30
 

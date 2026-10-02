@@ -1,3 +1,8 @@
+{% set src = shortcode.params.src ?? '' %}
+{% set color = shortcode.params.color ?? '' %}
+{% set title = shortcode.params.title ?? '' %}
+{% set byline = shortcode.params.byline ?? '' %}
+
 <div class="doxter-video">
     {%- if shortcode.name == 'youtube' -%}
         <iframe
