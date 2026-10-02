@@ -15,6 +15,8 @@ class Typography extends BaseParser
 
     protected static ?BaseParserInterface $_instance = null;
 
+    private ?PHP_Typography $_typographer = null;
+
 
     // Public Methods
     // =========================================================================
@@ -28,8 +30,8 @@ class Typography extends BaseParser
         $settings->set_hyphenation($options['addTypographyHyphenation'] ?? true);
         $settings->set_hyphenation_language(Craft::$app->language);
 
-        $typographer = new PHP_Typography();
+        $this->_typographer ??= new PHP_Typography();
 
-        return $typographer->process($source, $settings);
+        return $this->_typographer->process($source, $settings);
     }
 }

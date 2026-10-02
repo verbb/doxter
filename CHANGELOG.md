@@ -7,6 +7,7 @@
 - Replaced the CodeKit asset build with Vite and moved web assets and the Twig extension to `src/web`.
 - Doxter now purifies Markdown and typography HTML by default. Sites that intentionally render developer-controlled raw HTML must enable `allowUnsafeHtml` or add narrow `purifierConfig` allowances.
 - Improved Doxter field performance by parsing Markdown only when rendered and caching repeated output.
+- Improved typography rendering performance by reusing the parser's internal caches.
 
 ### Fixed
 - Fixed a moderate-severity stored XSS vulnerability.
