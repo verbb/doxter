@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => {
     };
 
     return {
+        base: './',
         root,
         publicDir: resolve(root, 'public'),
         input: resolve(root, `src/doxter.${isCssBuild ? 'css' : 'js'}`),

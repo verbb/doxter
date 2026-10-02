@@ -269,7 +269,9 @@ Doxter.prototype.configure = function (settings) {
         indentWithTabs: !!settings.indentWithTabs,
         tabSize: Number(settings.tabSize),
         forceSync: true,
-        spellChecker: !!settings.enableSpellChecker,
+        autoDownloadFontAwesome: false,
+        spellChecker: false,
+        nativeSpellcheck: !!settings.enableSpellChecker,
         // Preview controls are intentionally unavailable, so remove SimpleMDE's hidden keyboard entry points too.
         shortcuts: {
             togglePreview: null,
@@ -280,7 +282,7 @@ Doxter.prototype.configure = function (settings) {
 };
 
 Doxter.prototype.setNativeSpellcheck = function () {
-    var spellcheck = this.config.spellChecker ? 'true' : 'false';
+    var spellcheck = this.config.nativeSpellcheck ? 'true' : 'false';
     var codemirror = this.editor.codemirror;
     var input = codemirror.getInputField ? codemirror.getInputField() : null;
     var wrapper = codemirror.getWrapperElement ? codemirror.getWrapperElement() : null;

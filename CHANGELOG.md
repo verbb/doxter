@@ -23,6 +23,7 @@
 - Fixed bundled shortcode paths and documentation to match site template resolution.
 - Fixed PHP 8.4 deprecations and errors when normalising non-string field values.
 - Fixed bundled shortcode templates using unscoped parameters and arbitrary image wrapper tags.
+- Fixed the field editor loading icon and spell-check resources from third-party CDNs.
 
 ## 6.0.5 - 2026-09-30
 
