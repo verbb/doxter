@@ -3,7 +3,9 @@ namespace verbb\doxter\common\parsers;
 
 use verbb\doxter\models\Toc as TocModel;
 
-use craft\helpers\ElementHelper;
+use DOMDocument;
+use DOMElement;
+use DOMXPath;
 
 class Toc extends BaseParser
 {
@@ -16,14 +18,6 @@ class Toc extends BaseParser
     // Public Methods
     // =========================================================================
 
-    /**
-     * Parses reference tags recursively
-     *
-     * @param string $source
-     * @param array $options
-     *
-     * @return mixed
-     */
     public function parse(string $source, array $options = []): mixed
     {
         return $this->getToc($source);
@@ -34,57 +28,82 @@ class Toc extends BaseParser
     // =========================================================================
 
     /**
-     * @param $source
-     *
      * @return array
      */
-    protected function getToc($source): array
+    protected function getToc(string $source): array
     {
         $tocs = [];
 
-        // Ensure using only "\n" as line-break
-        $source = str_replace(["\r\n", "\r"], "\n", $source);
+        if (trim($source) === '') {
+            return $tocs;
+        }
 
-        preg_match_all(
-            '/^(?:=|#).*$/m',
-            $source,
-            $matches,
-            PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE
-        );
+        $document = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
 
-        $sourceLength = strlen($source);
+        try {
+            $document->loadHTML(
+                '<!doctype html><html><head><meta charset="UTF-8"></head><body>' . $source . '</body></html>',
+                LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING,
+            );
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous);
+        }
 
-        foreach ($matches[0] as $item) {
-            $mark = substr($item[0], 0, 1);
+        $xpath = new DOMXPath($document);
+        $headings = $xpath->query('//h1[@id] | //h2[@id] | //h3[@id] | //h4[@id] | //h5[@id] | //h6[@id]');
 
-            if ($mark == '#') {
-                $text = $item[0];
-                $level = strrpos($text, '#') + 1;
-                $text = substr($text, $level);
-            } else {
-                // Text is the previous line (empty if <hr>)
-                $offset = $item[1];
-                $prevOffset = strrpos($source, "\n", -($sourceLength - $offset + 2));
-                $text = substr($source, $prevOffset, $offset - $prevOffset - 1);
-                $text = trim($text);
-                $level = $mark == '=' ? 1 : 2;
-            }
-
-            if (!trim($text) || str_contains($text, '|')) {
-                // Item is a horizontal separator or a table header, don't mind
+        foreach ($headings as $heading) {
+            if (!$heading instanceof DOMElement) {
                 continue;
             }
 
-            $id = ElementHelper::generateSlug(trim($text));
+            $id = trim($heading->getAttribute('id'));
+            $text = $this->_getHeadingText($heading);
+
+            if ($id === '' || $text === '') {
+                continue;
+            }
 
             $toc = new TocModel();
             $toc->id = $id;
-            $toc->text = trim($text);
-            $toc->level = $level;
+            $toc->text = $text;
+            $toc->level = (int)substr($heading->tagName, 1);
 
             $tocs[] = $toc;
         }
 
         return $tocs;
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _getHeadingText(DOMElement $heading): string
+    {
+        $text = '';
+
+        foreach ($heading->childNodes as $child) {
+            if ($child instanceof DOMElement && $this->_isGeneratedAnchor($child)) {
+                continue;
+            }
+
+            $text .= $child->textContent;
+        }
+
+        return trim(preg_replace('/\s+/u', ' ', $text) ?? $text);
+    }
+
+    private function _isGeneratedAnchor(DOMElement $element): bool
+    {
+        if (strtolower($element->tagName) !== 'a') {
+            return false;
+        }
+
+        $classes = preg_split('/\s+/', trim($element->getAttribute('class')), -1, PREG_SPLIT_NO_EMPTY);
+
+        return in_array('anchor', $classes ?: [], true);
     }
 }

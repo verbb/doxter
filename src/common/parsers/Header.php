@@ -1,7 +1,9 @@
 <?php
 namespace verbb\doxter\common\parsers;
 
+use Craft;
 use craft\helpers\ElementHelper;
+use craft\helpers\Html;
 
 class Header extends BaseParser
 {
@@ -11,6 +13,8 @@ class Header extends BaseParser
     protected static ?BaseParserInterface $_instance = null;
     protected ?array $addHeaderAnchorsTo = null;
     protected ?int $startingHeaderLevel = null;
+
+    private array $_slugCounts = [];
 
 
     // Public Methods
@@ -31,6 +35,7 @@ class Header extends BaseParser
 
         $this->addHeaderAnchorsTo = $addHeaderAnchorsTo;
         $this->startingHeaderLevel = $startingHeaderLevel;
+        $this->_slugCounts = [];
 
         // Match against all header tags
         $headers = implode('|', array_map('trim', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']));
@@ -49,8 +54,7 @@ class Header extends BaseParser
     {
         $tag = $matches['tag'];
         $text = $matches['text'];
-        $slug = ElementHelper::generateSlug(htmlspecialchars_decode($text));
-        $clean = strip_tags($text);
+        $clean = trim(html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5, Craft::$app->charset));
 
         $currentHeaderLevel = (int)substr($tag, 1, 1);
         $updatedHeaderLevel = min(6, $currentHeaderLevel + ($this->startingHeaderLevel - 1));
@@ -60,9 +64,25 @@ class Header extends BaseParser
         }
 
         if (in_array($tag, $this->addHeaderAnchorsTo)) {
-            return "<{$tag} id=\"{$slug}\">{$text} <a class=\"anchor\" href=\"#{$slug}\" title=\"{$clean}\">#</a></{$tag}>";
+            $slug = $this->_getUniqueSlug($clean);
+            $title = Html::encode($clean);
+
+            return "<{$tag} id=\"{$slug}\">{$text} <a class=\"anchor\" href=\"#{$slug}\" title=\"{$title}\">#</a></{$tag}>";
         }
 
         return "<{$tag}>{$text}</{$tag}>";
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _getUniqueSlug(string $text): string
+    {
+        $slug = ElementHelper::generateSlug($text);
+        $count = ($this->_slugCounts[$slug] ?? 0) + 1;
+        $this->_slugCounts[$slug] = $count;
+
+        return $count === 1 ? $slug : sprintf('%s-%s', $slug, $count);
     }
 }

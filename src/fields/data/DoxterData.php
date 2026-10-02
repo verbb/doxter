@@ -73,9 +73,9 @@ class DoxterData extends Markup
         return $this->parse($options);
     }
 
-    public function getToc(array $options = [])
+    public function getToc(array $options = []): array
     {
-        return Doxter::$plugin->getService()->parseToc($this->raw, $options);
+        return Doxter::$plugin->getService()->parseToc((string)$this->getHtml($options), $options);
     }
 
 
