@@ -5,6 +5,7 @@ use verbb\doxter\Doxter;
 use verbb\doxter\models\Shortcode as ShortcodeModel;
 
 use Craft;
+use craft\web\View;
 
 use yii\base\Exception;
 
@@ -88,7 +89,7 @@ class Shortcode extends BaseParser
 
     public function parse(string $source, array $options = []): mixed
     {
-        if (!$this->canBeSafelyParsed($source)) {
+        if (!$this->canBeSafelyParsed($source) || !$this->_canRenderTemplates()) {
             return $source;
         }
 
@@ -104,6 +105,10 @@ class Shortcode extends BaseParser
      */
     public function compile(string $content): string
     {
+        if (!$this->_canRenderTemplates()) {
+            return $content;
+        }
+
         $pattern = $this->getRegex();
 
         return preg_replace_callback("/{$pattern}/s", [&$this, 'render'], $content);
@@ -121,12 +126,16 @@ class Shortcode extends BaseParser
      */
     public function render($matches): mixed
     {
+        $matchedContent = $matches[0];
+
+        if (!$this->_canRenderTemplates()) {
+            return $matchedContent;
+        }
+
         $shortcode = new ShortcodeModel();
         $shortcode->name = $matches[2];
         $shortcode->params = $this->getParameters($matches);
         $shortcode->content = $matches[5];
-
-        $matchedContent = $matches[0];
 
         if (isset($shortcode->params['verbatim'])) {
             return str_replace(' verbatim', '', $matchedContent);
@@ -148,8 +157,6 @@ class Shortcode extends BaseParser
         }
 
         if (!Craft::$app->getView()->doesTemplateExist($template)) {
-            Doxter::info('Missing template for Shortcode "' . $shortcode->name . '"');
-
             return $matchedContent;
         }
 
@@ -336,5 +343,14 @@ class Shortcode extends BaseParser
         }
 
         return $callback;
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _canRenderTemplates(): bool
+    {
+        return Craft::$app->getView()->getTemplateMode() === View::TEMPLATE_MODE_SITE;
     }
 }

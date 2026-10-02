@@ -6,12 +6,14 @@
 - Updated the required version of `verbb/base` to 3.0.19.
 - Replaced the CodeKit asset build with Vite and moved web assets and the Twig extension to `src/web`.
 - Doxter now purifies Markdown and typography HTML by default. Sites that intentionally render developer-controlled raw HTML must enable `allowUnsafeHtml` or add narrow `purifierConfig` allowances.
+- Improved Doxter field performance by parsing Markdown only when rendered and caching repeated output.
 
 ### Fixed
 - Fixed a moderate-severity stored XSS vulnerability.
 - Fixed a low-severity stored XSS vulnerability.
 - Fixed a low-severity denial-of-service vulnerability.
 - Fixed a low-severity path traversal vulnerability.
+- Fixed a low-severity information disclosure vulnerability.
 - Fixed an error when parsing Markdown files with front matter.
 
 ## 6.0.5 - 2026-09-30
