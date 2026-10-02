@@ -21,7 +21,7 @@ All other settings keep their defaults. Add any further settings you want to cha
 
 **Type:** `array` · **Default:** `[]`
 
-A collection of shortcodes for the editor.
+Maps shortcode names to site template paths. Template paths are relative to the Craft project’s `templates` directory. Doxter includes opt-in starter templates for audio, image and video shortcodes; follow the [shortcode setup instructions](docs:feature-tour/shortcodes#use-the-starter-templates) to copy, map and verify them.
 :::
 
 ::: reference

@@ -4,7 +4,7 @@ return [
     // Register shortcode tag(s) to template mapping
     'shortcodes' => [
         'tags' => [
-            'audio' => '_doxter/shortcode/audio',
+            'audio' => '_doxter/shortcodes/audio',
             'img:image' => '_doxter/shortcodes/image',
             'vimeo:youtube' => '_doxter/shortcodes/video',
         ],

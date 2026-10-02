@@ -1,17 +1,18 @@
 # Shortcodes
-Shortcodes are a _first-class_ citizen in Doxter. You can simply tell Doxter what shortcode tags you want to process and by which templates they should be rendered. Doxter will then parse the source and hand your template a `ShortcodeModel` for each of the shortcode tags processed.
 
-This means that in addition to advanced markdown parsing, shortcodes are supported in cases where highly specialized markup is required, you want to have full control of the output, and you need to give your content editors an easy way to embed content.
+Shortcodes let content editors insert project-specific components without writing their HTML. You map each shortcode name to a site template, and Doxter passes that template the shortcode’s parameters, content and `ShortcodeModel` when the field is rendered.
 
 ## What Are Shortcodes?
-A shortcode is a specific parsing rule that lets you do nifty things with very little effort. Shortcodes can embed videos and images or create output that would normally require lots of complicated, ugly code in just one line.
+
+A shortcode is a compact tag that a developer connects to a Twig template. It can represent an image, video, quotation or another component whose markup should remain in the project’s templates rather than the editor’s content.
 
 ## Inline vs Block
-There are two types of shortcode tags you can use: **Inline** and **Block**. 
 
-Let’s start with an example of a **block tag**, a `quote` tag in this case:
+Inline tags represent a component without enclosed content. Block tags wrap content that is passed to the shortcode template.
 
-```
+This block tag supplies a quotation and an `author` parameter:
+
+```text
 [quote author="Harold Abelson"]
     Programs must be written for people to read, and only incidentally for machines to execute
 [/quote]
@@ -26,16 +27,13 @@ Let’s start with an example of a **block tag**, a `quote` tag in this case:
 </blockquote>
 ```
 
-Think of **block tags** as the equivalent to `<divs>`. 
-
-Now let’s take a look at an **inline tag**.
-
-As an **inline tag** example, we’ll use an `image` shortcode tag.
+The `quote` example is illustrative. Create and map a project template for it before using the tag.
 
 ## Image Shortcode
+
 This shortcode creates a fluid image from a plain image source URL or from an asset.
 
-```
+```text
 [image src=/path/to/img.jpg fluid/]
 
 - or -
@@ -46,15 +44,16 @@ This shortcode creates a fluid image from a plain image source URL or from an as
 ```html
 <figure class="image">
     <img src="/path/to/img.jpg" alt="" class="fluid" />
-</p>
+</figure>
 ```
 
-We’re not even saving many key strokes. However, this is just a simple example to illustrate that you provide simple shortcodes that can be processed and transformed into beautiful, hand-crafted html once rendered by Doxter.
+The editor stores the compact tag. The mapped template controls the resulting figure and image markup.
 
 ## Video Shortcode
-Here is another example; A shortcode that can be used to embed vimeo or youtube videos with ease.
 
-```
+The bundled video starter template supports Vimeo and YouTube tags. This example passes a Vimeo video identifier and colour to that template:
+
+```text
 [vimeo src=213152344 color=333/]
 ```
 
@@ -70,10 +69,13 @@ Here is another example; A shortcode that can be used to embed vimeo or youtube 
 </iframe>
 ```
 
-Things get even more interesting when you couple the power of shortcodes, markdown, and reference tags. Here is an example `[bio]` shortcode that you could create by combining the above mentioned features of Doxter.
+Doxter purifies rendered HTML by default. If a trusted shortcode template needs an iframe, add narrow allowances through [`purifierConfig`](docs:get-started/configuration#purifierconfig) rather than disabling purification.
 
 ## Bio Shortcode
-```
+
+You can combine shortcodes and reference tags to load content for a project-specific component. For example, a `bio` shortcode could accept a user reference:
+
+```text
 [bio user={user:123}/]
 ```
 
@@ -107,8 +109,17 @@ Things get even more interesting when you couple the power of shortcodes, markdo
 </div>
 ```
 
+The `bio` example does not have a bundled starter template. Create the card template in your project and map the `bio` tag to it.
+
+## Use the Starter Templates
+
+Doxter includes starter templates for audio, image and video shortcodes under the package’s `src/templates/_shortcodes` directory. They are examples and are not exposed automatically as site templates. Copy the templates you want to use into `<project>/templates/_doxter/shortcodes`, then add the corresponding mappings to `<project>/config/doxter.php` as shown below.
+
+After copying, render a page containing one of the mapped tags. The component should appear on the page. If the original shortcode text remains, check that the destination filename matches the mapping and that the template exists under the project’s `templates` directory.
+
 ## Add Your Own Shortcodes
-To add new shortcodes, you simple create a file called `doxter.php` inside of your `config` directory and define a mapping of shortcode tag(s) to template. Templates should be given as paths relative to your `templates` directory.
+
+To add or replace shortcode mappings, create `<project>/config/doxter.php`. Each key contains one or more shortcode names separated by colons, and each value is a template path relative to the project’s `templates` directory. This example retains the starter mappings and adds the project’s `bio` template:
 
 ```php
 <?php
@@ -116,10 +127,11 @@ To add new shortcodes, you simple create a file called `doxter.php` inside of yo
 return [
     'shortcodes' => [
         'tags' => [
-            'bio' => '_shortcodes/bio',
-            'img:image' => '_shortcodes/image',
-            'vimeo:youtube' => '_shortcodes/video',
-        ]
-    ]
+            'audio' => '_doxter/shortcodes/audio',
+            'img:image' => '_doxter/shortcodes/image',
+            'vimeo:youtube' => '_doxter/shortcodes/video',
+            'bio' => '_doxter/shortcodes/bio',
+        ],
+    ],
 ];
 ```

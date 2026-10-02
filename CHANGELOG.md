@@ -20,6 +20,7 @@
 - Fixed shortcode stripping not recognizing configured template tags.
 - Fixed before-parse event changes not being applied to subsequent parsing stages.
 - Fixed table-of-contents links not matching rendered heading anchors.
+- Fixed bundled shortcode paths and documentation to match site template resolution.
 
 ## 6.0.5 - 2026-09-30
 

@@ -1,5 +1,5 @@
 <div class="doxter-video">
-    {%- if name == 'youtube' -%}
+    {%- if shortcode.name == 'youtube' -%}
         <iframe
             width="560"
             height="315"
@@ -11,7 +11,7 @@
         </iframe>
     {%- endif -%}
     
-    {% if name == 'vimeo' %}
+    {% if shortcode.name == 'vimeo' %}
         <iframe
             width="560"
             height="315"
