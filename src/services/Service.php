@@ -54,7 +54,7 @@ class Service extends Component
      *
      * @return Markup
      */
-    public function parse(string $source = null, array $options = []): Markup
+    public function parse(?string $source = null, array $options = []): Markup
     {
         if (!$this->canBeSafelyParsed($source)) {
             return new Markup('', Craft::$app->charset);
@@ -163,9 +163,9 @@ class Service extends Component
         ]);
     }
 
-    public function parseToc(string $source = null, array $options = [])
+    public function parseToc(?string $source = null, array $options = []): array
     {
-        return Toc::instance()->parse($source, $options);
+        return Toc::instance()->parse($source ?? '', $options);
     }
 
     /**

@@ -95,14 +95,18 @@ class Doxter extends Field
         ]);
     }
 
-    public function normalizeValue(mixed $value, ElementInterface $element = null): mixed
+    public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
-        return new DoxterData($value);
+        if ($value instanceof DoxterData) {
+            return $value;
+        }
+
+        return new DoxterData(StringHelper::toString($value, "\n"));
     }
 
-    public function serializeValue(mixed $value, ElementInterface $element = null): mixed
+    public function serializeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
-        $value = is_string($value) ? $value : $value->getRaw();
+        $value = $this->normalizeValue($value, $element)->getRaw();
 
         return StringHelper::encodeMb4($value);
     }
