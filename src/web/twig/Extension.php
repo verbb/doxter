@@ -1,5 +1,5 @@
 <?php
-namespace verbb\doxter\twigextensions;
+namespace verbb\doxter\web\twig;
 
 use verbb\doxter\Doxter;
 

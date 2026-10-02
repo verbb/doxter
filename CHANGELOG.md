@@ -3,6 +3,8 @@
 ## Unreleased
 
 ### Changed
+- Updated the required version of `verbb/base` to 3.0.19.
+- Replaced the CodeKit asset build with Vite and moved web assets and the Twig extension to `src/web`.
 - Doxter now purifies Markdown and typography HTML by default. Sites that intentionally render developer-controlled raw HTML must enable `allowUnsafeHtml` or add narrow `purifierConfig` allowances.
 
 ### Fixed

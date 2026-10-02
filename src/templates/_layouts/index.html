@@ -1,6 +1,6 @@
 {% extends parentLayout ?? '_layouts/cp' %}
 
-{% do view.registerAssetBundle('verbb\\doxter\\assetbundles\\DoxterPluginAsset') %}
+{% do view.registerAssetBundle('verbb\\doxter\\web\\assets\\cp\\DoxterPluginAsset') %}
 
 {% if title is not defined %}
     {% set title = craft.doxter.getPluginName() | t('doxter') %}

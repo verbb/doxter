@@ -4,7 +4,7 @@ namespace verbb\doxter;
 use verbb\doxter\base\PluginTrait;
 use verbb\doxter\fields\Doxter as DoxterField;
 use verbb\doxter\models\Settings;
-use verbb\doxter\twigextensions\Extension;
+use verbb\doxter\web\twig\Extension;
 use verbb\doxter\variables\DoxterVariable;
 
 use Craft;

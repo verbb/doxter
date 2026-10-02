@@ -365,3 +365,6 @@ Doxter.prototype.render = function () {
         self.openLivePreviewCallback();
     });
 };
+
+// Preserve the classic-script constructor exposed by the previous CodeKit build.
+window.Doxter = Doxter;

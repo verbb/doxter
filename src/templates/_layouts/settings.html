@@ -5,7 +5,7 @@
 
 {% requireAdmin %}
 
-{% do view.registerAssetBundle('verbb\\doxter\\assetbundles\\DoxterPluginAsset') %}
+{% do view.registerAssetBundle('verbb\\doxter\\web\\assets\\cp\\DoxterPluginAsset') %}
 
 {% set crumbs = [
     { label: 'Settings' | t('app'), url: url('settings') },

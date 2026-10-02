@@ -1,7 +1,7 @@
 <?php
 namespace verbb\doxter\fields;
 
-use verbb\doxter\assetbundles\DoxterFieldAsset;
+use verbb\doxter\web\assets\field\DoxterFieldAsset;
 use verbb\doxter\fields\data\DoxterData;
 
 use Craft;

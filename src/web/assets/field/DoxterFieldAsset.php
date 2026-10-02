@@ -1,31 +1,30 @@
 <?php
-namespace verbb\doxter\assetbundles;
+namespace verbb\doxter\web\assets\field;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
-use verbb\base\assetbundles\CpAsset as VerbbCpAsset;
-
-class DoxterPluginAsset extends AssetBundle
+class DoxterFieldAsset extends AssetBundle
 {
     // Public Methods
     // =========================================================================
 
     public function init(): void
     {
-        $this->sourcePath = "@verbb/doxter/resources/plugin/dist";
+        $this->sourcePath = '@verbb/doxter/web/assets/field/dist';
 
         $this->depends = [
-            VerbbCpAsset::class,
             CpAsset::class,
         ];
 
         $this->css = [
-            'css/doxter.css',
+            'css/simplemde.css',
+            'doxter.css',
         ];
 
         $this->js = [
-            'js/doxter.js',
+            'js/simplemde.js',
+            'doxter.js',
         ];
 
         parent::init();
