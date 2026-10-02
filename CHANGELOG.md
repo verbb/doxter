@@ -18,6 +18,7 @@
 - Fixed an error when parsing Markdown files with front matter.
 - Fixed programmatically registered shortcodes not invoking their callbacks.
 - Fixed shortcode stripping not recognizing configured template tags.
+- Fixed before-parse event changes not being applied to subsequent parsing stages.
 
 ## 6.0.5 - 2026-09-30
 

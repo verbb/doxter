@@ -68,33 +68,33 @@ class Service extends Component
 
         // Parsing reference tags first so that we can parse markdown within them
         if ($options['parseReferenceTags'] ?? false) {
-            $this->trigger(self::EVENT_BEFORE_REFERENCETAG_PARSE, new DoxterEvent(compact('source')));
+            $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_REFERENCETAG_PARSE, $source);
 
             $source = $this->parseReferenceTags($source, $options);
         }
 
         if ($options['parseShortcodes'] ?? false) {
-            $this->trigger(self::EVENT_BEFORE_SHORTCODE_PARSE, new DoxterEvent(compact('source')));
+            $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_SHORTCODE_PARSE, $source);
 
             $source = $this->parseShortcodes($source);
         }
 
-        $this->trigger(self::EVENT_BEFORE_MARKDOWN_PARSE, new DoxterEvent(compact('source')));
+        $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_MARKDOWN_PARSE, $source);
 
         $source = $this->parseMarkdown($source);
 
-        $this->trigger(self::EVENT_BEFORE_CODEBLOCK_PARSE, new DoxterEvent(compact('source')));
+        $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_CODEBLOCK_PARSE, $source);
 
         $source = $this->parseCodeBlocks($source, compact('codeBlockSnippet'));
 
         if ($options['addHeaderAnchors'] ?? false) {
-            $this->trigger(self::EVENT_BEFORE_HEADER_PARSE, new DoxterEvent(compact('source')));
+            $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_HEADER_PARSE, $source);
 
             $source = $this->parseHeaders($source, compact('addHeaderAnchorsTo', 'startingHeaderLevel'));
         }
 
         if ($options['addTypographyStyles']) {
-            $this->trigger(self::EVENT_BEFORE_TYPOGRAPHY, new DoxterEvent(compact('source')));
+            $source = $this->_triggerBeforeParseEvent(self::EVENT_BEFORE_TYPOGRAPHY, $source);
 
             $source = $this->parseTypography($source, compact('addTypographyHyphenation'));
         }
@@ -352,6 +352,15 @@ class Service extends Component
 
     // Private Methods
     // =========================================================================
+
+    private function _triggerBeforeParseEvent(string $eventName, string $source): string
+    {
+        $event = new DoxterEvent(compact('source'));
+
+        $this->trigger($eventName, $event);
+
+        return $event->source;
+    }
 
     private function _isValidFileSlug(string $slug): bool
     {
