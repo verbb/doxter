@@ -141,6 +141,10 @@ class Shortcode extends BaseParser
             return str_replace(' verbatim', '', $matchedContent);
         }
 
+        if ($this->exists($shortcode->name)) {
+            return call_user_func($this->getCallback($shortcode->name), $shortcode);
+        }
+
         $variables = array_merge($shortcode->params, [
             'content' => $shortcode->content,
             'shortcode' => $shortcode,

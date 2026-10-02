@@ -16,6 +16,7 @@
 - Fixed a low-severity path traversal vulnerability.
 - Fixed a low-severity information disclosure vulnerability.
 - Fixed an error when parsing Markdown files with front matter.
+- Fixed programmatically registered shortcodes not invoking their callbacks.
 
 ## 6.0.5 - 2026-09-30
 
