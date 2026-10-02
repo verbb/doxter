@@ -17,6 +17,7 @@
 - Fixed a low-severity information disclosure vulnerability.
 - Fixed an error when parsing Markdown files with front matter.
 - Fixed programmatically registered shortcodes not invoking their callbacks.
+- Fixed shortcode stripping not recognizing configured template tags.
 
 ## 6.0.5 - 2026-09-30
 

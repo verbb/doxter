@@ -176,13 +176,22 @@ class Shortcode extends BaseParser
      */
     public function strip(string $content): string
     {
-        if (empty($this->shortcodes)) {
+        $registeredShortcodes = array_fill_keys(array_merge(
+            array_keys($this->shortcodes),
+            array_keys(Doxter::$plugin->getSettings()->getRegisteredShortcodeTags()),
+        ), true);
+
+        if (empty($registeredShortcodes)) {
             return $content;
         }
 
         $pattern = $this->getRegex();
 
-        return preg_replace_callback("/{$pattern}/s", function($m) {
+        return preg_replace_callback("/{$pattern}/s", function($m) use ($registeredShortcodes) {
+            if (!isset($registeredShortcodes[$m[2]])) {
+                return $m[0];
+            }
+
             if ($m[1] == '[' && $m[6] == ']') {
                 return substr($m[0], 1, -1);
             }
