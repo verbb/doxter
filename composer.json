@@ -34,7 +34,7 @@
         "michelf/php-smartypants": "^1.8",
         "mundschenk-at/php-typography": "^6.3",
         "spatie/yaml-front-matter": "^2.0",
-        "verbb/base": "^3.0.19"
+        "verbb/base": "^3.0.20"
     },
     "autoload": {
         "psr-4": {
