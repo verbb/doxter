@@ -17,6 +17,7 @@ use craft\base\Component;
 use craft\helpers\ArrayHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\HtmlPurifier;
+use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\web\View;
 
@@ -255,7 +256,7 @@ class Service extends Component
     {
         $allowedHeaders = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-        $headers = ArrayHelper::filterEmptyStringsFromArray(ArrayHelper::toArray($headerString));
+        $headers = ArrayHelper::filterEmptyStringsFromArray(StringHelper::split($headerString));
 
         if (count($headers)) {
             foreach ($headers as $key => $header) {
