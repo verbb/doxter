@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed helper class references that could fail on case-sensitive filesystems.
+
 ## 6.0.8 - 2026-10-15
 
 ### Changed

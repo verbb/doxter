@@ -8,8 +8,8 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\db\mysql\Schema;
-use Craft\helpers\Html;
-use Craft\helpers\Json;
+use craft\helpers\Html;
+use craft\helpers\Json;
 use craft\helpers\StringHelper;
 
 class Doxter extends Field
