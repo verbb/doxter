@@ -8,8 +8,8 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\db\mysql\Schema;
-use Craft\helpers\Html;
-use Craft\helpers\Json;
+use craft\helpers\Html;
+use craft\helpers\Json;
 use craft\helpers\StringHelper;
 
 class Doxter extends Field
@@ -118,7 +118,7 @@ class Doxter extends Field
     public function serializeValue($value, ElementInterface $element = null): string
     {
         $value = is_string($value) ? $value : $value->getRaw();
-        
+
         return StringHelper::encodeMb4($value);
     }
 
