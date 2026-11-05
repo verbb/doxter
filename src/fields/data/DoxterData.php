@@ -52,7 +52,7 @@ class DoxterData extends Markup
      */
     public function getRaw(): string
     {
-        if (empty($this->raw)) {
+        if ($this->raw === null || $this->raw === '') {
             return '';
         }
 

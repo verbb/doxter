@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed Doxter content of `0` being lost when saved.
+
 ## 6.0.10 - 2026-10-22
 
 ### Changed
