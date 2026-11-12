@@ -4,9 +4,9 @@ Give authors a dedicated field for GitHub-flavoured Markdown with Live Preview s
 
 ## Features
 
-- Give authors a purpose-built editor for structured plain-text content.
+- Give authors a purpose-built Markdown editor.
 - Generate named anchors for sections in longer documents.
 - Generate navigation from the document's headings.
-- Present technical examples with language-aware block markup.
-- Introduce reusable project components without putting HTML in the field.
+- Present technical examples in fenced code blocks.
+- Add reference tags for reusable project content without putting HTML in the field.
 - Extend or adjust output through an event-driven developer API.

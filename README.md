@@ -7,24 +7,28 @@ Give authors a dedicated field for GitHub-flavoured Markdown with Live Preview s
 
 ## Features
 
-- Give authors a purpose-built editor for structured plain-text content.
+- Give authors a purpose-built Markdown editor.
 - Generate named anchors for sections in longer documents.
 - Generate navigation from the document's headings.
-- Present technical examples with language-aware block markup.
-- Introduce reusable project components without putting HTML in the field.
+- Present technical examples in fenced code blocks.
+- Add reference tags for reusable project content without putting HTML in the field.
 - Extend or adjust output through an event-driven developer API.
 
 ## Documentation
+
 Visit the [Doxter Plugin page](https://verbb.io/craft-plugins/doxter) for all documentation, guides, pricing and developer resources.
 
 ## Credit & Thanks
+
 Originally created by Selvin Ortiz.
 
 ## Support
-Get in touch with us via the [Doxter Support page](https://verbb.io/craft-plugins/doxter/support) or by [creating a Github issue](https://github.com/verbb/doxter/issues)
+
+Get in touch with us via the [Doxter Support page](https://verbb.io/craft-plugins/doxter/support) or by [creating a GitHub issue](https://github.com/verbb/doxter/issues).
 
 ## Sponsor
-Doxter is licensed under the MIT license, meaning it will always be free and open source - we love free stuff! If you'd like to show your support to the plugin regardless, [Sponsor](https://github.com/sponsors/verbb) development.
+
+Doxter is licensed under the MIT license, so it will always be free and open source. If you'd like to support it anyway, you can [sponsor its development](https://github.com/sponsors/verbb).
 
 <h2></h2>
 
