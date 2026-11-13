@@ -2,7 +2,7 @@
 
 Shortcodes let content editors insert project-specific components without writing their HTML. You map each shortcode name to a site template, and Doxter passes that template the shortcode’s parameters, content and `ShortcodeModel` when the field is rendered.
 
-Inside a shortcode template, read editor-supplied parameters from `shortcode.params` and enclosed content from `shortcode.content`. Parameter values are still available as top-level variables for backwards compatibility, but that access style is deprecated. Treat every parameter as editor-authored data: escape it for its output context and use an allow-list whenever it selects an HTML element, attribute name or other structural value.
+Inside a shortcode template, read editor-supplied parameters from `shortcode.params` and enclosed content from `shortcode.content`. Treat every parameter as editor-authored data: escape it for its output context and use an allow-list whenever it selects an HTML element, attribute name or other structural value.
 
 ```twig
 {% set src = shortcode.params.src ?? '' %}

@@ -22,5 +22,12 @@
             "feature-tour/parsing-options",
             "feature-tour/filters"
         ]
+    },
+    {
+        "title": "Developers",
+        "collapsable": false,
+        "children": [
+            "developers/events"
+        ]
     }
 ]
