@@ -12,7 +12,7 @@ return [
 ];
 ```
 
-All other settings keep their defaults. Add any further settings you want to change to the same array. The options below explain the available settings and their defaults.
+All other settings keep their defaults. Add any further settings you want to change to the same array. The options below explain the available settings and their defaults. You can also manage many of these settings in the control panel under **Settings → Doxter**.
 
 ## Configuration Options
 
@@ -38,6 +38,8 @@ Text to wrap code blocks for syntax highlighting.
 **Type:** `bool` · **Default:** `false`
 
 Whether Doxter should return parsed HTML without purification. Leave this disabled for content written by editors or received from front-end forms. Enable it only when every source string and shortcode parameter is controlled by a developer who is trusted to add executable markup to the site.
+
+This setting is available only in `config/doxter.php` or as a per-call parsing option, so changing the output trust policy remains a developer decision.
 :::
 
 ::: reference
@@ -59,6 +61,8 @@ return [
     ],
 ];
 ```
+
+Like `allowUnsafeHtml`, this setting is available only in `config/doxter.php` or as a per-call parsing option.
 :::
 
 ::: reference
@@ -116,7 +120,3 @@ Whether to parse reference tags.
 
 Whether to parse shortcodes.
 :::
-
-
-## Control Panel
-You can also manage the standard parsing settings through the Control Panel by visiting Settings → Doxter. The `allowUnsafeHtml` and `purifierConfig` security options are available only in `config/doxter.php` or as per-call parsing options, so changing the output trust policy remains a developer decision.
